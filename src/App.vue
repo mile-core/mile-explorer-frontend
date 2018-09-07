@@ -1,29 +1,49 @@
-<template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+<template lang="pug">
+  #app
+    the-header
+    .content-wrapper
+      hr
+      router-view
+    the-footer
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+<script>
+import TheHeader from '@/components/TheHeader.vue';
+import TheFooter from '@/components/TheFooter.vue';
+
+export default {
+  components: {
+    TheHeader,
+    TheFooter,
+  },
+};
+</script>
+
+<style lang="sass">
+*,
+*::after,
+*::before
+  box-sizing: border-box
+
+body
+  font-family: $font-sans
+  color: $color-gray-dark
+  background-color: $color-white
+
+hr
+  height: 0
+  border: 0
+  border-top: 1px solid rgba(0, 0, 0, .1)
+  box-sizing: content-box
+  overflow: visible
+</style>
+
+<style lang="sass" scoped>
+#app
+  display: flex
+  min-height: 100vh
+  flex-direction: column
+
+  > .content-wrapper
+    flex: 1
 </style>
