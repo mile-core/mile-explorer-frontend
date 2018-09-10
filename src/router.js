@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+import Blocks from './views/Blocks.vue';
+import Transactions from './views/Transactions.vue';
+import Wallet from './views/Wallet.vue';
 import Playground from './views/Playground.vue';
 
 Vue.use(Router);
@@ -11,8 +13,22 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      redirect: '/playground',
+    },
+    {
+      path: '/blocks',
+      name: 'blocks',
+      component: Blocks,
+    },
+    {
+      path: '/transactions',
+      name: 'transactions',
+      component: Transactions,
+    },
+    {
+      path: '/wallet',
+      name: 'wallet',
+      component: Wallet,
     },
     {
       path: '/playground',

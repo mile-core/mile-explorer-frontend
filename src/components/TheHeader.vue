@@ -3,7 +3,9 @@
     router-link.logo(to="/") {{ $t('home') }}
     .title {{ $t('title') }}
     nav
-      router-link(to="/") Home
+      router-link(to="/blocks") {{ $t('blocks') }}
+      router-link(to="/transactions") {{ $t('transactions') }}
+      router-link(to="/wallet") {{ $t('wallet') }}
       router-link(to="/playground") API Playground
 </template>
 
@@ -41,8 +43,11 @@
 <i18n>
 {
   "en": {
+    "title": "Explorer",
     "home": "MILE Explorer",
-    "title": "Explorer"
+    "blocks": "Blocks",
+    "transactions": "Transactions",
+    "wallet": "Wallet"
   }
 }
 </i18n>
