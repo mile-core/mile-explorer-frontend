@@ -1,0 +1,10 @@
+[
+  "get-block",
+  "get-block-history",
+  "get-block-history-state",
+  "get-transaction-info",
+  "get-wallet-history-blocks",
+  "get-wallet-history-state",
+  "get-wallet-history-transactions",
+  "help"
+]

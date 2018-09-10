@@ -1,0 +1,11 @@
+{
+  "amount": "100",
+  "assetCode": 1,
+  "code": 10,
+  "destinationWalletPublicKey": "2XEbswkyZJVNg1ayvyt4XNrJ4Eb41tNdPUdEhnMJpvTKVxgKSc",
+  "name": "TransferAssetsTransaction",
+  "signature": "c0366ea779c6972588241109521fd76c52382d31c7064b65334d27876e87922e704fecbb3b5a48fe27866f644c23342773befae1090c9aa707cfe7bb80f56402",
+  "signed": true,
+  "sourceWalletPublicKey": "zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x",
+  "transaction-id": 1
+}

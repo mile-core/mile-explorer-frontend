@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+
+import Block from './views/Block.vue';
 import Blocks from './views/Blocks.vue';
-import Transactions from './views/Transactions.vue';
 import Wallet from './views/Wallet.vue';
 import Playground from './views/Playground.vue';
+import Transactions from './views/Transactions.vue';
 
 Vue.use(Router);
 
@@ -21,14 +23,21 @@ export default new Router({
       component: Blocks,
     },
     {
+      path: '/blocks/:blockId',
+      name: 'block',
+      component: Block,
+      props: true,
+    },
+    {
       path: '/transactions',
       name: 'transactions',
       component: Transactions,
     },
     {
-      path: '/wallet',
+      path: '/wallet/:publicKey',
       name: 'wallet',
       component: Wallet,
+      props: true,
     },
     {
       path: '/playground',

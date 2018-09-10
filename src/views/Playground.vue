@@ -1,15 +1,15 @@
 <template lang="pug">
   .api
     h1 API Playground
-    api-playground
+    playground
 </template>
 
 <script>
-import ApiPlayground from '@/components/ApiPlayground.vue';
+import Playground from '@/components/Playground.vue';
 
 export default {
   components: {
-    ApiPlayground,
+    Playground,
   },
 };
 </script>

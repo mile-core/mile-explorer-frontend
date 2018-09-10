@@ -3,7 +3,6 @@
 </template>
 
 <style lang="sass" scoped>
-
 .mile-loader
   display: inline-block
   border: 4px solid rgba(0, 0, 0, 0.1)

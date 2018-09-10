@@ -100,7 +100,7 @@
       .description Get wallet history state for a known *public-key*
       .params
         .param
-          label(for="get-wallet-history-state_public-key") publicKey
+          label(for="get-wallet-history-state_public-key") public-key
           input(
             id="get-wallet-history-state_public-key"
             type="text"
@@ -161,12 +161,6 @@
 </template>
 
 <script>
-
-/*
-  // Get certain transactions for the known wallet with public-key and *id*
-  get-transaction-info
-  (publicKey, id)
-*/
 import Vue from 'vue';
 import api from '@/api';
 import MileLoader from './MileLoader.vue';
@@ -227,9 +221,6 @@ export default {
 .api-playground
   > .section
     margin-bottom: 1rem
-    border-bottom: 1px solid rgba(0, 0, 0, .1)
-    &:last-child
-      border-bottom: none
 
     > .method
       color: $color-brand
