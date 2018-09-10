@@ -7,7 +7,7 @@ const api = axios.create({
 });
 
 function jsonRpc(method, params = {}, id = uuidv4()) {
-  if (process.env.VUE_APP_USE_MOCKS) return import(`@/mocks/${method}.json`).then(json => json.default);
+  if (process.env.VUE_APP_USE_MOCKS === 'true') return import(`@/mocks/${method}.json`).then(json => json.default);
   return api({
     data: {
       jsonrpc: '2.0', method, params, id,
