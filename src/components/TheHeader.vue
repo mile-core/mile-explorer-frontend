@@ -2,6 +2,9 @@
   header.header
     router-link.logo(to="/") {{ $t('home') }}
     .title {{ $t('title') }}
+    nav
+      router-link(to="/") Home
+      router-link(to="/playground") API Playground
 </template>
 
 <style lang="sass" scoped>
@@ -28,6 +31,10 @@
     font-size: 2rem
     line-height: 2rem
     text-transform: uppercase
+
+  > nav
+    > a
+      margin-left: 1rem
 
 </style>
 

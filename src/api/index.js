@@ -40,10 +40,10 @@ export default {
   },
 
   // Get wallet block ids for a known *public-key*
-  getWalletHistoryBlocks(publicKey, blockId, limit = 2) {
+  getWalletHistoryBlocks(publicKey, firstId, limit = 2) {
     return jsonRpc('get-wallet-history-blocks', {
       'public-key': publicKey,
-      'block-id': blockId,
+      'first-id': firstId,
       limit,
     });
   },

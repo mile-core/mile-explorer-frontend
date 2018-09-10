@@ -1,15 +1,8 @@
 <template lang="pug">
-  .home Home
-    api-playground
+  .home
+    h1 Home
 </template>
 
 <script>
-import ApiPlayground from '@/components/ApiPlayground.vue';
-
-export default {
-  components: {
-    ApiPlayground,
-  },
-};
 </script>
 
