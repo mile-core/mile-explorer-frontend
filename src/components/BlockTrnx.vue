@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     filteredTrnx() {
-      return this.trnx.filter(t => t.id !== 0);
+      return this.trnx.filter(t => t.id !== 0 && t.name !== 'DistributionFeeTransaction');
     },
   },
 };

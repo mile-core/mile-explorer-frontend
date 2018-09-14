@@ -5,7 +5,6 @@
         th id
         //- th ago
         th merkle root
-        th prev block digest
         th trnx
         th ver
     tbody
@@ -14,7 +13,6 @@
           router-link(:to="'/blocks/' + block['block-id']") {{ block['block-id'] }}
         //- td {{ formatTimeStamp(block.timeStamp) }}
         td {{ block.merkleRoot }}
-        td {{ block.previousBlockDigest }}
         td {{ block.transactionCount }}
         td {{ block.version }}
 </template>
@@ -40,7 +38,7 @@ export default {
     }, 500);
   },
   destroyed() {
-    clearInterval(this.intervalHandler)
+    clearInterval(this.intervalHandler);
   },
   methods: {
     formatTimeStamp(timeStamp) {
@@ -52,8 +50,8 @@ export default {
     sortedBlocks() {
       const blocks = this.blocks.slice(0);
       blocks.sort(({ 'block-id': a }, { 'block-id': b }) => {
-        if (a < b) return -1;
-        if (a > b) return 1;
+        if (a < b) return 1;
+        if (a > b) return -1;
         return 0;
       });
       return blocks;

@@ -5,6 +5,7 @@
     nav
       router-link(to="/blocks") {{ $t('blocks') }}
       router-link(to="/transactions") {{ $t('transactions') }}
+      router-link(to="/wallet") {{ $t('wallet') }}
       router-link(to="/playground") API Playground
 </template>
 
@@ -45,7 +46,8 @@
     "title": "Explorer",
     "home": "MILE Explorer",
     "blocks": "Blocks",
-    "transactions": "Transactions"
+    "transactions": "Transactions",
+    "wallet": "Wallet"
   }
 }
 </i18n>

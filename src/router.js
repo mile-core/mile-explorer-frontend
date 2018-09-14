@@ -34,6 +34,11 @@ export default new Router({
       component: Transactions,
     },
     {
+      path: '/wallet',
+      name: 'publicKey',
+      component: Wallet,
+    },
+    {
       path: '/wallet/:publicKey',
       name: 'wallet',
       component: Wallet,

@@ -12,12 +12,12 @@
         dd {{ block.previousBlockDigest }}
         dt producerPublicKeySize
         dd {{ block.producerPublicKeySize }}
-        dt signature
-        dd {{ block.signature }}
         dt timeStamp
         dd {{ block.timeStamp }}
         dt transactionCount
         dd {{ block.transactionCount }}
+      h3 Signature
+      block-signature(:signature="block.signature")
       h3 Transactions
       block-trnx(:trnx="block.transactions")
 </template>
@@ -26,11 +26,13 @@
 import api from '@/api';
 import MileLoader from './MileLoader.vue';
 import BlockTrnx from './BlockTrnx.vue';
+import BlockSignature from './BlockSignature.vue';
 
 export default {
   components: {
     MileLoader,
     BlockTrnx,
+    BlockSignature,
   },
   props: {
     blockId: {

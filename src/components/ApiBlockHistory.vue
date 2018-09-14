@@ -22,9 +22,19 @@ export default {
       blocks: [],
     };
   },
-  async created() {
-    this.blocks = await api.getBlockHistory(this.firstId, this.limit);
-    this.done = true;
+  watch: {
+    firstId: 'fetch',
+    limit: 'fetch',
+  },
+  methods: {
+    async fetch() {
+      this.done = false;
+      this.blocks = await api.getBlockHistory(this.firstId, this.limit);
+      this.done = true;
+    },
+  },
+  created() {
+    this.fetch();
   },
   render(h) {
     if (!this.done) return h(MileLoader);
