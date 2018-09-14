@@ -30,7 +30,7 @@ export default {
 
   // Get chains history from block first-id with limit of history length
   getBlockHistory(firstId, limit = 1, filter = []) {
-    return jsonRpc('get-block-history', { 'first-id': firstId, limit, filter });
+    return jsonRpc('get-block-history', { 'first-id': firstId, limit, 'filter-field': filter });
   },
 
   // Get certain block from chain by id.

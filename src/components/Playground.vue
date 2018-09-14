@@ -40,7 +40,7 @@
             v-model.number="params.getBlockHistory.limit"
           )
         .param
-          label filter
+          label filter-field
           ul.select
             li
               input(
