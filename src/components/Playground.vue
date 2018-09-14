@@ -39,8 +39,31 @@
             type="number"
             v-model.number="params.getBlockHistory.limit"
           )
+        .param
+          label filter
+          ul.select
+            li
+              input(
+                id="get-block-history_limit"
+                name="get-block-history_filter"
+                type="checkbox"
+                value="signature"
+                v-model="params.getBlockHistory.filter"
+              )
+              label(for="get-block-history_filter") signature
+            li
+              input(
+                id="get-block-history_limit"
+                name="get-block-history_filter"
+                type="checkbox"
+                value="transactions"
+                v-model="params.getBlockHistory.filter"
+              )
+              label(for="get-block-history_filter") transactions
       .actions
-        button(@click="request('getBlockHistory', params.getBlockHistory.firstId, params.getBlockHistory.limit)") Fetch
+        button(
+          @click="request('getBlockHistory', params.getBlockHistory.firstId, params.getBlockHistory.limit, params.getBlockHistory.filter)"
+        ) Fetch
       .results
         mile-loader(v-if="loading.getBlockHistory")
         pre(v-else) {{ results.getBlockHistory }}
@@ -176,6 +199,7 @@ export default {
         getBlockHistory: {
           firstId: 0,
           limit: 1,
+          filter: [],
         },
         getBlock: {
           blockId: 0,
@@ -249,6 +273,14 @@ export default {
       border-left: 2px dotted $color-gray-light
       padding-left: .5rem
       margin-bottom: .5rem
+
+  ul.select
+    padding: 0 .5rem
+    margin: 0 0 0 8rem
+    > li
+      list-style: none
+      > label
+        text-align: left
 
   button
     background-color: $color-blue

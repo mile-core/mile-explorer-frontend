@@ -29,7 +29,7 @@ export default {
   methods: {
     async fetch() {
       this.done = false;
-      this.blocks = await api.getBlockHistory(this.firstId, this.limit);
+      this.blocks = await api.getBlockHistory(this.firstId, this.limit, ['signature', 'transactions']);
       this.done = true;
     },
   },
