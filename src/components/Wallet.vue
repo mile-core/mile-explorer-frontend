@@ -25,11 +25,6 @@ export default {
       done: false,
     };
   },
-  watch: {
-    state(v) {
-      
-    },
-  },
   async created() {
     const result = await api.getWalletHistoryState(this.publicKey);
     this.done = true;
