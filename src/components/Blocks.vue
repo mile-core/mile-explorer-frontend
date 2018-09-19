@@ -1,72 +1,47 @@
 <template lang="pug">
-  api-block-history-state
-    api-block-history(
-      slot-scope="{ count, firstId }"
-      :firstId="from(firstId, count)"
-      :limit="to(firstId, count)"
-    )
-      div(slot-scope="{ blocks }")
-        blocks-table(:blocks="blocks")
-        ul.pagination(v-if="pages > 1")
-          li(
-            v-for="n in pages"
-            @click="toPage(n)"
-            :class="{ current: n === page }"
-            :key="n"
-          ) {{ n }}
+  .blocks
+    blocks-paginator(:count="count" :first-id="firstId" @input="fetchRange($event)")
+    mile-loader(v-if="!done")
+    blocks-table(v-else :blocks="blocks")
 </template>
 
 <script>
-import ApiBlockHistory from './ApiBlockHistory.vue';
-import ApiBlockHistoryState from './ApiBlockHistoryState.vue';
+import api from '@/api';
 import MileLoader from './MileLoader.vue';
 import BlocksTable from './BlocksTable.vue';
+import BlocksPaginator from './BlocksPaginator.vue';
 
 export default {
   components: {
-    ApiBlockHistory,
-    ApiBlockHistoryState,
     MileLoader,
     BlocksTable,
+    BlocksPaginator,
+  },
+  props: {
+    count: {
+      type: Number,
+      required: true,
+    },
+    firstId: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
-      page: 1,
-      pages: 0,
-      total: 0,
-      perPage: 25,
+      done: true,
+      blocks: [],
     };
   },
   methods: {
-    from(firstId, count) {
-      this.total = count - firstId;
-      this.pages = Math.ceil(this.total / this.perPage);
-      return (this.pages - this.page) * this.perPage;
-    },
-    to(firstId, count) {
-      return this.perPage;
-    },
-    toPage(page) {
-      this.page = page;
+    async fetchRange(range) {
+      this.done = false;
+      this.blocks = await api.getBlockHistory(range.from, range.limit, ['signature', 'transactions']);
+      this.done = true;
     },
   },
 };
 </script>
 
 <style lang="sass" scoped>
-ul.pagination
-  display: flex
-  > li
-    text-align: center
-    list-style: none
-    padding: .5rem
-    min-width: 2rem
-    margin-right: .25rem
-    border: 1px solid $color-blue
-    &.current
-      background-color: $color-blue-light
-      color: $color-white
-    &:hover
-      background-color: $color-blue
-      color: $color-white
 </style>

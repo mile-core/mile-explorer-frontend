@@ -2,26 +2,27 @@
   .blocks
     h1 {{ $t('title') }}
     blocks(
-      v-if="state.count"
-      :count="state.count"
-      :first-id="state.firstId"
+      v-if="count"
+      :count="count"
+      :first-id="firstId"
     )
+    mile-loader(v-else)
 </template>
 
 <script>
 import api from '@/api';
 import Blocks from '@/components/Blocks.vue';
+import MileLoader from '@/components/MileLoader.vue';
 
 export default {
   components: {
     Blocks,
+    MileLoader,
   },
   data() {
     return {
-      state: {
-        count: 0,
-        firstId: 0,
-      },
+      count: 0,
+      firstId: 0,
       refreshRate: 5000,
     };
   },
@@ -29,8 +30,8 @@ export default {
     async refreshState() {
       try {
         const state = await api.getBlockHistoryState();
-        this.state.count = state.count;
-        this.state.firstId = state['first-id'];
+        this.count = state.count;
+        this.firstId = state['first-id'];
       } finally {
         console.log('get-block-history-state', Date.now());
         this.$_timeoutHandler = setTimeout(() => this.refreshState(), this.refreshRate);
