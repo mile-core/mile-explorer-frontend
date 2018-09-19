@@ -12,7 +12,7 @@
           tr(v-for="transaction in transactions" :key="transaction.id + transaction['public-key']")
             td.id
               router-link(
-                :to="'/wallet/' + publicKey + '/transactions/' + transaction.id"
+                :to="'/wallet/' + transaction['public-key'] + '/transactions/' + transaction.id"
               ) {{ transaction.id }}
             td.key
               router-link(
