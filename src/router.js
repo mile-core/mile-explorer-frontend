@@ -15,7 +15,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/playground',
+      redirect: '/blocks',
     },
     {
       path: '/blocks',
