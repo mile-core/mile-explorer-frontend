@@ -3,7 +3,7 @@
     api-block-history(
       slot-scope="{ count, firstId }"
       :firstId="from(firstId, count)"
-      :limit="perPage"
+      :limit="to(firstId, count)"
     )
       div(slot-scope="{ blocks }")
         blocks-table(:blocks="blocks")
@@ -42,6 +42,9 @@ export default {
       this.total = count - firstId;
       this.pages = Math.ceil(this.total / this.perPage);
       return (this.pages - this.page) * this.perPage;
+    },
+    to(firstId, count) {
+      return this.perPage;
     },
     toPage(page) {
       this.page = page;

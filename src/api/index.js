@@ -6,13 +6,23 @@ const api = axios.create({
   method: 'POST',
 });
 
+function JsonRpcError(error) {
+  this.code = error.code;
+  this.data = error.data;
+  this.message = error.message;
+  this.toString = () => `${this.message} (code: ${this.code})`;
+}
+
 function jsonRpc(method, params = {}, id = uuidv4()) {
   if (process.env.VUE_APP_USE_MOCKS === 'true') return import(`@/mocks/${method}.json`).then(json => json.default);
   return api({
     data: {
       jsonrpc: '2.0', method, params, id,
     },
-  }).then(({ data: { result } }) => result);
+  }).then(({ data: { result, error } }) => {
+    if (error) throw new JsonRpcError(error);
+    return result;
+  });
 }
 
 export default {
@@ -73,5 +83,19 @@ export default {
       'public-key': publicKey,
       id,
     });
+  },
+
+  // TODO: need description
+  // {"jsonrpc":"2.0","method":"get-nodes","params": {"first-id":0, "count":10},"id":"12"}
+  getNodes(firstId, count) {
+    return jsonRpc('get-nodes', {
+      'first-id': firstId,
+      count,
+    });
+  },
+
+  // TODO: need description
+  getNetworkState() {
+    return jsonRpc('get-network-state');
   },
 };

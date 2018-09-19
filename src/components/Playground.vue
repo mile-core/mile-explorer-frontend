@@ -73,17 +73,36 @@
       .description Get certain block from chain by id. This is equal get-block-history with limit:1 but more efficient
       .params
         .param
-          label(for="get-block_block-id") block-id
+          label(for="get-block_id") id
           input(
-            id="get-block_block-id"
+            id="get-block_id"
             type="number"
-            v-model.number="params.getBlock.blockId"
+            v-model.number="params.getBlock.id"
           )
       .actions
-        button(@click="request('getBlock', params.getBlock.blockId)") Fetch
+        button(@click="request('getBlock', params.getBlock.id)") Fetch
       .results
         mile-loader(v-if="loading.getBlock")
         pre(v-else) {{ results.getBlock }}
+
+    h2 Explore wallet and transactions
+
+    .section
+      .method get-wallet-history-state
+      .description Get wallet history state for a known *public-key*
+      .params
+        .param
+          label(for="get-wallet-history-state_public-key") public-key
+          input(
+            id="get-wallet-history-state_public-key"
+            type="text"
+            v-model="params.getWalletHistoryState.publicKey"
+          )
+      .actions
+        button(@click="request('getWalletHistoryState', params.getWalletHistoryState.publicKey)") Fetch
+      .results
+        mile-loader(v-if="loading.getWalletHistoryState")
+        pre(v-else) {{ results.getWalletHistoryState }}
 
     .section
       .method get-wallet-history-blocks
@@ -115,25 +134,6 @@
       .results
         mile-loader(v-if="loading.getWalletHistoryBlocks")
         pre(v-else) {{ results.getWalletHistoryBlocks }}
-
-    h2 Explore wallet and transactions
-
-    .section
-      .method get-wallet-history-state
-      .description Get wallet history state for a known *public-key*
-      .params
-        .param
-          label(for="get-wallet-history-state_public-key") public-key
-          input(
-            id="get-wallet-history-state_public-key"
-            type="text"
-            v-model="params.getWalletHistoryState.publicKey"
-          )
-      .actions
-        button(@click="request('getWalletHistoryState', params.getWalletHistoryState.publicKey)") Fetch
-      .results
-        mile-loader(v-if="loading.getWalletHistoryState")
-        pre(v-else) {{ results.getWalletHistoryState }}
 
     .section
       .method get-wallet-history-transactions
@@ -174,13 +174,41 @@
           label(for="get-transaction-info_public-key") public-key
           input(id="get-transaction-info_public-key" type="text" v-model="params.getTransactionInfo.publicKey")
         .param
-          label(for="get-transaction-info_id") first-id
+          label(for="get-transaction-info_id") id
           input(id="get-transaction-info_id" type="number" v-model.number="params.getTransactionInfo.id")
       .actions
         button(@click="request('getTransactionInfo', params.getTransactionInfo.publicKey, params.getTransactionInfo.id)") Fetch
       .results
         mile-loader(v-if="loading.getTransactionInfo")
         pre(v-else) {{ results.getTransactionInfo }}
+
+
+    h2 Explore network and nodes
+
+    .section
+      .method get-nodes
+      .description NO DESCRIPTION
+      .params
+        .param
+          label(for="get-nodes_first-id") first-id
+          input(id="get-nodes_first-id" type="number" v-model.number="params.getNodes.firstId")
+        .param
+          label(for="get-nodes_count") count
+          input(id="get-nodes_count" type="number" v-model.number="params.getNodes.count")
+      .actions
+        button(@click="request('getNodes', params.getNodes.firstId, params.getNodes.count)") Fetch
+      .results
+        mile-loader(v-if="loading.getNodes")
+        pre(v-else) {{ results.getNodes }}
+
+    .section
+      .method get-network-state
+      .description NO DESCRIPTION
+      .actions
+        button(@click="request('getNetworkState')") Fetch
+      .results
+        mile-loader(v-if="loading.getNetworkState")
+        pre(v-else) {{ results.getNetworkState }}
 </template>
 
 <script>
@@ -202,7 +230,7 @@ export default {
           filter: [],
         },
         getBlock: {
-          blockId: 0,
+          id: 0,
         },
         getWalletHistoryBlocks: {
           publicKey: 'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x',
@@ -220,6 +248,10 @@ export default {
         getTransactionInfo: {
           publicKey: 'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x',
           id: 1,
+        },
+        getNodes: {
+          firstId: 0,
+          count: 10,
         },
       },
       results: {},

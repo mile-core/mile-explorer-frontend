@@ -3,17 +3,29 @@
     p publicKey: {{ publicKey }}
     mile-loader(v-if="!done")
     template(v-else)
-      h3 History State
-      pre {{ state }}
+      wallet-blocks(
+        :publicKey="publicKey"
+        :count="blockCount"
+        :first-id="blockFirstId")
+      wallet-transactions(
+        :publicKey="publicKey"
+        :count="transactionCount"
+        :first-id="transactionFirstId"
+      )
+
 </template>
 
 <script>
 import api from '@/api';
 import MileLoader from './MileLoader.vue';
+import WalletBlocks from './WalletBlocks.vue';
+import WalletTransactions from './WalletTransactions.vue';
 
 export default {
   components: {
     MileLoader,
+    WalletBlocks,
+    WalletTransactions,
   },
   props: {
     publicKey: String,
@@ -21,15 +33,33 @@ export default {
   },
   data() {
     return {
-      state: null,
-      done: false,
+      blockCount: 0,
+      blockFirstId: 0,
+      transactionCount: 0,
+      transactionFirstId: 0,
+      done: true,
     };
   },
-  async created() {
-    const result = await api.getWalletHistoryState(this.publicKey);
-    this.done = true;
-    if (!result) this.$router.replace('/wallet');
-    this.state = result;
+  watch: {
+    publicKey: {
+      handler: 'fetchWalletState',
+      immediate: true,
+    }
+  },
+  methods: {
+    async fetchWalletState() {
+      this.done = false;
+      const state = await api.getWalletHistoryState(this.publicKey);
+      this.done = true;
+      if (!state) {
+        this.$router.replace('/wallet');
+        return;
+      }
+      this.blockCount = state.block.count;
+      this.blockFirstId = state.block['first-id'];
+      this.transactionCount = state.transaction.count;
+      this.transactionFirstId = state.transaction['first-id'];
+    },
   },
 };
 </script>

@@ -2,6 +2,7 @@
   .block-info
     mile-loader(v-if="!done")
     template(v-else)
+      pre {{ block }}
       h3 info
       dl
         dt block-id
