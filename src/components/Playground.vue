@@ -187,7 +187,7 @@
 
     .section
       .method get-nodes
-      .description NO DESCRIPTION
+      .description TODO: Add description
       .params
         .param
           label(for="get-nodes_first-id") first-id
@@ -203,7 +203,7 @@
 
     .section
       .method get-network-state
-      .description NO DESCRIPTION
+      .description TODO: Add description
       .actions
         button(@click="request('getNetworkState')") Fetch
       .results

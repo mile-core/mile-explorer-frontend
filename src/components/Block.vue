@@ -2,8 +2,7 @@
   .block-info
     mile-loader(v-if="!done")
     template(v-else)
-      pre {{ block }}
-      h3 info
+      h3 Info
       dl
         dt block-id
         dd {{ block['block-id'] }}

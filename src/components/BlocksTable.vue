@@ -3,17 +3,17 @@
     thead
       tr
         th id
-        //- th ago
+        th timeStamp
+        th transactions
         th merkle root
-        th trnx
         th ver
     tbody
       tr(v-for="block in sortedBlocks" :key="block.id")
         td
           router-link(:to="'/blocks/' + block['block-id']") {{ block['block-id'] }}
-        //- td {{ formatTimeStamp(block.timeStamp) }}
-        td {{ block.merkleRoot }}
+        td.timestamp {{ formatTimeStamp(block.timeStamp) }}
         td {{ block.transactionCount }}
+        td {{ block.merkleRoot }}
         td {{ block.version }}
 </template>
 
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     formatTimeStamp(timeStamp) {
-      const date = +new Date(this.now - (timeStamp / 100000));
+      const date = timeStamp / 10000;
       return fecha.format(date, 'YYYY-MM-DD HH:mm:ss');
     },
   },
@@ -69,5 +69,7 @@ table.blocks-table
   td
     padding: .25rem
     text-align: center
+  .timestamp
+    font-family: monospace
 </style>
 
