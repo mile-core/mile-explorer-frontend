@@ -44,25 +44,40 @@
           ul.select
             li
               input(
-                id="get-block-history_limit"
+                id="get-block-history_escort-signatures"
                 name="get-block-history_filter"
                 type="checkbox"
-                value="signature"
+                value="escort-signatures"
                 v-model="params.getBlockHistory.filter"
               )
-              label(for="get-block-history_filter") signature
+              label(for="get-block-history_escort-signatures") escort-signatures
             li
               input(
-                id="get-block-history_limit"
+                id="get-block-history_fee-transactions"
+                name="get-block-history_filter"
+                type="checkbox"
+                value="fee-transactions"
+                v-model="params.getBlockHistory.filter"
+              )
+              label(for="get-block-history_fee-transactions") fee-transactions
+            li
+              input(
+                id="get-block-history_transactions"
                 name="get-block-history_filter"
                 type="checkbox"
                 value="transactions"
                 v-model="params.getBlockHistory.filter"
               )
-              label(for="get-block-history_filter") transactions
+              label(for="get-block-history_transactions") transactions
       .actions
         button(
-          @click="request('getBlockHistory', params.getBlockHistory.firstId, params.getBlockHistory.limit, params.getBlockHistory.filter)"
+          @click=`
+            request(
+              'getBlockHistory',
+              params.getBlockHistory.firstId,
+              params.getBlockHistory.limit,
+              params.getBlockHistory.filter
+            )`
         ) Fetch
       .results
         mile-loader(v-if="loading.getBlockHistory")
@@ -70,7 +85,9 @@
 
     .section
       .method get-block
-      .description Get certain block from chain by id. This is equal get-block-history with limit:1 but more efficient
+      .description
+        | Get certain block from chain by id.
+        | This is equal get-block-history with limit:1 but more efficient
       .params
         .param
           label(for="get-block_id") id
@@ -99,7 +116,10 @@
             v-model="params.getWalletHistoryState.publicKey"
           )
       .actions
-        button(@click="request('getWalletHistoryState', params.getWalletHistoryState.publicKey)") Fetch
+        button(@click=`request(
+          'getWalletHistoryState',
+          params.getWalletHistoryState.publicKey,
+        )`) Fetch
       .results
         mile-loader(v-if="loading.getWalletHistoryState")
         pre(v-else) {{ results.getWalletHistoryState }}
@@ -130,14 +150,22 @@
             v-model.number="params.getWalletHistoryBlocks.limit"
           )
       .actions
-        button(@click="request('getWalletHistoryBlocks', params.getWalletHistoryBlocks.publicKey, params.getWalletHistoryBlocks.firstId, params.getWalletHistoryBlocks.limit)") Fetch
+        button(@click=`request(
+          'getWalletHistoryBlocks',
+          params.getWalletHistoryBlocks.publicKey,
+          params.getWalletHistoryBlocks.firstId,
+          params.getWalletHistoryBlocks.limit,
+        )`) Fetch
       .results
         mile-loader(v-if="loading.getWalletHistoryBlocks")
         pre(v-else) {{ results.getWalletHistoryBlocks }}
 
     .section
       .method get-wallet-history-transactions
-      .description Get wallet transaction history for the known public-key from first-id with limit of transactions list
+      .description
+        | Get wallet transaction history
+        | for the known public-key from first-id
+        | with limit of transactions list
       .params
         .param
           label(for="get-wallet-history-transactions_public-key") public-key
@@ -161,7 +189,12 @@
             v-model.number="params.getWalletHistoryTransactions.limit"
           )
       .actions
-        button(@click="request('getWalletHistoryTransactions', params.getWalletHistoryTransactions.publicKey, params.getWalletHistoryTransactions.firstId, params.getWalletHistoryTransactions.limit)") Fetch
+        button(@click=`request(
+          'getWalletHistoryTransactions',
+          params.getWalletHistoryTransactions.publicKey,
+          params.getWalletHistoryTransactions.firstId,
+          params.getWalletHistoryTransactions.limit
+        )`) Fetch
       .results
         mile-loader(v-if="loading.getWalletHistoryTransactions")
         pre(v-else) {{ results.getWalletHistoryTransactions }}
@@ -172,12 +205,24 @@
       .params
         .param
           label(for="get-transaction-info_public-key") public-key
-          input(id="get-transaction-info_public-key" type="text" v-model="params.getTransactionInfo.publicKey")
+          input(
+            id="get-transaction-info_public-key"
+            type="text"
+            v-model="params.getTransactionInfo.publicKey"
+          )
         .param
           label(for="get-transaction-info_id") id
-          input(id="get-transaction-info_id" type="number" v-model.number="params.getTransactionInfo.id")
+          input(
+            id="get-transaction-info_id"
+            type="number"
+            v-model.number="params.getTransactionInfo.id"
+          )
       .actions
-        button(@click="request('getTransactionInfo', params.getTransactionInfo.publicKey, params.getTransactionInfo.id)") Fetch
+        button(@click=`request(
+          'getTransactionInfo',
+          params.getTransactionInfo.publicKey,
+          params.getTransactionInfo.id
+        )`) Fetch
       .results
         mile-loader(v-if="loading.getTransactionInfo")
         pre(v-else) {{ results.getTransactionInfo }}
@@ -327,7 +372,7 @@ export default {
 
   label
     display: inline-block
-    width: 8rem
+    min-width: 8rem
     text-align: right
     margin-right: .5rem
 

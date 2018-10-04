@@ -44,7 +44,7 @@ export default {
     publicKey: {
       handler: 'fetchWalletState',
       immediate: true,
-    }
+    },
   },
   methods: {
     async fetchWalletState() {
