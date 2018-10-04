@@ -24,12 +24,15 @@
         dd {{ block['transaction-count'] }}
         dt version
         dd {{ block['version'] }}
-      h3 Signature
-      block-signature(:signature="block['escort-signatures']")
-      h3 Fee Transactions
-      block-fee-trnx(:trnx="block['fee-transactions']")
-      h3 Transactions
-      block-trnx(:trnx="block['transactions']")
+      template(v-if="block['escort-signatures'].length")
+        h3 Signature
+        block-signature(:signature="block['escort-signatures']")
+      template(v-if="block['fee-transactions'].length")
+        h3 Fee Transactions
+        block-fee-trnx(:trnx="block['fee-transactions']")
+      template(v-if="block['transactions'].length")
+        h3 Transactions
+        block-trnx(:trnx="block['transactions']")
 </template>
 
 <script>
