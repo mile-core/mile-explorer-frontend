@@ -2,13 +2,13 @@
   table.block-sign
     thead
       tr
-        th.key Producer public key
-        th.sign Producer signature
+        th.key key
+        th.signature signature
     tbody
       tr(v-for="s in signature" :key="s.producerPublicKey")
-        td.key
-          router-link(:to="'/wallet/' + s.producerPublicKey") {{ s.producerPublicKey }}
-        td.sign {{ s.producerSignature }}
+        td.key(:title="s.key")
+          router-link(:to="'/wallet/' + s.key") {{ s.key }}
+        td.signature(:title="s.signature") {{ s.signature }}
 </template>
 
 <script>
@@ -31,4 +31,10 @@ table.block-sign
   td
     padding: .25rem
     text-align: left
+    &.key,
+    &.signature
+      max-width: 10rem
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
 </style>

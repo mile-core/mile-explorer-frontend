@@ -2,19 +2,27 @@
   table.blocks-table
     thead
       tr
-        th id
-        th timeStamp
-        th transactions
-        th merkle root
-        th ver
+        th.block-id block id
+        th.block-header-digest block header digest
+        th.previous-block-digest previous block digest
+        th.merkle-root merkle root
+        th.number-of-signers number of signers
+        th.round round
+        th.timestamp timestamp
+        th.transaction-count transaction count
+        th.version version
     tbody
       tr(v-for="block in sortedBlocks" :key="block.id")
-        td
+        td.block-id
           router-link(:to="'/blocks/' + block['block-id']") {{ block['block-id'] }}
-        td.timestamp {{ formatTimeStamp(block.timeStamp) }}
-        td {{ block.transactionCount }}
-        td {{ block.merkleRoot }}
-        td {{ block.version }}
+        td.block-header-digest {{ block['block-header-digest'] }}
+        td.previous-block-digest {{ block['previous-block-digest'] }}
+        td.merkle-root {{ block['merkle-root'] }}
+        td.number-of-signers {{ block['number-of-signers'] }}
+        td.round {{ block.round }}
+        td.timestamp {{ block.timestamp }}
+        td.transaction-count {{ block['transaction-count'] }}
+        td.version {{ block.version }}
 </template>
 
 <script>
@@ -69,6 +77,13 @@ table.blocks-table
   td
     padding: .25rem
     text-align: center
+    &.block-header-digest,
+    &.previous-block-digest,
+    &.merkle-root
+      max-width: 10rem
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
   .timestamp
     font-family: monospace
 </style>

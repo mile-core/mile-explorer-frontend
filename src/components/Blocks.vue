@@ -36,7 +36,7 @@ export default {
   methods: {
     async fetchRange(range) {
       this.done = false;
-      this.blocks = await api.getBlockHistory(range.from, range.limit, ['signature', 'transactions']);
+      this.blocks = await api.getBlockHistory(range.from, range.limit, ['transactions', 'escort-signatures', 'fee-transactions']);
       this.done = true;
     },
   },

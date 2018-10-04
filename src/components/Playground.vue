@@ -341,4 +341,3 @@ export default {
     &[type=text]
       width: 32rem
 </style>
-

@@ -4,34 +4,46 @@
     template(v-else)
       h3 Info
       dl
+        dt block-header-digest
+        dd {{ block['block-header-digest'] }}
         dt block-id
         dd {{ block['block-id'] }}
-        dt merkleRoot
-        dd {{ block.merkleRoot }}
-        dt previousBlockDigest
-        dd {{ block.previousBlockDigest }}
-        dt producerPublicKeySize
-        dd {{ block.producerPublicKeySize }}
-        dt timeStamp
-        dd {{ block.timeStamp }}
-        dt transactionCount
-        dd {{ block.transactionCount }}
+        dt merkle-root
+        dd {{ block['merkle-root'] }}
+        dt number-of-signers
+        dd {{ block['number-of-signers'] }}
+        dt previous-block-digest
+        dd {{ block['previous-block-digest'] }}
+        dt round
+        dd {{ block['round'] }}
+        dt signature
+        dd {{ block['signature'] }}
+        dt timestamp
+        dd {{ block['timestamp'] }}
+        dt transaction-count
+        dd {{ block['transaction-count'] }}
+        dt version
+        dd {{ block['version'] }}
       h3 Signature
-      block-signature(:signature="block.signature")
+      block-signature(:signature="block['escort-signatures']")
+      h3 Fee Transactions
+      block-fee-trnx(:trnx="block['fee-transactions']")
       h3 Transactions
-      block-trnx(:trnx="block.transactions")
+      block-trnx(:trnx="block['transactions']")
 </template>
 
 <script>
 import api from '@/api';
 import MileLoader from './MileLoader.vue';
 import BlockTrnx from './BlockTrnx.vue';
+import BlockFeeTrnx from './BlockFeeTrnx.vue';
 import BlockSignature from './BlockSignature.vue';
 
 export default {
   components: {
     MileLoader,
     BlockTrnx,
+    BlockFeeTrnx,
     BlockSignature,
   },
   props: {
