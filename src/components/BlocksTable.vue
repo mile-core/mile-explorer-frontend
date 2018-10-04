@@ -1,5 +1,5 @@
 <template lang="pug">
-  table.blocks-table
+  table.blocks-table(v-if="sortedBlocks.length")
     thead
       tr
         th.block-id block id

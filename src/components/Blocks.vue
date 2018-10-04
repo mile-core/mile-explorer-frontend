@@ -2,7 +2,7 @@
   .blocks
     blocks-paginator(:count="count" :first-id="firstId" @input="fetchRange($event)")
     mile-loader(v-if="!done")
-    blocks-table(v-else :blocks="blocks")
+    blocks-table(:blocks="blocks")
 </template>
 
 <script>

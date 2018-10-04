@@ -33,7 +33,6 @@ export default {
         this.count = state.count;
         this.firstId = state['first-id'];
       } finally {
-        console.log('get-block-history-state', Date.now());
         this.$_timeoutHandler = setTimeout(() => this.refreshState(), this.refreshRate);
       }
     },
