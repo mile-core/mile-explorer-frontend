@@ -1,9 +1,10 @@
 <template lang="pug">
   .home
-    search-bar
-    .wrapper
+    .search-wrapper
+      search-bar
+    .info-wrapper
       .section
-        blocks-overview(v-if="blockCount" :from="blockFrom" :limit="3")
+        blocks-overview(v-if="blockCount" :from="blockFrom" :limit="blockLimit")
         mile-loader(v-else)
       .section
         transactions-overview
@@ -14,19 +15,21 @@ import api from '@/api';
 import SearchBar from '@/components/SearchBar.vue';
 import BlocksOverview from '@/components/BlocksOverview.vue';
 import TransactionsOverview from '@/components/TransactionsOverview.vue';
+import MileLoader from '@/components/MileLoader.vue';
 
 export default {
   components: {
     SearchBar,
     BlocksOverview,
     TransactionsOverview,
+    MileLoader,
   },
   data() {
     return {
       refreshRate: 5000,
       blockCount: 0,
       blockFirstId: 0,
-      blockLimit: 3,
+      blockLimit: 10,
     };
   },
   computed: {
@@ -42,7 +45,10 @@ export default {
         this.blockCount = blockState.count;
         this.blockFirstId = blockState['first-id'];
       } finally {
-        this.$_blockStateTimeoutHandler = setTimeout(() => this.refreshState(), this.refreshRate);
+        this.$_blockStateTimeoutHandler = setTimeout(
+          () => this.refreshBlockState(),
+          this.refreshRate,
+        );
       }
     },
   },
@@ -57,4 +63,11 @@ export default {
 
 <style lang="sass" scoped>
 .home
+  > .search-wrapper
+    padding: 5rem 0
+  > .info-wrapper
+    display: flex
+    > .section
+      width: calc(50% - 1rem)
+      margin: 0 .5rem
 </style>
