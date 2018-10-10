@@ -26,7 +26,7 @@ export default {
 table.block-sign
   width: 100%
   tr:nth-child(2n+1)
-    background-color: $color-shade
+    background-color: $color-ghost
   th,
   td
     padding: .25rem

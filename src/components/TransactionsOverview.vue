@@ -15,7 +15,7 @@
     align-items: center
     justify-content: space-between
     padding: 1rem
-    background-color: #fafafa
+    background-color: $color-ghost
     border-bottom: 1px solid $color-gray-light
     > .title
       color: $color-gray
