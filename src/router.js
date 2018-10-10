@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
+import Home from './views/Home.vue';
 import Block from './views/Block.vue';
 import Blocks from './views/Blocks.vue';
+import Search from './views/Search.vue';
 import Wallet from './views/Wallet.vue';
 import Playground from './views/Playground.vue';
 import Transaction from './views/Transaction.vue';
@@ -15,7 +17,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/blocks',
+      name: 'home',
+      component: Home,
     },
     {
       path: '/blocks',
@@ -27,6 +30,11 @@ export default new Router({
       name: 'block',
       component: Block,
       props: true,
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: Search,
     },
     {
       path: '/wallet',
