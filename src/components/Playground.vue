@@ -227,6 +227,48 @@
         mile-loader(v-if="loading.getTransactionInfo")
         pre(v-else) {{ results.getTransactionInfo }}
 
+    .section
+      .method get-transaction-history
+      .description
+        | Get transaction history
+        | for the known first-id
+        | with limit of transactions list
+      .params
+        .param
+          label(for="get-transaction-history_first-id") first-id
+          input(
+            id="get-transaction-history_first-id"
+            type="number"
+            v-model.number="params.getTransactionHistory.firstId"
+          )
+        .param
+          label(for="get-transaction-history_limit") limit
+          input(
+            id="get-transaction-history_limit"
+            type="number"
+            v-model.number="params.getTransactionHistory.limit"
+          )
+      .actions
+        button(@click=`request(
+          'getTransactionHistory',
+          params.getTransactionHistory.firstId,
+          params.getTransactionHistory.limit
+        )`) Fetch
+      .results
+        mile-loader(v-if="loading.getTransactionHistory")
+        pre(v-else) {{ results.getTransactionHistory }}
+
+    .section
+      .method get-transaction-history-state
+      .description
+      .params
+      .actions
+        button(@click=`request(
+          'getTransactionHistoryState',
+        )`) Fetch
+      .results
+        mile-loader(v-if="loading.getTransactionHistoryState")
+        pre(v-else) {{ results.getTransactionHistoryState }}
 
     h2 Explore network and nodes
 
@@ -287,6 +329,10 @@ export default {
         },
         getWalletHistoryTransactions: {
           publicKey: 'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x',
+          firstId: 0,
+          limit: 3,
+        },
+        getTransactionHistory: {
           firstId: 0,
           limit: 3,
         },

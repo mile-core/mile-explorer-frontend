@@ -98,4 +98,15 @@ export default {
   getNetworkState() {
     return jsonRpc('get-network-state');
   },
+
+  getTransactionHistory(firstId, limit = 3) {
+    return jsonRpc('get-transaction-history', {
+      'first-id': firstId,
+      limit,
+    });
+  },
+    getTransactionHistoryState() {
+    return jsonRpc('get-transaction-history-state', {
+    });
+  },
 };
