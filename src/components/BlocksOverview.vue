@@ -11,9 +11,8 @@
           ) Block {{ block['block-id'] }}
           .timestamp {{ ago(block.timestamp) }}
         .desc
-          .mined Mined by &mdash;
+          .mined Hash &mdash; {{ block['block-header-digest'] }}
           .txns {{ block['transaction-count'] }} Txns
-          .reward Block Reward &mdash;
 </template>
 
 <script>

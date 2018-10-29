@@ -39,8 +39,9 @@ export default {
   },
 
   // Get chains history from block first-id with limit of history length
+  // TODO убрать когда запуститься майннет
   getBlockHistory(firstId, limit = 1, filter = []) {
-    return jsonRpc('get-block-history', { 'first-id': 80, limit, 'filter-field': filter });
+    return jsonRpc('get-block-history', { 'first-id': 245, limit, 'filter-field': filter });
   },
 
   // Get certain block from chain by id.

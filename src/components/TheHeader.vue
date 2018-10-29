@@ -2,11 +2,26 @@
   header.header
     router-link.logo(to="/") {{ $t('home') }}
     .title {{ $t('title') }}
-    nav
+    button.hamburger(@click='toggle = !toggle')
+      span.hamburger-box.hamburger--squeeze
+        span.hamburger-inner
+    nav.top-menu(v-show='toggle')
       router-link(to="/blocks") {{ $t('blocks') }}
       router-link(to="/wallet") {{ $t('wallet') }}
       router-link(to="/playground") API Playground
 </template>
+
+<script>
+
+export default {
+  data() {
+    return {
+      toggle: false
+    }
+  }
+};
+
+</script>
 
 <style lang="sass" scoped>
 .header
@@ -16,6 +31,13 @@
   align-items: center
   padding: 1rem
 
+  > .top-menu
+    display: block
+
+  > .hamburger
+    display: none
+    outline: none
+    margin-top: 4px
   > .logo
     width: 64px
     height: 64px
@@ -37,6 +59,30 @@
     > a
       margin-left: 1rem
 
+@media screen and (max-width: 992px)
+  .header
+    > .hamburger
+      display: block
+
+    .top-menu
+      display: block
+      position: absolute
+      top: 97px
+      width: 100%
+      text-align: center
+      background: #283891
+      padding-bottom: 15px
+      padding-top: 15px
+      a
+        display: block
+        font-size: 20px
+        color: #fff
+        padding: 5px 0 10px 0
+
+@media screen and (min-width: 992px)
+    .header
+      .top-menu
+        display: block !important
 </style>
 
 <i18n>
