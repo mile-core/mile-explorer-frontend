@@ -4,7 +4,77 @@
       .title Transactions
       button.btn View All
     ul.overview
+      li.transaction(v-for="transaction in transactions" :key="transaction['transaction-id']")
+        span.profile-icon
+        div.profile-post-in
+          h3.main TX# 
+            router-link.link(
+              :to="{ name: 'transaction', params: { transactionId: transaction['transaction-id'], publicKey: transaction['from'] } }"
+            ) {{ transaction['transaction-id'] }}
+          p.info 
+            span.address-tag from
+              router-link.link.address-tag(
+              :to="{ name: 'wallet', params: { publicKey: transaction['from'] } }"
+              ) {{ transaction['from'] }}
+            span.address-tag to
+              router-link.link.address-tag(
+              :to="{ name: 'wallet', params: { publicKey: transaction['to'] } }"
+              ) {{ transaction['to'] }}
+          p.amount(v-for="item in transaction['asset']")
+            span.item Amount {{item['amount']}} MILE
 </template>
+<script>
+import api from '@/api';
+import fecha from 'fecha';
+import timeago from 'timeago.js';
+import MileLoader from './MileLoader.vue';
+
+export default {
+  components: {
+    MileLoader,
+  },
+  props: {
+    from: {
+      type: Number,
+      required: true,
+    },
+    limit: {
+      type: Number,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      done: false,
+      transactions: [],
+    };
+  },
+  computed: {
+    range() {
+      return {
+        from: this.from,
+        limit: this.limit,
+      };
+    },
+  },
+  watch: {
+    range: {
+      handler: 'fetchRange',
+      immediate: true,
+    },
+  },
+  methods: {
+    async fetchRange(range) {
+      this.transactions = await api.getTransactionHistory(range.from, range.limit);
+    },
+    ago(timestamp) {
+      const date = fecha.parse(timestamp, 'YYYY-MMM-DD HH:mm:ss');
+      return timeago().format(date);
+    },
+  },
+};
+</script>
+
 
 <style lang="sass" scoped>
 .transaction-overview
@@ -48,4 +118,42 @@
     font-size: 14px
     height: 17.5rem
     overflow-y: scroll
+    > li.transaction
+      float: left
+      list-style: none
+      display: block
+      padding: 0 0 .25rem
+      margin: 0 1rem .25rem
+      border-bottom: 1px solid #fafafa
+      background: #fff
+      margin-bottom: 2px
+      padding: 7px 7px 7px 0
+      >span.profile-icon
+        float: left
+        color: #999
+        font-size: 20px
+        font-weight: 200
+        padding: 5px 12px
+      >div.profile-post-in
+        float: left
+        > .main
+          > .link
+            text-decoration: none
+            &:hover
+              text-decoration: underline
+          > .timestamp
+            font-size: 11px
+            line-height: 1rem
+        > .desc
+          padding: 0 1rem
+        >p.info
+          >span.address-tag 
+            width: 200px
+            display: inline-block
+            vertical-align: bottom
+            text-overflow: ellipsis
+            overflow: hidden
+            >a.link
+              margin-left: 5px
+
 </style>

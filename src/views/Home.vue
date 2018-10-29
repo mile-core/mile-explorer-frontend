@@ -7,7 +7,8 @@
         blocks-overview(v-if="blockCount" :from="blockFrom" :limit="blockLimit")
         mile-loader(v-else)
       .section
-        transactions-overview
+        transactions-overview(v-if="transactionCount" :from="transactionFrom" :limit="transactionLimit")
+        mile-loader(v-else)
 </template>
 
 <script>
@@ -30,11 +31,18 @@ export default {
       blockCount: 0,
       blockFirstId: 0,
       blockLimit: 10,
+      transactionCount: 0,
+      transactionFirstId: 0,
+      transactionLimit: 10
     };
   },
   computed: {
     blockFrom() {
       const from = this.blockCount - this.blockLimit;
+      return from >= 0 ? from : 0;
+    },
+    transactionFrom() {
+      const from = this.transactionCount - this.transactionLimit;
       return from >= 0 ? from : 0;
     },
   },
@@ -51,9 +59,22 @@ export default {
         );
       }
     },
+    async refreshTransactionState() {
+      try {
+        const transactionState = await api.getTransactionHistoryState();
+        this.transactionCount = transactionState.nodes.count;
+        this.transactionFirstId = transactionState['first-id'];
+      } finally {
+        this.$_transactionStateTimeoutHandler = setTimeout(
+          () => this.refreshTransactionState(),
+          this.refreshRate,
+        );
+      }
+    },
   },
   created() {
     this.refreshBlockState();
+    this.refreshTransactionState();
   },
   beforeDestroy() {
     clearTimeout(this.$_blockStateTimeoutHandler);

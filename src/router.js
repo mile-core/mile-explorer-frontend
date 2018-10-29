@@ -32,6 +32,12 @@ export default new Router({
       props: true,
     },
     {
+      path: '/transactions/:publicKey/:transactionId',
+      name: 'transaction',
+      component: Transaction,
+      props: true,
+    },
+    {
       path: '/search',
       name: 'search',
       component: Search,

@@ -3,7 +3,7 @@
     input.input(
       type="text"
       v-model="userInput"
-      placeholder="Search by Address / Txhash / Block / Token / Ens"
+      placeholder="Search by Address / Txhash / Block "
     )
     button.btn(@click="go") Go
 </template>
@@ -23,9 +23,18 @@ export default {
   methods: {
     go() {
       const blockId = parseInt(this.query, 10);
-      if (String(blockId).length === this.query.length) {
+      let reg_for_keys = /(([a-z]+\d+)|(\d+[a-z]+))[a-z\d]*/;
+      let reg_for_blockId = /^[0-9]+$/;
+      if (String(this.query).indexOf("-") !== -1){
+        let Query = String(this.query).split('-');
+        let publicKey = Query[0];
+        let transactionId = Query[1];
+          this.$router.push({ name: 'transaction', params: { publicKey, transactionId } });
+      }else if (reg_for_blockId.test(String(this.query)) === true){
         this.$router.push({ name: 'block', params: { blockId } });
-      } else {
+      }else if (reg_for_keys.test(String(this.query)) === true){
+          this.$router.push({ name: 'wallet', params: { publicKey: this.query } });
+      }else{
         this.$router.push({ name: 'search', params: { query: this.query } });
       }
     },
