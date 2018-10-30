@@ -39,7 +39,7 @@ export default {
   },
 
   // Get chains history from block first-id with limit of history length
-  // TODO убрать когда запуститься майннет
+  // TODO ??? ????????? ????  
   getBlockHistory(firstId, limit = 1, filter = []) {
     return jsonRpc('get-block-history', { 'first-id': 245, limit, 'filter-field': filter });
   },
@@ -47,7 +47,9 @@ export default {
   // Get certain block from chain by id.
   // This is equal get-block-history with limit:1 but more efficient
   getBlock(blockId) {
-    return jsonRpc('get-block', { id: blockId });
+    var result = jsonRpc('get-block', { id: blockId })
+    console.log(result);
+    return result;
   },
 
   // Get wallet block ids for a known *public-key*
@@ -80,6 +82,9 @@ export default {
 
   // Get certain transactions for the known wallet with public-key and *id*
   getTransactionInfo(publicKey, id) {
+    console.log("publicKey");
+    console.log(publicKey);
+    console.log(id);
     return jsonRpc('get-transaction-info', {
       'public-key': publicKey,
       id,

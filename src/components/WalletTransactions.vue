@@ -12,7 +12,7 @@
           tr(v-for="transaction in transactions" :key="transaction.id + transaction['public-key']")
             td.id
               router-link(
-                :to="'/wallet/' + transaction['public-key'] + '/transactions/' + transaction.id"
+                :to="'/transactions/' + transaction['public-key'] + '/' + transaction.id"
               ) {{ transaction.id }}
             td.key
               router-link(
@@ -77,4 +77,22 @@ export default {
   },
 };
 </script>
-
+<style lang="sass" scoped>
+table.transactions
+  width: 100%
+  tr:nth-child(2n+1)
+    background-color: $color-ghost
+  th,
+  td
+    padding: .25rem
+    text-align: center
+    &.block-header-digest,
+    &.previous-block-digest,
+    &.merkle-root
+      max-width: 10rem
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+  .timestamp
+    font-family: monospace
+</style>
