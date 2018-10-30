@@ -2,7 +2,8 @@
   .blocks
     blocks-paginator(:count="count" :first-id="firstId" @input="fetchRange($event)")
     mile-loader(v-if="!done")
-    blocks-table(:blocks="blocks")
+    .table-responsive
+      blocks-table(:blocks="blocks")
 </template>
 
 <script>
@@ -44,4 +45,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.table-responsive
+  max-width: 100%
+  overflow: auto
 </style>

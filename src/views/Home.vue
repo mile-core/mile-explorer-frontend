@@ -85,10 +85,21 @@ export default {
 <style lang="sass" scoped>
 .home
   > .search-wrapper
-    padding: 5rem 0
+    padding: 3rem 0
   > .info-wrapper
     display: flex
     > .section
       width: calc(50% - 1rem)
       margin: 0 .5rem
+
+@media screen and (max-width: 992px)
+  .home
+    > .search-wrapper
+      padding: 1rem 0
+    > .info-wrapper
+      flex-direction: column
+      > .section
+        width: calc(100% - 1rem)
+
+
 </style>

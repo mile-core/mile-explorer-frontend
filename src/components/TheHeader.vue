@@ -5,7 +5,7 @@
     button.hamburger(@click='toggle = !toggle')
       span.hamburger-box.hamburger--squeeze
         span.hamburger-inner
-    nav.top-menu(v-show='toggle')
+    nav.top-menu(v-show='toggle' @click='toggle = !toggle')
       router-link(to="/blocks") {{ $t('blocks') }}
       router-link(to="/wallet") {{ $t('wallet') }}
       router-link(to="/playground") API Playground

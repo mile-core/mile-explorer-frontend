@@ -116,7 +116,7 @@ export default {
   > ul.overview
     padding: 0
     font-size: 14px
-    height: 17.5rem
+    height: 30rem
     overflow-y: scroll
     > li.transaction
       float: left
@@ -127,7 +127,7 @@ export default {
       border-bottom: 1px solid #fafafa
       background: #fff
       margin-bottom: 2px
-      padding: 7px 7px 7px 0
+      padding: 0
       >span.profile-icon
         float: left
         color: #999
@@ -136,6 +136,8 @@ export default {
         padding: 5px 12px
       >div.profile-post-in
         float: left
+        a
+          color: #3d4852
         > .main
           > .link
             text-decoration: none

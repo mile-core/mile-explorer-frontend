@@ -59,5 +59,10 @@ export default {
     text-transform: uppercase
     &:hover
       background-color: $color-blue-light
+@media screen and (max-width: 576px)
+  .search-bar
+    > .input
+      min-width: 10rem
+
 </style>
 

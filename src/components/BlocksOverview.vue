@@ -107,7 +107,7 @@ export default {
   > ul.overview
     padding: 0
     font-size: 14px
-    height: 17.5rem
+    height: 30rem
     overflow-y: scroll
     > li.block
       list-style: none
