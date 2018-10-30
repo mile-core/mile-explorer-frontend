@@ -3,15 +3,18 @@
     p publicKey: {{ publicKey }}
     mile-loader(v-if="!done")
     template(v-else)
-      wallet-blocks(
-        :publicKey="publicKey"
-        :count="blockCount"
-        :first-id="blockFirstId")
-      wallet-transactions(
-        :publicKey="publicKey"
-        :count="transactionCount"
-        :first-id="transactionFirstId"
-      )
+      template(v-if="error")
+        span {{error}}
+      template(v-else)
+        wallet-blocks(
+          :publicKey="publicKey"
+          :count="blockCount"
+          :first-id="blockFirstId")
+        wallet-transactions(
+          :publicKey="publicKey"
+          :count="transactionCount"
+          :first-id="transactionFirstId"
+        )
 
 </template>
 
@@ -38,6 +41,7 @@ export default {
       transactionCount: 0,
       transactionFirstId: 0,
       done: true,
+      error: false,
     };
   },
   watch: {
@@ -49,16 +53,22 @@ export default {
   methods: {
     async fetchWalletState() {
       this.done = false;
-      const state = await api.getWalletHistoryState(this.publicKey);
-      this.done = true;
-      if (!state) {
-        this.$router.replace('/wallet');
-        return;
+      try{
+        const state = await api.getWalletHistoryState(this.publicKey);
+        this.done = true;
+        if (!state) {
+          this.$router.replace('/wallet');
+          return;
+        }
+        this.blockCount = state.block.count;
+        this.blockFirstId = state.block['first-id'];
+        this.transactionCount = state.transaction.count;
+        this.transactionFirstId = state.transaction['first-id'];
+      }catch(error){
+        this.done = true;
+        this.error = true;
       }
-      this.blockCount = state.block.count;
-      this.blockFirstId = state.block['first-id'];
-      this.transactionCount = state.transaction.count;
-      this.transactionFirstId = state.transaction['first-id'];
+      
     },
   },
 };

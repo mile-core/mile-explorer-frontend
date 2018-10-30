@@ -2,7 +2,7 @@
   .transaction-overview
     .headline
       .title Transactions
-      button.btn View All
+      button.btn(@click="$router.push({ name: 'transactions' })") View All
     ul.overview
       li.transaction(v-for="transaction in transactions" :key="transaction['transaction-id']")
         span.profile-icon

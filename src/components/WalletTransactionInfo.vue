@@ -3,11 +3,18 @@
     h3 {{ $t('title') }}
     mile-loader(v-if="!done")
     template(v-else)
-      dl
-        template(v-for="(value, key) in info")
-          dt {{ key }}
-          dd
-            strong {{ value }}
+    span {{error}}
+    template(v-if="!error")
+      template(v-if="Object.keys(info).length !== 0")
+        dl
+          template(v-for="(value, key) in info")
+            dt {{ key }}
+            dd
+              strong {{ value }}
+      template(v-else)
+        span no result
+    template(v-else)
+      span.error
 </template>
 
 <script>
@@ -32,6 +39,7 @@ export default {
     return {
       info: null,
       done: true,
+      error: false,
     };
   },
   watch: {
@@ -42,10 +50,24 @@ export default {
   },
   methods: {
     async fetchTransactionInfo() {
-      this.done = false;
-      const result = await api.getTransactionInfo(this.publicKey, this.transactionId);
-      this.done = true;
-      this.info = result;
+      console.log(this.transactionId);
+      if (!isNaN(this.transactionId)){
+        console.log("123")
+        try{
+          this.done = false;
+          const result = await api.getTransactionInfo(this.publicKey, this.transactionId);
+          this.done = true;
+          this.info = result;
+        }catch(error){
+          this.error = true;
+          this.done = true;
+        }
+      }else{
+        this.error = true;
+        this.done = true;
+      }
+      
+
     },
   },
 
