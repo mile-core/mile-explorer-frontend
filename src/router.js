@@ -8,7 +8,6 @@ import Search from './views/Search.vue';
 import Wallet from './views/Wallet.vue';
 import Playground from './views/Playground.vue';
 import Transaction from './views/Transaction.vue';
-import Transactions from './views/Transactions.vue';
 
 Vue.use(Router);
 
@@ -20,49 +19,59 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+      meta: {title: 'Home'},
     },
     {
       path: '/blocks',
       name: 'blocks',
       component: Blocks,
+      meta: {title: 'Blocks'},
     },
     {
       path: '/blocks/:blockId',
       name: 'block',
       component: Block,
       props: true,
-    },
-    {
-      path: '/transactions',
-      name: 'transactions',
-      component: Transactions,
+      meta: {title: 'Block info'},
     },
     {
       path: '/transactions/:publicKey/:transactionId',
       name: 'transaction',
       component: Transaction,
       props: true,
+      meta: {title: 'Transaction info'},
     },
     {
       path: '/search',
       name: 'search',
       component: Search,
+      meta: {title: 'Search'},
     },
     {
       path: '/wallet',
       name: 'publicKey',
       component: Wallet,
+      meta: {title: 'Wallet'}
     },
     {
       path: '/wallet/:publicKey',
       name: 'wallet',
       component: Wallet,
       props: true,
+      meta: {title: 'Public key info'},
+    },
+    {
+      path: '/wallet/:publicKey/transactions/:transactionId',
+      name: 'transaction',
+      component: Transaction,
+      props: true,
+      meta: {title: 'Tranasction info'},
     },
     {
       path: '/playground',
       name: 'playground',
       component: Playground,
+      meta: {title: 'Playground'},
     },
     // {
     //   path: '/about',
