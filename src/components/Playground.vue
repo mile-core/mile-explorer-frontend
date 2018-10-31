@@ -430,5 +430,6 @@ export default {
     &[type=number]
       width: 3rem
     &[type=text]
-      width: 32rem
+      width: 100%
+      max-width: 500px
 </style>

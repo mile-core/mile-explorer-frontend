@@ -1,6 +1,6 @@
 <template lang="pug">
   .wallet-info
-    p publicKey: {{ publicKey }}
+    p.public-key publicKey: {{ publicKey }}
     mile-loader(v-if="!done")
     template(v-else)
       template(v-if="error")
@@ -68,9 +68,17 @@ export default {
         this.done = true;
         this.error = true;
       }
-      
     },
   },
 };
 </script>
+
+<style lang="sass" scoped>
+.public-key
+  width: 100%
+  display: inline-block
+  vertical-align: bottom
+  text-overflow: ellipsis
+  overflow: hidden
+</style>
 

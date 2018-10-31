@@ -10,6 +10,11 @@ import i18n from './i18n';
 
 Vue.config.productionTip = false;
 
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title
+next()
+})
+
 new Vue({
   router,
   store,

@@ -78,6 +78,9 @@ export default {
 };
 </script>
 <style lang="sass" scoped>
+.table-responsive
+  max-width: 100%
+  overflow: auto
 table.transactions
   width: 100%
   tr:nth-child(2n+1)
