@@ -20,9 +20,10 @@
         template(v-for="item in transaction['asset']")
           template(v-if="item['code'] === '1'")
             td.transaction-asset MILE
+            td.amount {{item['amount']}}
           template(v-else)
             td.transaction-asset XDR
-          td.amount {{item['amount']}}
+            td.amount.xdr {{item['amount']}}
         td.block-id
           router-link(:to="'/blocks/' + transaction['block-id']") {{ transaction['block-id'] }}
         td.fee {{transaction['fee']}}
@@ -83,6 +84,8 @@ table.transactions-table
       white-space: nowrap
       overflow: hidden
       text-overflow: ellipsis
+  td.amount.xdr
+    padding-right:30px,
   .timestamp
     font-family: monospace
 </style>
