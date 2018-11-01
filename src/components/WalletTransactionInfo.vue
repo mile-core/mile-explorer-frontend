@@ -31,7 +31,7 @@ export default {
       required: true,
     },
     transactionId: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
@@ -56,6 +56,7 @@ export default {
         try{
           this.done = false;
           const result = await api.getTransactionInfo(this.publicKey, this.transactionId);
+          console.log(result);
           this.done = true;
           this.info = result;
         }catch(error){

@@ -48,9 +48,10 @@ export default new Router({
       meta: {title: 'Transaction info'},
     },
     {
-      path: '/search',
+      path: '/search/:query',
       name: 'search',
       component: Search,
+      props: true,
       meta: {title: 'Search'},
     },
     {

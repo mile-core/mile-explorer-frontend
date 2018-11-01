@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     transactionIdInt() {
-      return parseInt(this.transactionId, 10);
+      return this.transactionId;
     },
   },
 };
