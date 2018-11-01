@@ -4,8 +4,7 @@
       span
         router-link(:to="'/wallet/' + publicKey") Wallet
       span Transaction # {{ transactionIdInt }}
-    p publicKey:
-      strong {{ publicKey }}
+    p.publicKey publicKey: {{ publicKey }}
     wallet-transaction-info(
       v-if="transactionId"
       :publicKey="publicKey"
@@ -39,6 +38,10 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.publicKey
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
 .breadcrumbs
   span:not(:last-child)::after
     content: " / "

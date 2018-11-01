@@ -1,6 +1,5 @@
 <template lang="pug">
   .api-playground
-
     .section
       .method help
       .description Get all allowed methods
@@ -431,5 +430,5 @@ export default {
       width: 3rem
     &[type=text]
       width: 100%
-      max-width: 500px
+      max-width: 450px
 </style>

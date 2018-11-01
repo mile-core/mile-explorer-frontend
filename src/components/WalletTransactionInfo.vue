@@ -4,17 +4,26 @@
     mile-loader(v-if="!done")
     template(v-else)
     span {{error}}
-    template(v-if="!error")
-      template(v-if="Object.keys(info).length !== 0")
-        dl
-          template(v-for="(value, key) in info")
-            dt {{ key }}
-            dd
-              strong {{ value }}
+    .table-responsive
+      template(v-if="!error")
+        template(v-if="Object.keys(info).length !== 0")
+          table.transaction-table
+            tbody
+              tr(v-for="(value, key) in info")
+                template(v-if="key == 'asset'")
+                  template(v-for="item in value")
+                    template(v-if="item['code'] === '1'")
+                      td.transaction-asset MILE
+                    template(v-if="item['code'] === '0'")
+                      td.transaction-asset XDR
+                    td.amount
+                      strong {{ item['amount'] }}
+                template(v-else)
+                  td {{ key }}
+                  td
+                    strong {{ value }}
       template(v-else)
-        span no result
-    template(v-else)
-      span.error
+        span.error
 </template>
 
 <script>
@@ -74,6 +83,29 @@ export default {
 };
 </script>
 
+<style lang="sass" scoped>
+.table-responsive
+  max-width: 100%
+  overflow: auto
+table.transaction-table
+  width: 100%
+  max-width: 900px
+  tr:nth-child(2n+1)
+    background-color: $color-ghost
+  th,
+  td
+    padding: .25rem
+    text-align: center
+  &.block-header-digest,
+  &.previous-block-digest,
+  &.merkle-root
+    max-width: 10rem
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+  .timestamp
+    font-family: monospace
+</style>
 
 <i18n>
 {
