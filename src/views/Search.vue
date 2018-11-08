@@ -27,7 +27,8 @@ export default {
 	> pre
 		display: block
 		padding: 9.5px
-		margin: 0 0 10px
+		width: 80%
+    margin: 0 auto
 		font-size: 13px
 		line-height: 1.42857143
 		color: #333

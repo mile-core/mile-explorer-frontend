@@ -12,7 +12,7 @@
         th.description description
         th.transaction-name transaction name
     tbody
-      tr(v-for="transaction in sortedTransactions" :key="transaction['transaction-id']")
+      tr(v-for="transaction in sortedTransactions" :key="transaction['transaction-id']" :unique-key="true")
         td.transaction-id
           router-link(:to="'/transactions/' + transaction['from'] +'/'+transaction['transaction-id']") {{ transaction['transaction-id'] }}
         td.from {{transaction['from']}}
@@ -62,7 +62,17 @@ export default {
   },
   computed: {
     sortedTransactions() {
-      return this.transactions;
+      var uniq = [];
+      var T = [];
+      var search = 0;
+      this.transactions.forEach(function(item,i,arr){
+          search = uniq.indexOf(item['transaction-id']);
+          if (search == -1){
+              T.push(item);
+              uniq.push(item['transaction-id']);
+          }
+      });
+      return T;
     },
   },
 };

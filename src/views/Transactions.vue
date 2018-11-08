@@ -30,8 +30,8 @@ export default {
     async refreshState() {
       try {
         const state = await api.getTransactionHistoryState();
-        this.count = state.nodes.count;
-        this.firstId = state.nodes['first-id'];
+        this.count = state.count;
+        this.firstId = state['first'];
       } finally {
         this.$_timeoutHandler = setTimeout(() => this.refreshState(), this.refreshRate);
       }

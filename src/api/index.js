@@ -38,10 +38,10 @@ export default {
     return jsonRpc('get-block-history-state');
   },
 
-  // Get chains history from block first-id with limit of history length
+  // Get chains history from block first with limit of history length
   // TODO ??? ????????? ????  
-  getBlockHistory(firstId, limit = 1, filter = []) {
-    return jsonRpc('get-block-history', { 'first-id': 245, limit, 'filter-field': filter });
+  getBlockHistory(first, limit = 1, filter = []) {
+    return jsonRpc('get-block-history', { 'first': 245, limit, 'filter-field': filter });
   },
 
   // Get certain block from chain by id.
@@ -53,10 +53,10 @@ export default {
   },
 
   // Get wallet block ids for a known *public-key*
-  getWalletHistoryBlocks(publicKey, firstId, limit = 2) {
+  getWalletHistoryBlocks(publicKey, first, limit = 2) {
     return jsonRpc('get-wallet-history-blocks', {
       'public-key': publicKey,
-      'first-id': firstId,
+      'first': first,
       limit,
     });
   },
@@ -71,20 +71,17 @@ export default {
   },
 
   // Get wallet transaction history for the known public-key
-  // from first-id with limit of transactions list
-  getWalletHistoryTransactions(publicKey, firstId, limit = 3) {
+  // from first with limit of transactions list
+  getWalletHistoryTransactions(publicKey, first, limit = 3) {
     return jsonRpc('get-wallet-history-transactions', {
       'public-key': publicKey,
-      'first-id': firstId,
+      'first': first,
       limit,
     });
   },
 
   // Get certain transactions for the known wallet with public-key and *id*
   getTransactionInfo(publicKey, id) {
-    console.log("publicKey");
-    console.log(publicKey);
-    console.log(id);
     return jsonRpc('get-transaction-info', {
       'public-key': publicKey,
       'id': id,
@@ -92,10 +89,10 @@ export default {
   },
 
   // TODO: need description
-  // {"jsonrpc":"2.0","method":"get-nodes","params": {"first-id":0, "count":10},"id":"12"}
-  getNodes(firstId, count) {
+  // {"jsonrpc":"2.0","method":"get-nodes","params": {"first":0, "count":10},"id":"12"}
+  getNodes(first, count) {
     return jsonRpc('get-nodes', {
-      'first-id': firstId,
+      'first': first,
       count,
     });
   },
@@ -105,9 +102,9 @@ export default {
     return jsonRpc('get-network-state');
   },
 
-  getTransactionHistory(firstId, limit = 3) {
+  getTransactionHistory(first, limit = 3) {
     return jsonRpc('get-transaction-history', {
-      'first-id': firstId,
+      'first': first,
       limit,
     });
   },

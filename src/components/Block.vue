@@ -2,40 +2,45 @@
   .block-info
     mile-loader(v-if="!done")
     template(v-else)
-      template(v-if="error")
-        span {{error}}
-      template(v-else)
-        h3 Info
-        dl
-          dt block-header-digest
-          dd {{ block['block-header-digest'] }}
-          dt block-id
-          dd {{ block['block-id'] }}
-          dt merkle-root
-          dd {{ block['merkle-root'] }}
-          dt number-of-signers
-          dd {{ block['number-of-signers'] }}
-          dt previous-block-digest
-          dd {{ block['previous-block-digest'] }}
-          dt round
-          dd {{ block['round'] }}
-          dt signature
-          dd {{ block['signature'] }}
-          dt timestamp
-          dd {{ block['timestamp'] }}
-          dt transaction-count
-          dd {{ block['transaction-count'] }}
-          dt version
-          dd {{ block['version'] }}
-        template(v-if="block['escort-signatures'].length")
-          h3 Signature
-          block-signature(:signature="block['escort-signatures']")
-        template(v-if="block['fee-transactions'].length")
-          h3 Fee Transactions
-          block-fee-trnx(:trnx="block['fee-transactions']")
-        template(v-if="block['transactions'].length")
-          h3 Transactions
-          block-trnx(:trnx="block['transactions']")
+    template(v-if="error")
+      .search
+        h1.title Oops!
+        p.description The block id you entered was:
+        pre {{this.response}}
+        p.description Sorry! This is an invalid block id.
+        button.btn(@click="$router.push({ name: 'home' })") Back Home
+    template(v-else)
+      h3 Info
+      dl
+        dt block-header-digest
+        dd {{ block['block-header-digest'] }}
+        dt block-id
+        dd {{ block['block-id'] }}
+        dt merkle-root
+        dd {{ block['merkle-root'] }}
+        dt number-of-signers
+        dd {{ block['number-of-signers'] }}
+        dt previous-block-digest
+        dd {{ block['previous-block-digest'] }}
+        dt round
+        dd {{ block['round'] }}
+        dt signature
+        dd {{ block['signature'] }}
+        dt timestamp
+        dd {{ block['timestamp'] }}
+        dt transaction-count
+        dd {{ block['transaction-count'] }}
+        dt version
+        dd {{ block['version'] }}
+      template(v-if="block['escort-signatures'].length")
+        h3 Signature
+        block-signature(:signature="block['escort-signatures']")
+      template(v-if="block['fee-transactions'].length")
+        h3 Fee Transactions
+        block-fee-trnx(:trnx="block['fee-transactions']")
+      template(v-if="block['transactions'].length")
+        h3 Transactions
+        block-trnx(:trnx="block['transactions']")
 </template>
 
 <script>
@@ -57,6 +62,9 @@ export default {
       type: Number,
       required: true,
     },
+    response: {
+      type: String
+    }
   },
   data() {
     return {
@@ -70,6 +78,11 @@ export default {
       this.block = await api.getBlock(this.blockId);
       this.done = true;
     }catch(error){
+      if (isNaN(this.blockId)){
+          this.response = "Is not a number";
+      }else{
+          this.response = this.blockId;
+      }
       this.error = true;
       this.done = true;
     }
@@ -89,6 +102,20 @@ export default {
       text-align: right
     > dd
       grid-column: 2
+  .search
+    text-align: center
+    pre
+      display: block
+      padding: 9.5px
+      width: 80%
+      margin: 0 auto
+      font-size: 13px
+      line-height: 1.42857143
+      color: #333
+      word-break: break-all
+      word-wrap: break-word
+      background-color: #f5f5f5
+      border: 1px solid #ccc
+      border-radius: 4px
 
 </style>
-

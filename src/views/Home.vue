@@ -62,7 +62,7 @@ export default {
     async refreshTransactionState() {
       try {
         const transactionState = await api.getTransactionHistoryState();
-        this.transactionCount = transactionState.nodes.count;
+        this.transactionCount = transactionState.count;
         this.transactionFirstId = transactionState['first-id'];
       } finally {
         this.$_transactionStateTimeoutHandler = setTimeout(

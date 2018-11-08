@@ -81,7 +81,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.blocks-paginator
+.transactions-paginator
   ul.pages
     display: flex
     padding: 0
