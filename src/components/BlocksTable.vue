@@ -71,11 +71,8 @@ export default {
 <style lang="sass" scoped>
 table.blocks-table
   width: 100%
-  tr:nth-child(2n+1)
-    background-color: $color-ghost
   th,
   td
-    padding: .25rem
     text-align: center
     &.block-header-digest,
     &.previous-block-digest,
@@ -84,7 +81,5 @@ table.blocks-table
       white-space: nowrap
       overflow: hidden
       text-overflow: ellipsis
-  .timestamp
-    font-family: monospace
 </style>
 

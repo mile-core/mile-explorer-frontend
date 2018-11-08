@@ -1,24 +1,24 @@
 <template lang="pug">
-.wallet-info
-  mile-loader(v-if="!done")
-  template(v-else)
-    .wallet-search(v-if="error")
-      h1.title Oops!
-      p.description The wallet public key you entered was:
-      pre {{this.publicKey}}
-      p.description Sorry! This is an invalid wallet public key.
-      button.btn(@click="$router.push({ name: 'home' })") Back Home
+  .wallet-info
+    p.public-key-responsive publicKey: {{ publicKey }}
+    mile-loader(v-if="!done")
     template(v-else)
-      p.public-key publicKey: {{ publicKey }}
-      wallet-blocks(
-        :publicKey="publicKey"
-        :count="blockCount"
-        :first-id="blockFirstId")
-      wallet-transactions(
-        :publicKey="publicKey"
-        :count="transactionCount"
-        :first-id="transactionFirstId"
-      )
+      .wallet-search(v-if="error")
+        h1.title Oops!
+        p.description The wallet public key you entered was:
+        pre {{this.publicKey}}
+        p.description Sorry! This is an invalid wallet public key.
+        button.btn(@click="$router.push({ name: 'home' })") Back Home
+      template(v-else)
+        wallet-blocks(
+          :publicKey="publicKey"
+          :count="blockCount"
+          :first-id="blockFirstId")
+        wallet-transactions(
+          :publicKey="publicKey"
+          :count="transactionCount"
+          :first-id="transactionFirstId"
+        )
 
 </template>
 

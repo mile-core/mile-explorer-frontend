@@ -14,7 +14,7 @@
 
     .section
       .method get-block-history-state
-      .description Get chains history from block first-id with limit of history length
+      .description Get chains history from block first with limit of history length
       .actions
         button(@click="request('getBlockHistoryState')") Fetch
       .results
@@ -23,12 +23,12 @@
 
     .section
       .method get-block-history
-      .description Get chains history from block first-id with limit of history length
+      .description Get chains history from block first with limit of history length
       .params
         .param
-          label(for="get-block-history_first-id") first-id
+          label(for="get-block-history_first") first
           input(
-            id="get-block-history_first-id"
+            id="get-block-history_first"
             type="number"
             v-model.number="params.getBlockHistory.firstId"
           )
@@ -136,9 +136,9 @@
             v-model="params.getWalletHistoryBlocks.publicKey"
           )
         .param
-          label(for="get-wallet-history-blocks_first-id") first-id
+          label(for="get-wallet-history-blocks_first") first
           input(
-            id="get-wallet-history-blocks_first-id"
+            id="get-wallet-history-blocks_first"
             type="number"
             v-model.number="params.getWalletHistoryBlocks.firstId"
           )
@@ -164,7 +164,7 @@
       .method get-wallet-history-transactions
       .description
         | Get wallet transaction history
-        | for the known public-key from first-id
+        | for the known public-key from first
         | with limit of transactions list
       .params
         .param
@@ -175,9 +175,9 @@
             v-model="params.getWalletHistoryTransactions.publicKey"
           )
         .param
-          label(for="get-wallet-history-transactions_first-id") first-id
+          label(for="get-wallet-history-transactions_first") first
           input(
-            id="get-wallet-history-transactions_first-id"
+            id="get-wallet-history-transactions_first"
             type="number"
             v-model.number="params.getWalletHistoryTransactions.firstId"
           )
@@ -231,13 +231,13 @@
       .method get-transaction-history
       .description
         | Get transaction history
-        | for the known first-id
+        | for the known first
         | with limit of transactions list
       .params
         .param
-          label(for="get-transaction-history_first-id") first-id
+          label(for="get-transaction-history_first") first
           input(
-            id="get-transaction-history_first-id"
+            id="get-transaction-history_first"
             type="number"
             v-model.number="params.getTransactionHistory.firstId"
           )
@@ -277,8 +277,8 @@
       .description TODO: Add description
       .params
         .param
-          label(for="get-nodes_first-id") first-id
-          input(id="get-nodes_first-id" type="number" v-model.number="params.getNodes.firstId")
+          label(for="get-nodes_first") first
+          input(id="get-nodes_first" type="number" v-model.number="params.getNodes.firstId")
         .param
           label(for="get-nodes_count") count
           input(id="get-nodes_count" type="number" v-model.number="params.getNodes.count")

@@ -25,150 +25,150 @@
 
 </template>
 <script>
-    import api from '@/api';
-    import fecha from 'fecha';
-    import timeago from 'timeago.js';
-    import MileLoader from './MileLoader.vue';
+import api from '@/api';
+import fecha from 'fecha';
+import timeago from 'timeago.js';
+import MileLoader from './MileLoader.vue';
 
-    export default {
-        components: {
-            MileLoader,
-        },
-        props: {
-            from: {
-                type: Number,
-                required: true,
-            },
-            limit: {
-                type: Number,
-                required: true,
-            },
-        },
-        data() {
-            return {
-                done: false,
-                transactions: [],
-                SortedTransactions: []
-            };
-        },
-        computed: {
-            range() {
-                return {
-                    from: this.from,
-                    limit: this.limit,
-                };
-            },
-        },
-        watch: {
-            range: {
-                handler: 'fetchRange',
-                immediate: true,
-            },
-        },
-        methods: {
-            async fetchRange(range) {
-                var T = [];
-                var uniq = [];
-                var search = 0;
-                this.transactions = await api.getTransactionHistory(range.from, range.limit);
-                this.transactions.forEach(function (item, i, arr) {
-                    search = uniq.indexOf(item['transaction-id']);
-                    if (search == -1) {
-                        T.push(item);
-                        uniq.push(item['transaction-id']);
-                    }
-                });
-                this.SortedTransactions = T;
-            },
-            ago(timestamp) {
-                const date = fecha.parse(timestamp, 'YYYY-MMM-DD HH:mm:ss');
-                return timeago().format(date);
-            },
-        },
+export default {
+  components: {
+    MileLoader,
+  },
+  props: {
+    from: {
+      type: Number,
+      required: true,
+    },
+    limit: {
+      type: Number,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      done: false,
+      transactions: [],
+      SortedTransactions: []
     };
+  },
+  computed: {
+    range() {
+      return {
+        from: this.from,
+        limit: this.limit,
+      };
+    },
+  },
+  watch: {
+    range: {
+      handler: 'fetchRange',
+      immediate: true,
+    },
+  },
+  methods: {
+    async fetchRange(range) {
+      var T = [];
+      var uniq = [];
+      var search = 0;
+      this.transactions = await api.getTransactionHistory(range.from, range.limit);
+      this.transactions.forEach(function (item, i, arr) {
+        search = uniq.indexOf(item['transaction-id']);
+        if (search == -1) {
+          T.push(item);
+          uniq.push(item['transaction-id']);
+        }
+      });
+      this.SortedTransactions = T;
+    },
+    ago(timestamp) {
+      const date = fecha.parse(timestamp, 'YYYY-MMM-DD HH:mm:ss');
+      return timeago().format(date);
+    },
+  },
+};
 </script>
 
 
 <style lang="sass" scoped>
-    .transaction-overview
-        border: 1px solid $color-gray-light
-        > .headline
-            display: flex
-            flex-direction: row
-            align-items: center
-            justify-content: space-between
-            padding: 1rem
-            background-color: $color-ghost
-            border-bottom: 1px solid $color-gray-light
-            > .title
-                color: $color-gray
-                height: 1rem
-                line-height: 1rem
-                padding-left: 1.5rem
-                background: url(../assets/icons/repeat.svg) no-repeat center left
-                background-size: contain
-            > .btn
-                display: inline-block
-                border: 1px solid $color-gray
-                padding: .5rem 1rem
-                margin: 0
-                text-decoration: none
-                background: $color-white
-                color: $color-gray
-                font-family: sans-serif
-                font-size: 1rem
-                cursor: pointer
-                text-align: center
-                transition: background 250ms ease-in-out, transform 150ms ease
-                -webkit-appearance: none
-                -moz-appearance: none
-                &:hover
-                    color: $color-blue
-                    border-color: $color-blue
+.transaction-overview
+  border: 1px solid $color-gray-light
+  > .headline
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: space-between
+    padding: 1rem
+    background-color: $color-ghost
+    border-bottom: 1px solid $color-gray-light
+    > .title
+      color: $color-gray
+      height: 1rem
+      line-height: 1rem
+      padding-left: 1.5rem
+      background: url(../assets/icons/repeat.svg) no-repeat center left
+      background-size: contain
+    > .btn
+        display: inline-block
+        border: 1px solid $color-gray
+        padding: .5rem 1rem
+        margin: 0
+        text-decoration: none
+        background: $color-white
+        color: $color-gray
+        font-family: sans-serif
+        font-size: 1rem
+        cursor: pointer
+        text-align: center
+        transition: background 250ms ease-in-out, transform 150ms ease
+        -webkit-appearance: none
+        -moz-appearance: none
+        &:hover
+          color: $color-blue
+          border-color: $color-blue
 
-        > ul.overview
-            padding: 0
-            font-size: 14px
-            height: 30rem
-            overflow-y: scroll
-            > li.transaction
-                float: left
-                list-style: none
-                display: block
-                padding: 0 0 .25rem
-                margin: 0 1rem .25rem
-                border-bottom: 1px solid #fafafa
-                background: #fff
-                margin-bottom: 2px
-                padding: 0
-                > span.profile-icon
-                    float: left
-                    color: #999
-                    font-size: 20px
-                    font-weight: 200
-                    padding: 5px 12px
-                > div.profile-post-in
-                    float: left
-                    a
-                        color: #3d4852
-                    > .main
-                        > .link
-                            text-decoration: none
-                            &:hover
-                                text-decoration: underline
-                        > .timestamp
-                            font-size: 11px
-                            line-height: 1rem
-                    > .desc
-                        padding: 0 1rem
-                    > p.info
-                        > span.address-tag
-                            width: 200px
-                            display: inline-block
-                            vertical-align: bottom
-                            text-overflow: ellipsis
-                            overflow: hidden
-                            > a.link
-                                margin-left: 5px
+  > ul.overview
+    padding: 0
+    font-size: 14px
+    height: 42rem
+    overflow-y: scroll
+    > li.transaction
+      float: left
+      list-style: none
+      display: block
+      padding: 0 0 .25rem
+      margin: 0 1rem .25rem
+      border-bottom: 1px solid #fafafa
+      background: #fff
+      margin-bottom: 2px
+      padding: 0
+      >span.profile-icon
+        float: left
+        color: #999
+        font-size: 20px
+        font-weight: 200
+        padding: 5px 12px
+      >div.profile-post-in
+        float: left
+        a
+          color: #3d4852
+        > .main
+          > .link
+            text-decoration: none
+            &:hover
+              text-decoration: underline
+          > .timestamp
+            font-size: 11px
+            line-height: 1rem
+        > .desc
+          padding: 0 1rem
+        >p.info
+          >span.address-tag 
+            width: 200px
+            display: inline-block
+            vertical-align: bottom
+            text-overflow: ellipsis
+            overflow: hidden
+            >a.link
+              margin-left: 5px
 
 </style>

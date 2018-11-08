@@ -1,6 +1,8 @@
 <template lang="pug">
   header.header
     router-link.logo(to="/") {{ $t('title') }}
+    .search-wrapper
+      search-bar
     button.hamburger(@click='toggle = !toggle')
       span.hamburger-box.hamburger--squeeze
         span.hamburger-inner
@@ -12,8 +14,12 @@
 </template>
 
 <script>
+import SearchBar from '@/components/SearchBar.vue';
 
 export default {
+  components: {
+    SearchBar,
+  },
   data() {
     return {
       toggle: false
@@ -30,15 +36,27 @@ export default {
   justify-content: center
   align-items: center
   padding: 1rem
+  border-bottom: 1px solid rgba(0, 0, 0, .1)
+  position: relative
   > .top-menu
     display: block
-    margin: 0 0 0 25px
+    margin: 0 0 0 15px
   > .hamburger
     display: none
     outline: none
-    margin: 0 0 0 15px
+    margin: 4px 0 0 15px
+    .hamburger-box
+      background: $color-blue
+      width: 44px
+      height: 36px
+      padding: 15px 5px
+    .hamburger-inner, .hamburger-inner:after, .hamburger-inner:before
+      position: absolute
+      width: 35px
+      height: 4px
+      background-color: #fff
   > .logo
-    width: 200px
+    width: 240px
     height: 64px
     cursor: pointer
     background: url(../assets/logo.png)
@@ -59,7 +77,9 @@ export default {
     font-size: 2rem
     line-height: 2rem
     text-transform: uppercase
-
+  > .search-wrapper
+    max-width: 710px
+    width: 100%
   > nav
     > a
       margin-left: 1rem
@@ -89,6 +109,22 @@ export default {
     .header
       .top-menu
         display: block !important
+
+@media screen and (max-width: 1366px)
+  .header
+    .search-wrapper
+      max-width: 500px
+
+@media screen and (max-width: 1160px)
+  .header
+    .search-wrapper
+      max-width: 300px
+@media screen and (max-width: 650px)
+  .header
+    padding-bottom: 70px
+    .search-wrapper
+      position: absolute
+      bottom: 20px
 </style>
 
 <i18n>

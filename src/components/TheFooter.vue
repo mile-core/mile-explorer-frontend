@@ -8,7 +8,7 @@ footer.footer
   padding: 1rem
   text-align: center
   color: $color-white
-  background: $color-gray-dark
+  background: $color-blue
   font-size: .875rem
   -webkit-font-smoothing: antialiased
 </style>

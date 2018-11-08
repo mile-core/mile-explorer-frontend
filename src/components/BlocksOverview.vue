@@ -11,7 +11,7 @@
           ) Block {{ block['block-id'] }}
           .timestamp {{ ago(block.timestamp) }}
         .desc
-          .mined Hash &mdash; {{ block['block-header-digest'] }}
+          .mined Signed &mdash; {{ block['escort-signatures'][0].signature }}
           .txns {{ block['transaction-count'] }} Txns
 </template>
 
@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     async fetchRange(range) {
-      this.blocks = await api.getBlockHistory(range.from, range.limit, ['transactions', 'escort-signatures', 'fee-transactions']);
+      this.blocks = await api.getBlockHistory(range.from, 20, ['transactions', 'escort-signatures', 'fee-transactions']);
     },
     ago(timestamp) {
       const date = fecha.parse(timestamp, 'YYYY-MMM-DD HH:mm:ss');
@@ -75,7 +75,7 @@ export default {
     flex-direction: row
     align-items: center
     justify-content: space-between
-    padding: 1rem
+    padding: 0.5rem 1rem
     background-color: $color-ghost
     border-bottom: 1px solid $color-gray-light
     > .title
@@ -107,7 +107,7 @@ export default {
   > ul.overview
     padding: 0
     font-size: 14px
-    height: 30rem
+    height: 41rem
     overflow-y: scroll
     > li.block
       list-style: none
@@ -116,7 +116,7 @@ export default {
       margin: 0 1rem .25rem
       border-bottom: 1px solid #fafafa
       > .main
-        background: $color-gray
+        background: $color-blue
         color: $color-white
         padding: .5rem 1rem
         text-align: center
@@ -130,5 +130,22 @@ export default {
           line-height: 1rem
       > .desc
         padding: 0 1rem
+        max-width: 500px
+        width: 100%
+        display: inline-block
+        vertical-align: bottom
+        text-overflow: ellipsis
+        overflow: hidden
+
+@media screen and (max-width: 650px)
+  .blocks-overview
+    > ul.overview
+      > li.block
+        flex-direction: column
+        .link
+        .timestamp
+        > .desc
+          padding: 0
+          > .mined
 
 </style>

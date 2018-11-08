@@ -1,6 +1,6 @@
 <template lang="pug">
   .transactions
-    transactions-paginator(:count="count" :first-id="firstId" @input="fetchRange($event)")
+    transactions-paginator(:count="count" :first="firstId" @input="fetchRange($event)")
     mile-loader(v-if="!done")
     .table-responsive
       transactions-table(:transactions="transactions")
@@ -43,9 +43,3 @@ export default {
   },
 };
 </script>
-
-<style lang="sass" scoped>
-.table-responsive
-  max-width: 100%
-  overflow: auto
-</style>

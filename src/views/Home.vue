@@ -1,7 +1,5 @@
 <template lang="pug">
   .home
-    .search-wrapper
-      search-bar
     .info-wrapper
       .section
         blocks-overview(v-if="blockCount" :from="blockFrom" :limit="blockLimit")
@@ -13,14 +11,12 @@
 
 <script>
 import api from '@/api';
-import SearchBar from '@/components/SearchBar.vue';
 import BlocksOverview from '@/components/BlocksOverview.vue';
 import TransactionsOverview from '@/components/TransactionsOverview.vue';
 import MileLoader from '@/components/MileLoader.vue';
 
 export default {
   components: {
-    SearchBar,
     BlocksOverview,
     TransactionsOverview,
     MileLoader,
@@ -51,7 +47,7 @@ export default {
       try {
         const blockState = await api.getBlockHistoryState();
         this.blockCount = blockState.count;
-        this.blockFirstId = blockState['first-id'];
+        this.blockFirstId = blockState['first'];
       } finally {
         this.$_blockStateTimeoutHandler = setTimeout(
           () => this.refreshBlockState(),
@@ -100,6 +96,4 @@ export default {
       flex-direction: column
       > .section
         width: calc(100% - 1rem)
-
-
 </style>

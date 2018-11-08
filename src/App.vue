@@ -35,6 +35,42 @@ hr
   border-top: 1px solid rgba(0, 0, 0, .1)
   box-sizing: content-box
   overflow: visible
+
+.table-responsive
+  max-width: 100%
+  overflow: auto
+  table
+    border: 1px solid #293891
+    border-spacing: 0px
+    border-radius: 2px
+    overflow: hidden
+    tr
+      td, th
+        padding: 0.8rem 1rem
+
+    tr:nth-child(2n+1)
+      background-color: $color-ghost
+    thead
+      tr:first-child
+          background-color: #c7cdef
+.public-key-responsive
+  width: 100%
+  display: inline-block
+  vertical-align: bottom
+  text-overflow: ellipsis
+  overflow: hidden
+
+a
+  color: $color-blue
+  text-decoration: none
+a:hover, a:active, a:focus
+  text-decoration: underline
+
+#app
+  > .content-wrapper
+    max-width: 1400px
+    width: 100%
+    margin: auto
 </style>
 
 <style lang="sass" scoped>
@@ -42,9 +78,12 @@ hr
   display: flex
   min-height: 100vh
   flex-direction: column
-
   > .content-wrapper
     flex: 1
-    border-top: 1px solid rgba(0, 0, 0, .1)
     padding: 1rem 2rem
+
+@media screen and (max-width: 768px)
+  #app
+    > .content-wrapper
+      padding: 1rem 0
 </style>

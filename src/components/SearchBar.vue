@@ -51,7 +51,7 @@ export default {
     display: block
     line-height: 2rem
     padding: 0 .5rem
-    min-width: 24rem
+    width: 100%
   > .btn
     display: block
     color: white
