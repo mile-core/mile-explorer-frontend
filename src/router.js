@@ -33,12 +33,13 @@ export default new Router({
       name: 'block',
       component: Block,
       props: true,
+      meta: {title: 'Block info'},
     },
     {
       path: '/transactions',
       name: 'transactions',
       component: Transactions,
-      meta: {title: 'Block info'},
+      meta: {title: 'Transactions'},
     },
     {
       path: '/transactions/:publicKey/:transactionId',

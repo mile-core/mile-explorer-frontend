@@ -4,6 +4,7 @@
       type="text"
       v-model="userInput"
       placeholder="Search by Address / Txhash / Block "
+      v-on:keyup.13="go"
     )
     button.btn(@click="go") Go
 </template>
@@ -25,6 +26,7 @@ export default {
       const blockId = parseInt(this.query, 10);
       let reg_for_keys = /(([a-z]+\d+)|(\d+[a-z]+))[a-z\d]*/;
       let reg_for_blockId = /^[0-9]+$/;
+
       if (String(this.query).indexOf("-") !== -1){
         let Query = String(this.query).split('-');
         let publicKey = Query[0];
@@ -37,6 +39,7 @@ export default {
       }else{
         this.$router.push({ name: 'search', params: { query: this.query } });
       }
+        this.userInput = "";
     },
   },
 };

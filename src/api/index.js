@@ -83,8 +83,8 @@ export default {
   // Get certain transactions for the known wallet with public-key and *id*
   getTransactionInfo(publicKey, id) {
     return jsonRpc('get-transaction', {
-      'public-key': publicKey,
-      'id': id,
+      // 'public-key': publicKey,
+      'id': publicKey+":"+id,
     });
   },
 

@@ -26,13 +26,13 @@ export default {
       required: true,
     },
     transactionId: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
   computed: {
     transactionIdInt() {
-      return parseInt(this.transactionId);
+      return this.transactionId;
     },
   },
 };

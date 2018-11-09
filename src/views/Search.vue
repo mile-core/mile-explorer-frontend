@@ -24,6 +24,7 @@ export default {
 <style lang="sass" scoped>
 .search
 	text-align: center
+
 	> pre
 		display: block
 		padding: 9.5px

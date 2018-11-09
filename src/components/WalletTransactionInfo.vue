@@ -1,12 +1,11 @@
 <template lang="pug">
   .transaction-info
-    h3 {{ $t('title') }}
     mile-loader(v-if="!done")
     template(v-else)
-    span {{error}}
     .table-responsive
       template(v-if="!error")
         template(v-if="Object.keys(info).length !== 0")
+          h3 {{ $t('title') }}
           table.transaction-table
             tbody
               tr(v-for="(value, key) in info")
@@ -22,6 +21,10 @@
                   td {{ key }}
                   td
                     strong {{ value }}
+        template(v-else)
+          h1.title Oops!
+          p.description Sorry! This is an invalid wallet public key or transaction id.
+          button.btn(@click="$router.push({ name: 'home' })") Back Home
       template(v-else)
         span.error
 </template>
@@ -40,7 +43,7 @@ export default {
       required: true,
     },
     transactionId: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
@@ -59,7 +62,6 @@ export default {
   },
   methods: {
     async fetchTransactionInfo() {
-      console.log(this.transactionId);
       if (!isNaN(this.transactionId)){
         try{
           this.done = false;

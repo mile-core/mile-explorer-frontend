@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang="pug" track-by="$index">
   .block-info
     mile-loader(v-if="!done")
     template(v-else)
@@ -91,6 +91,31 @@ export default {
       this.done = true;
     }
   },
+    watch: {
+        '$route' (to, from) {
+            var that = this;
+            var params_to = to.params;
+            var params_from = from.params;
+            if (params_from['blockId'] != params_to['blockId']){
+
+                this.blockId = params_to['blockId'];
+                try {
+                    this.block = api.getBlock(this.blockId).then((resp)=>{
+                        that.block = resp;
+                    });
+                    this.done = true;
+                }catch(error){
+                    if (isNaN(this.blockId)){
+                        this.response = "Is not a number";
+                    }else{
+                        this.response = this.blockId;
+                    }
+                    this.error = true;
+                    this.done = true;
+                }
+            }
+        }
+    }
 };
 </script>
 
