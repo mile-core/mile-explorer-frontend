@@ -40,7 +40,7 @@ hr
   max-width: 100%
   overflow: auto
   table
-    border: 1px solid #293891
+    /*border: 1px solid #293891*/
     border-spacing: 0px
     border-radius: 2px
     overflow: hidden

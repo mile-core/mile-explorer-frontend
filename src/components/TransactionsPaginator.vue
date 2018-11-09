@@ -32,7 +32,7 @@ export default {
       type: Number,
       required: true,
     },
-    firstId: {
+      first: {
       type: Number,
       required: true,
     },
@@ -62,11 +62,11 @@ export default {
       return (this.current + 3) < this.pages;
     },
     range() {
-      const from = this.firstId + (this.count - (this.current * this.perPage));
+      const from = this.first + (this.count - (this.current * this.perPage));
       const limit = this.perPage;
       const range = {
-        from: from < this.firstId ? this.firstId : from,
-        limit: from < this.firstId ? limit + from : limit,
+        from: from < this.first ? this.first : from,
+        limit: from < this.first ? limit + from : limit,
       };
       return range;
     },
@@ -90,7 +90,7 @@ export default {
     > li.page
       text-align: center
       list-style: none
-      padding: .25rem
+
       min-width: 3rem
       margin-right: .25rem
       border: 1px solid $color-blue

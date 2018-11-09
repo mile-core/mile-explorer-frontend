@@ -11,8 +11,8 @@
         th.type type
         th.memo memo
     tbody
-      tr(v-for="(trn, idx) in trnx" :key="trn.id + idx")
-        td.id {{ trn.id }}
+      tr(v-for="(trn, idx) in trnx" :key="trn['transaction-id'] + idx")
+        td.id {{ trn['transaction-id'] }}
         td.from(:title="trn.from")
           router-link(:to="'/wallet/' + trn.from") {{ trn.from }}
         td.to(:title="trn.to")
@@ -42,7 +42,6 @@ table.block-fee-trnx
     background-color: $color-ghost
   th,
   td
-    padding: .25rem
     text-align: center
     &.to,
     &.from

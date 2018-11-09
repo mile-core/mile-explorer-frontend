@@ -32,15 +32,17 @@
         dd {{ block['transaction-count'] }}
         dt version
         dd {{ block['version'] }}
-      template(v-if="block['escort-signatures'].length")
+      template(v-if="block['escort-signatures']")
         h3 Signature
-        block-signature(:signature="block['escort-signatures']")
-      template(v-if="block['fee-transactions'].length")
-        h3 Fee Transactions
-        block-fee-trnx(:trnx="block['fee-transactions']")
-      template(v-if="block['transactions'].length")
+        .table-responsive
+            block-signature(:signature="block['escort-signatures']")
+      <!--template(v-if="block['fee-transactions'].length")-->
+        <!--h3 Fee Transactions-->
+        <!--block-fee-trnx(:trnx="block['fee-transactions']")-->
+      template(v-if="block['transactions']")
         h3 Transactions
-        block-trnx(:trnx="block['transactions']")
+        .table-responsive
+            transactions-table(:transactions="block['transactions']")
 </template>
 
 <script>
@@ -49,6 +51,7 @@ import MileLoader from './MileLoader.vue';
 import BlockTrnx from './BlockTrnx.vue';
 import BlockFeeTrnx from './BlockFeeTrnx.vue';
 import BlockSignature from './BlockSignature.vue';
+import TransactionsTable from './TransactionsTable.vue';
 
 export default {
   components: {
@@ -56,6 +59,7 @@ export default {
     BlockTrnx,
     BlockFeeTrnx,
     BlockSignature,
+    TransactionsTable,
   },
   props: {
     blockId: {

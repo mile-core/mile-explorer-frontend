@@ -13,11 +13,11 @@
         wallet-blocks(
           :publicKey="publicKey"
           :count="blockCount"
-          :first-id="blockFirstId")
+          :first="blockfirst")
         wallet-transactions(
           :publicKey="publicKey"
           :count="transactionCount"
-          :first-id="transactionFirstId"
+          :first="transactionfirst"
         )
 
 </template>
@@ -41,9 +41,9 @@ export default {
   data() {
     return {
       blockCount: 0,
-      blockFirstId: 0,
+      blockfirst: 0,
       transactionCount: 0,
-      transactionFirstId: 0,
+      transactionfirst: 0,
       done: true,
       error: false,
     };
@@ -65,9 +65,9 @@ export default {
           return;
         }
         this.blockCount = state.block.count;
-        this.blockFirstId = state.block['first-id'];
+        this.blockfirst = state.block['first'];
         this.transactionCount = state.transaction.count;
-        this.transactionFirstId = state.transaction['first-id'];
+        this.transactionfirst = state.transaction['first'];
       }catch(error){
         this.done = true;
         this.error = true;

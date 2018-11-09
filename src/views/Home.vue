@@ -25,10 +25,10 @@ export default {
     return {
       refreshRate: 5000,
       blockCount: 0,
-      blockFirstId: 0,
+      blockfirst: 0,
       blockLimit: 10,
       transactionCount: 0,
-      transactionFirstId: 0,
+      transactionfirst: 0,
       transactionLimit: 10
     };
   },
@@ -47,7 +47,7 @@ export default {
       try {
         const blockState = await api.getBlockHistoryState();
         this.blockCount = blockState.count;
-        this.blockFirstId = blockState['first'];
+        this.blockfirst = blockState['first'];
       } finally {
         this.$_blockStateTimeoutHandler = setTimeout(
           () => this.refreshBlockState(),
@@ -59,7 +59,7 @@ export default {
       try {
         const transactionState = await api.getTransactionHistoryState();
         this.transactionCount = transactionState.count;
-        this.transactionFirstId = transactionState['first-id'];
+        this.transactionfirst = transactionState['first'];
       } finally {
         this.$_transactionStateTimeoutHandler = setTimeout(
           () => this.refreshTransactionState(),

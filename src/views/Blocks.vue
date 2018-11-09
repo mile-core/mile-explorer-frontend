@@ -4,7 +4,7 @@
     blocks(
       v-if="count"
       :count="count"
-      :first-id="firstId"
+      :first="first"
     )
     mile-loader(v-else)
 </template>
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       count: 0,
-      firstId: 0,
+      first: 0,
       refreshRate: 5000,
     };
   },
@@ -31,7 +31,7 @@ export default {
       try {
         const state = await api.getBlockHistoryState();
         this.count = state.count;
-        this.firstId = state['first-id'];
+        this.first = state['first'];
       } finally {
         this.$_timeoutHandler = setTimeout(() => this.refreshState(), this.refreshRate);
       }

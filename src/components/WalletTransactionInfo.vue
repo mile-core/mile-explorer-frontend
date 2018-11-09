@@ -90,7 +90,7 @@ table.transaction-table
     background-color: $color-ghost
   th,
   td
-    padding: .25rem
+
     text-align: center
   &.block-header-digest,
   &.previous-block-digest,

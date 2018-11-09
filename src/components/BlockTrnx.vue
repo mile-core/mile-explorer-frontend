@@ -8,8 +8,8 @@
         th.type type
         th.course course
     tbody
-      tr(v-for="(trn, idx) in trnx" :key="trn.id + idx")
-        td.id {{ trn.id }}
+      tr(v-for="(trn, idx) in trnx" :key="trn['transaction-id'] + idx")
+        td.id {{ trn['transaction-id'] }}
         td.counter-block-id {{ trn['counter-block-id'] }}
         td.wallet(:title="trn.wallet")
           router-link(:to="'/wallet/' + trn.wallet") {{ trn.wallet }}
@@ -35,7 +35,7 @@ table.block-trnx
     background-color: $color-ghost
   th,
   td
-    padding: .25rem
+
     text-align: center
     &.wallet
       max-width: 10rem

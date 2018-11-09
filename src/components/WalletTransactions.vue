@@ -48,7 +48,7 @@ export default {
       type: Number,
       required: true,
     },
-    firstId: {
+    first: {
       type: Number,
       required: true,
     },
@@ -67,7 +67,7 @@ export default {
     state() {
       return {
         count: this.count,
-        firstId: this.firstId,
+        first: this.first,
       };
     },
   },
@@ -82,18 +82,18 @@ export default {
       this.done = false;
       const result = await api.getWalletHistoryTransactions(
         this.publicKey,
-        this.firstId,
+        this.first,
         this.count,
       );
       this.done = true;
       const resultTransactions = [];
 
-      await result.transactions.forEach(async function(element) {
+      await result.forEach(async function(element) {
         const resultTransaction = await api.getTransactionInfo(
                 element['public-key'],
                 element.id
         );
-        resultTransaction.id = element.id
+        resultTransaction.id = element.id;
         if (resultTransaction['from'] && resultTransaction['to']) {
           resultTransactions.push(resultTransaction)
         }
@@ -111,7 +111,6 @@ table.transactions
     background-color: $color-ghost
   th,
   td
-    padding: .25rem
     text-align: center
     &.block-header-digest,
     &.previous-block-digest,

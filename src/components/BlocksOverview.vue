@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     async fetchRange(range) {
-      this.blocks = await api.getBlockHistory(range.from, 20, ['transactions', 'escort-signatures', 'fee-transactions']);
+      this.blocks = await api.getBlockHistory(range.from, range.limit, ['transactions', 'escort-signatures', 'fee-transactions']);
     },
     ago(timestamp) {
       const date = fecha.parse(timestamp, 'YYYY-MMM-DD HH:mm:ss');

@@ -1,4 +1,5 @@
 <template lang="pug">
+div.table-response
   table.transactions-table(v-if="sortedTransactions.length")
     thead
       tr
@@ -85,7 +86,6 @@ table.transactions-table
     background-color: $color-ghost
   th,
   td
-    padding: .25rem
     text-align: center
     &.block-header-digest,
     &.previous-block-digest,

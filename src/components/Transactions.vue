@@ -1,6 +1,6 @@
 <template lang="pug">
   .transactions
-    transactions-paginator(:count="count" :first="firstId" @input="fetchRange($event)")
+    transactions-paginator(:count="count" :first="first" @input="fetchRange($event)")
     mile-loader(v-if="!done")
     .table-responsive
       transactions-table(:transactions="transactions")
@@ -23,7 +23,7 @@ export default {
       type: Number,
       required: true,
     },
-    firstId: {
+    first: {
       type: Number,
       required: true,
     },

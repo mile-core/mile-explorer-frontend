@@ -44,7 +44,7 @@ export default {
     margin-bottom: .5rem
     width: 100%
     max-width: 450px
-    padding: .25rem
+
 
   button[type=submit]
     background-color: $color-blue

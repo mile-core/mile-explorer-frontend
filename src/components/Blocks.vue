@@ -1,6 +1,6 @@
 <template lang="pug">
   .blocks
-    blocks-paginator(:count="count" :first-id="firstId" @input="fetchRange($event)")
+    blocks-paginator(:count="count" :first="first" @input="fetchRange($event)")
     mile-loader(v-if="!done")
     .table-responsive
       blocks-table(:blocks="blocks")
@@ -23,7 +23,7 @@ export default {
       type: Number,
       required: true,
     },
-    firstId: {
+    first: {
       type: Number,
       required: true,
     },

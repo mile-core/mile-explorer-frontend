@@ -30,7 +30,7 @@
           input(
             id="get-block-history_first"
             type="number"
-            v-model.number="params.getBlockHistory.firstId"
+            v-model.number="params.getBlockHistory.first"
           )
         .param
           label(for="get-block-history_limit") limit
@@ -74,7 +74,7 @@
           @click=`
             request(
               'getBlockHistory',
-              params.getBlockHistory.firstId,
+              params.getBlockHistory.first,
               params.getBlockHistory.limit,
               params.getBlockHistory.filter
             )`
@@ -140,7 +140,7 @@
           input(
             id="get-wallet-history-blocks_first"
             type="number"
-            v-model.number="params.getWalletHistoryBlocks.firstId"
+            v-model.number="params.getWalletHistoryBlocks.first"
           )
         .param
           label(for="get-wallet-history-blocks_limit") limit
@@ -153,7 +153,7 @@
         button(@click=`request(
           'getWalletHistoryBlocks',
           params.getWalletHistoryBlocks.publicKey,
-          params.getWalletHistoryBlocks.firstId,
+          params.getWalletHistoryBlocks.first,
           params.getWalletHistoryBlocks.limit,
         )`) Fetch
       .results
@@ -179,7 +179,7 @@
           input(
             id="get-wallet-history-transactions_first"
             type="number"
-            v-model.number="params.getWalletHistoryTransactions.firstId"
+            v-model.number="params.getWalletHistoryTransactions.first"
           )
         .param
           label(for="get-wallet-history-transactions_limit") limit
@@ -192,7 +192,7 @@
         button(@click=`request(
           'getWalletHistoryTransactions',
           params.getWalletHistoryTransactions.publicKey,
-          params.getWalletHistoryTransactions.firstId,
+          params.getWalletHistoryTransactions.first,
           params.getWalletHistoryTransactions.limit
         )`) Fetch
       .results
@@ -239,7 +239,7 @@
           input(
             id="get-transaction-history_first"
             type="number"
-            v-model.number="params.getTransactionHistory.firstId"
+            v-model.number="params.getTransactionHistory.first"
           )
         .param
           label(for="get-transaction-history_limit") limit
@@ -251,7 +251,7 @@
       .actions
         button(@click=`request(
           'getTransactionHistory',
-          params.getTransactionHistory.firstId,
+          params.getTransactionHistory.first,
           params.getTransactionHistory.limit
         )`) Fetch
       .results
@@ -278,12 +278,12 @@
       .params
         .param
           label(for="get-nodes_first") first
-          input(id="get-nodes_first" type="number" v-model.number="params.getNodes.firstId")
+          input(id="get-nodes_first" type="number" v-model.number="params.getNodes.first")
         .param
           label(for="get-nodes_count") count
           input(id="get-nodes_count" type="number" v-model.number="params.getNodes.count")
       .actions
-        button(@click="request('getNodes', params.getNodes.firstId, params.getNodes.count)") Fetch
+        button(@click="request('getNodes', params.getNodes.first, params.getNodes.count)") Fetch
       .results
         mile-loader(v-if="loading.getNodes")
         pre(v-else) {{ results.getNodes }}
@@ -312,7 +312,7 @@ export default {
       loading: {},
       params: {
         getBlockHistory: {
-          firstId: 0,
+          first: 0,
           limit: 1,
           filter: [],
         },
@@ -321,7 +321,7 @@ export default {
         },
         getWalletHistoryBlocks: {
           publicKey: 'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x',
-          firstId: 0,
+          first: 0,
           limit: 2,
         },
         getWalletHistoryState: {
@@ -329,11 +329,11 @@ export default {
         },
         getWalletHistoryTransactions: {
           publicKey: 'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x',
-          firstId: 0,
+          first: 0,
           limit: 3,
         },
         getTransactionHistory: {
-          firstId: 0,
+          first: 0,
           limit: 3,
         },
         getTransactionInfo: {
@@ -341,7 +341,7 @@ export default {
           id: 1,
         },
         getNodes: {
-          firstId: 0,
+          first: 0,
           count: 10,
         },
       },
