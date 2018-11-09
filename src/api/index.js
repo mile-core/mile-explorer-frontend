@@ -103,10 +103,24 @@ export default {
   },
 
   getTransactionHistory(first, limit = 3) {
-    return jsonRpc('get-transaction-history', {
-      'first': first,
-      limit,
-    });
+      var uniq = [];
+      var T = [];
+      var search = 0;
+
+      jsonRpc('get-transaction-history', {
+          'first': first,
+          limit,
+      }).then((resp)=>{
+          resp.forEach(function(item,i,arr){
+              search = uniq.indexOf(item['transaction-id']);
+              if (search == -1){
+                  T.push(item);
+                  uniq.push(item['transaction-id']);
+              }
+          });
+      });
+      console.log(T);
+      return T;
   },
     getTransactionHistoryState() {
     return jsonRpc('get-transaction-history-state', {

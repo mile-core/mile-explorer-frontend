@@ -4,7 +4,7 @@
       .title Transactions
       button.btn(@click="$router.push({ name: 'transactions' })") View All
     ul.overview
-      li.transaction(v-for="transaction in SortedTransactions" :key="transaction")
+      li.transaction(v-for="transaction in transactions" :key="transaction")
         span.profile-icon
         div.profile-post-in
           h3.main TX# 
@@ -66,24 +66,10 @@ export default {
     },
   },
   methods: {
-    async fetchRange(range) {
-      var T = [];
-      var uniq = [];
-      var search = 0;
-      this.transactions = await api.getTransactionHistory(range.from, range.limit);
-      this.transactions.forEach(function (item, i, arr) {
-        search = uniq.indexOf(item['transaction-id']);
-        if (search == -1) {
-          T.push(item);
-          uniq.push(item['transaction-id']);
-        }
-      });
-      this.SortedTransactions = T;
-    },
-    ago(timestamp) {
-      const date = fecha.parse(timestamp, 'YYYY-MMM-DD HH:mm:ss');
-      return timeago().format(date);
-    },
+      async fetchRange(range) {
+          this.transactions = await api.getTransactionHistory(range.from, range.limit);
+          console.log(this.transactions);
+      },
   },
 };
 </script>

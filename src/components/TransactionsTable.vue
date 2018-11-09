@@ -62,19 +62,9 @@ export default {
     },
   },
   computed: {
-    sortedTransactions() {
-      var uniq = [];
-      var T = [];
-      var search = 0;
-      this.transactions.forEach(function(item,i,arr){
-          search = uniq.indexOf(item['transaction-id']);
-          if (search == -1){
-              T.push(item);
-              uniq.push(item['transaction-id']);
-          }
-      });
-      return T;
-    },
+      sortedTransactions() {
+          return this.transactions;
+      }
   },
 };
 </script>
