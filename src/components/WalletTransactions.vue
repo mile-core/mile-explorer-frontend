@@ -90,6 +90,7 @@ export default {
 
       await result.forEach(async function(element) {
         const resultTransaction = await api.getTransactionInfo(
+                element['public-key'],
                 element.id
         );
         resultTransaction.id = element.id;

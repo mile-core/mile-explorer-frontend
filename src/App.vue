@@ -48,6 +48,11 @@ hr
       td, th
         padding: 0.8rem 1rem
         text-align: left
+      td.from, td.to
+        max-width: 10rem
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
     tr:nth-child(2n+1)
       background-color: $color-ghost
     thead
