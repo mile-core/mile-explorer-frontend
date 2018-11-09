@@ -90,7 +90,6 @@ export default {
 
       await result.forEach(async function(element) {
         const resultTransaction = await api.getTransactionInfo(
-                element['public-key'],
                 element.id
         );
         resultTransaction.id = element.id;
@@ -107,11 +106,8 @@ export default {
 
 table.transactions
   width: 100%
-  tr:nth-child(2n+1)
-    background-color: $color-ghost
   th,
   td
-    text-align: center
     &.block-header-digest,
     &.previous-block-digest,
     &.merkle-root
@@ -119,6 +115,4 @@ table.transactions
       white-space: nowrap
       overflow: hidden
       text-overflow: ellipsis
-  .timestamp
-    font-family: monospace
 </style>

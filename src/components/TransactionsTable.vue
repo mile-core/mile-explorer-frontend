@@ -1,5 +1,4 @@
 <template lang="pug">
-div.table-response
   table.transactions-table(v-if="sortedTransactions.length")
     thead
       tr
@@ -72,11 +71,8 @@ export default {
 <style lang="sass" scoped>
 table.transactions-table
   width: 100%
-  tr:nth-child(2n+1)
-    background-color: $color-ghost
   th,
   td
-    text-align: center
     &.block-header-digest,
     &.previous-block-digest,
     &.merkle-root

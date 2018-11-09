@@ -59,10 +59,13 @@ export default {
     width: 240px
     height: 64px
     cursor: pointer
-    background: url(../assets/logo.png)
+    background: url(../assets/logo.svg)
     text-indent: 75px
     background-repeat: no-repeat
     padding-top: 12px
+    background-size: 90px
+    padding-top: 12px
+    background-position: 3px -13px
     text-transform: uppercase
     font-size: 32px
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif

@@ -90,10 +90,6 @@ table.transaction-table
   max-width: 900px
   tr:nth-child(2n+1)
     background-color: $color-ghost
-  th,
-  td
-
-    text-align: center
   &.block-header-digest,
   &.previous-block-digest,
   &.merkle-root

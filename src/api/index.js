@@ -84,7 +84,7 @@ export default {
   getTransactionInfo(publicKey, id) {
     return jsonRpc('get-transaction', {
       // 'public-key': publicKey,
-      'id': publicKey+":"+id,
+      'id': publicKey,
     });
   },
 

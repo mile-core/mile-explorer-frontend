@@ -42,12 +42,12 @@ hr
   table
     /*border: 1px solid #293891*/
     border-spacing: 0px
-    border-radius: 2px
+    border-radius: 5px
     overflow: hidden
     tr
       td, th
         padding: 0.8rem 1rem
-
+        text-align: left
     tr:nth-child(2n+1)
       background-color: $color-ghost
     thead
@@ -71,6 +71,33 @@ a:hover, a:active, a:focus
     max-width: 1400px
     width: 100%
     margin: auto
+
+input
+    padding: 0.25rem
+    border: 1px solid #28398f
+    border-radius: 5px
+    margin-right: .5rem
+
+.paginator
+  ul.pages
+    display: flex
+    padding: 0
+    > li.ellipsis
+      list-style: none
+    > li.page
+      text-align: center
+      list-style: none
+      padding: .25rem
+      min-width: 3rem
+      margin-right: .25rem
+      border: 1px solid $color-blue
+      cursor: pointer
+      &.current
+        background-color: $color-blue
+        color: $color-white
+      &:hover
+        background-color: $color-blue-light
+        color: $color-white
 </style>
 
 <style lang="sass" scoped>

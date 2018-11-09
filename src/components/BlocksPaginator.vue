@@ -1,5 +1,5 @@
 <template lang="pug">
-  .blocks-paginator
+  .blocks-paginator.paginator
     ul.pages(v-if="pages > 1")
       template(v-if="showFirst")
         li.page(
@@ -87,17 +87,4 @@ export default {
     padding: 0
     > li.ellipsis
       list-style: none
-    > li.page
-      text-align: center
-      list-style: none
-
-      min-width: 3rem
-      margin-right: .25rem
-      border: 1px solid $color-blue
-      &.current
-        background-color: $color-blue-light
-        color: $color-white
-      &:hover
-        background-color: $color-blue
-        color: $color-white
 </style>

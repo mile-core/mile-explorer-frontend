@@ -55,11 +55,15 @@ export default {
     line-height: 2rem
     padding: 0 .5rem
     width: 100%
+    margin: 0
+    border: 1px solid #ccc
+    border-radius: 0
   > .btn
     display: block
     color: white
     background-color: $color-blue
     text-transform: uppercase
+    border: none
     &:hover
       background-color: $color-blue-light
 @media screen and (max-width: 576px)

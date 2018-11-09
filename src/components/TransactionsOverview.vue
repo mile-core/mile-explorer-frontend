@@ -83,7 +83,7 @@ export default {
     flex-direction: row
     align-items: center
     justify-content: space-between
-    padding: 1rem
+    padding: 0.5rem 1rem
     background-color: $color-ghost
     border-bottom: 1px solid $color-gray-light
     > .title

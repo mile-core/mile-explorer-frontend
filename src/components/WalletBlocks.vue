@@ -67,9 +67,11 @@ ul.blocks
   margin: 0
   padding: 0
   margin-bottom: .5rem
+  flex-wrap: wrap
   > li.block
     margin: 0
     margin-right: .25rem
+    margin-bottom: .25rem
     list-style: none
     padding: .5rem
     text-align: center
