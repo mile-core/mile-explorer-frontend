@@ -32,17 +32,6 @@
         dd {{ block['transaction-count'] }}
         dt version
         dd {{ block['version'] }}
-      template(v-if="block['escort-signatures']")
-        h3 Signature
-        .table-responsive
-            block-signature(:signature="block['escort-signatures']")
-      <!--template(v-if="block['fee-transactions'].length")-->
-        <!--h3 Fee Transactions-->
-        <!--block-fee-trnx(:trnx="block['fee-transactions']")-->
-      template(v-if="block['transactions']")
-        h3 Transactions
-        .table-responsive
-            transactions-table(:transactions="block['transactions']")
 </template>
 
 <script>

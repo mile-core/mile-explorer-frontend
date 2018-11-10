@@ -39,9 +39,9 @@ export default {
   },
 
   // Get chains history from block first with limit of history length
-  // TODO ??? ????????? ????  
+  // TODO ??? ????????? ????
   getBlockHistory(first, limit = 1, filter = []) {
-    return jsonRpc('get-block-history', { 'first': first, limit, 'filter-field': filter });
+    return jsonRpc('get-block-history', { 'first': first, limit});
   },
 
   // Get certain block from chain by id.
@@ -75,8 +75,7 @@ export default {
   getWalletHistoryTransactions(publicKey, first, limit = 3) {
     return jsonRpc('get-wallet-history-transactions', {
       'public-key': publicKey,
-      'first': first,
-      limit,
+      'first': first, 'limit': limit,
     });
   },
 
@@ -90,10 +89,10 @@ export default {
 
   // TODO: need description
   // {"jsonrpc":"2.0","method":"get-nodes","params": {"first":0, "count":10},"id":"12"}
-  getNodes(first, count) {
+  getNodes(first, limit) {
     return jsonRpc('get-nodes', {
       'first': first,
-      count,
+      'limit': limit,
     });
   },
 

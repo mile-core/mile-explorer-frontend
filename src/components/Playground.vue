@@ -39,36 +39,6 @@
             type="number"
             v-model.number="params.getBlockHistory.limit"
           )
-        .param
-          label filter-field
-          ul.select
-            li
-              input(
-                id="get-block-history_escort-signatures"
-                name="get-block-history_filter"
-                type="checkbox"
-                value="escort-signatures"
-                v-model="params.getBlockHistory.filter"
-              )
-              label(for="get-block-history_escort-signatures") escort-signatures
-            li
-              input(
-                id="get-block-history_fee-transactions"
-                name="get-block-history_filter"
-                type="checkbox"
-                value="fee-transactions"
-                v-model="params.getBlockHistory.filter"
-              )
-              label(for="get-block-history_fee-transactions") fee-transactions
-            li
-              input(
-                id="get-block-history_transactions"
-                name="get-block-history_filter"
-                type="checkbox"
-                value="transactions"
-                v-model="params.getBlockHistory.filter"
-              )
-              label(for="get-block-history_transactions") transactions
       .actions
         button(
           @click=`
@@ -280,10 +250,10 @@
           label(for="get-nodes_first") first
           input(id="get-nodes_first" type="number" v-model.number="params.getNodes.first")
         .param
-          label(for="get-nodes_count") count
-          input(id="get-nodes_count" type="number" v-model.number="params.getNodes.count")
+          label(for="get-nodes_limit") limit
+          input(id="get-nodes_limit" type="number" v-model.number="params.getNodes.limit")
       .actions
-        button(@click="request('getNodes', params.getNodes.first, params.getNodes.count)") Fetch
+        button(@click="request('getNodes', params.getNodes.first, params.getNodes.limit)") Fetch
       .results
         mile-loader(v-if="loading.getNodes")
         pre(v-else) {{ results.getNodes }}
@@ -342,7 +312,7 @@ export default {
         },
         getNodes: {
           first: 0,
-          count: 10,
+          limit: 10,
         },
       },
       results: {},
