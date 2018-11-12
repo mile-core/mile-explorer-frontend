@@ -10,7 +10,6 @@
       router-link(to="/blocks") {{ $t('blocks') }}
       router-link(to="/wallet") {{ $t('wallet') }}
       router-link(to="/transactions") {{ $t('transactions') }}
-      router-link(to="/playground") API Playground
 </template>
 
 <script>
