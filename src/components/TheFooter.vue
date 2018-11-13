@@ -1,6 +1,8 @@
 <template lang="pug">
   footer.footer
     p.copyright(v-html="$t('copyright')")
+    nav.bottom-menu
+      router-link(to="/playground") API Playground
 </template>
 
 <style lang="sass" scoped>
@@ -11,4 +13,8 @@ footer.footer
   background: $color-blue
   font-size: .875rem
   -webkit-font-smoothing: antialiased
+  .bottom-menu
+    a
+      color: #fff
+
 </style>
