@@ -29,7 +29,7 @@ export default {
       blockLimit: 10,
       transactionCount: 0,
       transactionfirst: 0,
-      transactionLimit: 10
+      transactionLimit: 25
     };
   },
   computed: {

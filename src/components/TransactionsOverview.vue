@@ -4,7 +4,7 @@
       .title Transactions
       button.btn(@click="$router.push({ name: 'transactions' })") View All
     ul.overview
-      li.transaction(v-for="transaction in transactions" :key="transaction")
+      li.transaction(v-for="transaction in transactions" :key="transaction['serial']")
         span.profile-icon
         div.profile-post-in
           h3.main TX# 
@@ -21,7 +21,7 @@
               :to="{ name: 'wallet', params: { publicKey: transaction['to'] } }"
               ) {{ transaction['to'] }}
           p.amount(v-for="item in transaction['asset']")
-            span.item Amount {{item['amount']}} MILE
+            span.item Amount {{item['amount']}} {{Assets[item['code']]['name']}}
 
 </template>
 <script>
@@ -48,7 +48,8 @@ export default {
     return {
       done: false,
       transactions: [],
-      SortedTransactions: []
+      SortedTransactions: [],
+      Assets:[]
     };
   },
   computed: {
@@ -67,8 +68,8 @@ export default {
   },
   methods: {
       async fetchRange(range) {
-          this.transactions = await api.getTransactionHistory(range.from, range.limit);
-          console.log(this.transactions);
+          this.transactions = await api.getTransactionHistory(range.from, range.limit,['TransferAssetsTransaction', 'EmissionTransaction']);
+          this.Assets = await api.getAssets();
       },
   },
 };

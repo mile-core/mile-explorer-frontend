@@ -48,7 +48,7 @@ hr
       td, th
         padding: 0.8rem 1rem
         text-align: left
-      td.from, td.to
+      td.from, td.to, td div.t-id
         max-width: 10rem
         white-space: nowrap
         overflow: hidden

@@ -7,31 +7,38 @@
         table.transactions(v-if="transactions.length")
           thead
             tr
-              th.transaction-id transaction id
+              th.serial serial
               th.from from
               th.to to
               th.transaction-asset transaction asset
               th.amount amount
               th.block-id block id
+              th.transaction-id transaction id
               th.fee fee
               th.description description
-              th.transaction-name transaction name
+              th.transaction-type transaction type
           tbody
             tr(v-for="transaction in transactions" v-if="transaction")
-              td.transaction-id {{ transaction.id }}
-              td.from {{transaction['from']}}
-              td.to {{transaction['to']}}
+              td.transaction-id {{ transaction['serial'] }}
+              td.from
+                  router-link.link.address-tag(
+                  :to="{ name: 'wallet', params: { publicKey: transaction['from'] } }"
+                  ) {{ transaction['from'] }}
+              td.to
+                  router-link.link.address-tag(
+                  :to="{ name: 'wallet', params: { publicKey: transaction['to'] } }"
+                  ) {{ transaction['to'] }}
               template(v-for="item in transaction['asset']")
-                template(v-if="item['code'] === '1'")
-                  td.transaction-asset MILE
-                template(v-else)
-                  td.transaction-asset XDR
+                td.transaction-asset {{Assets[item['code']]['name']}}
                 td.amount {{item['amount']}}
               td.block-id
                 router-link(:to="'/blocks/' + transaction['block-id']") {{ transaction['block-id'] }}
+              td.transaction-id
+                  div.t-id
+                    router-link(:to="'/transactions/' + transaction['from'] +'/'+transaction['transaction-id']") {{ transaction.id }}
               td.fee {{transaction['fee']}}
               td.description {{transaction['description']}}
-              td.transaction-name {{transaction['transaction-name']}}
+              td.transaction-type {{transaction['transaction-type']}}
 
 </template>
 
@@ -61,6 +68,7 @@ export default {
     return {
       transactions: [],
       done: true,
+      Assets: []
     };
   },
   computed: {
@@ -78,28 +86,29 @@ export default {
     },
   },
   methods: {
-    async fetchTransactions() {
-      this.done = false;
-      const result = await api.getWalletHistoryTransactions(
-        this.publicKey,
-        this.first,
-        this.count,
-      );
-      this.done = true;
-      const resultTransactions = [];
+      async fetchTransactions() {
+          this.done = false;
+          const result = await api.getWalletHistoryTransactions(
+              this.publicKey,
+              this.first,
+              this.count,
+          );
+          this.done = true;
+          const resultTransactions = [];
 
-      await result.forEach(async function(element) {
-        const resultTransaction = await api.getTransactionInfo(
-                element['public-key'],
-                element.id
-        );
-        resultTransaction.id = element.id;
-        if (resultTransaction['from'] && resultTransaction['to']) {
-          resultTransactions.push(resultTransaction)
-        }
-      });
-      this.transactions = resultTransactions;
-    },
+          await result.forEach(async function(element) {
+              const resultTransaction = await api.getTransactionInfo(
+                  element['public-key'],
+                  element.id
+              );
+              resultTransaction.id = element.id;
+              if (resultTransaction['from'] && resultTransaction['to']) {
+                  resultTransactions.push(resultTransaction)
+              }
+          });
+          this.transactions = resultTransactions;
+          this.Assets = await api.getAssets();
+      },
   },
 };
 </script>

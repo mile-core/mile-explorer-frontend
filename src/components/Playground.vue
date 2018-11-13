@@ -10,6 +10,33 @@
         mile-loader(v-if="loading.help")
         pre(v-else) {{ results.help }}
 
+    .section
+      .method getAssets
+      .description Get all allowed methods
+      .actions
+        button(@click="request('getAssets')") Fetch
+      .results
+        mile-loader(v-if="loading.getAssets")
+        pre(v-else) {{ results.getAssets }}
+
+    .section
+      .method ping
+      .description Ping
+      .actions
+        button(@click="request('Ping')") Fetch
+      .results
+        mile-loader(v-if="loading.Ping")
+        pre(v-else) {{ results.Ping }}
+
+    .section
+      .method get-blockchain-info
+      .description Get all allowed methods
+      .actions
+        button(@click="request('getBlockchainInfo')") Fetch
+      .results
+        mile-loader(v-if="loading.getBlockchainInfo")
+        pre(v-else) {{ results.getBlockchainInfo }}
+
     h2 Explore blocks
 
     .section
@@ -170,6 +197,50 @@
         pre(v-else) {{ results.getWalletHistoryTransactions }}
 
     .section
+      .method get-wallet-state
+      .description
+        | Get wallet transaction state
+        | for the known public-key from first
+      .params
+        .param
+          label(for="get-wallet-state_public-key") public-key
+          input(
+            id="get-wallet-state_public-key"
+            type="text"
+            v-model="params.getWalletState.publicKey"
+          )
+      .actions
+        button(@click=`request(
+          'getWalletState',
+          params.getWalletState.publicKey,
+        )`) Fetch
+      .results
+        mile-loader(v-if="loading.getWalletState")
+        pre(v-else) {{ results.getWalletState }}
+
+    .section
+      .method get-wallet-node
+      .description
+        | Get wallet transaction node
+        | for the known public-key from first
+      .params
+        .param
+          label(for="get-wallet-node_public-key") public-key
+          input(
+            id="get-wallet-node_public-key"
+            type="text"
+            v-model="params.getWalletNode.publicKey"
+          )
+      .actions
+        button(@click=`request(
+          'getWalletNode',
+          params.getWalletNode.publicKey,
+        )`) Fetch
+      .results
+        mile-loader(v-if="loading.getWalletNode")
+        pre(v-else) {{ results.getWalletNode }}
+
+    .section
       .method get-transaction-info
       .description Get certain transactions for the known wallet with public-key and *id*
       .params
@@ -314,6 +385,12 @@ export default {
           first: 0,
           limit: 10,
         },
+        getWalletNode: {
+            publicKey:'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x'
+        },
+        getWalletState: {
+              publicKey:'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x'
+          }
       },
       results: {},
     };
