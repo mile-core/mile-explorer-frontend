@@ -5,8 +5,11 @@
     .table-responsive
       template(v-if="!error")
         template(v-if="Object.keys(info).length !== 0")
-          h3 {{ $t('title') }}
           table.transaction-table
+            thead
+              tr
+                th Key
+                th Value
             tbody
               tr(v-for="(value, key) in info")
                 template(v-if="key == 'asset'")
@@ -88,8 +91,6 @@ export default {
 table.transaction-table
   width: 100%
   max-width: 900px
-  tr:nth-child(2n+1)
-    background-color: $color-ghost
   &.block-header-digest,
   &.previous-block-digest,
   &.merkle-root

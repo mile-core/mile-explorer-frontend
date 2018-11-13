@@ -26,8 +26,8 @@
         dd {{ block['round'] }}
         dt signature
         dd {{ block['signature'] }}
-        dt timestamp
-        dd {{ block['timestamp'] }}
+        dt Date
+        dd {{ block['timestamp'] | localTime }}
         dt transaction-count
         dd {{ block['transaction-count'] }}
         dt version

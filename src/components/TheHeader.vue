@@ -1,6 +1,6 @@
 <template lang="pug">
   header.header
-    router-link.logo(to="/") {{ $t('title') }}
+    router-link.logo(to="/")
     .search-wrapper
       search-bar
     button.hamburger(@click='toggle = !toggle')
@@ -59,11 +59,8 @@ export default {
     height: 64px
     cursor: pointer
     background: url(../assets/logo.svg)
-    text-indent: 75px
     background-repeat: no-repeat
-    padding-top: 12px
-    background-size: 90px
-    padding-top: 12px
+    background-size: 240px
     background-position: 3px -13px
     text-transform: uppercase
     font-size: 32px

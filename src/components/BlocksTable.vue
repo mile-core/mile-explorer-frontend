@@ -8,7 +8,7 @@
         th.merkle-root merkle root
         th.number-of-signers number of signers
         th.round round
-        th.timestamp timestamp
+        th.timestamp Date
         th.transaction-count transaction count
         th.version version
     tbody
@@ -20,14 +20,12 @@
         td.merkle-root {{ block['merkle-root'] }}
         td.number-of-signers {{ block['number-of-signers'] }}
         td.round {{ block.round }}
-        td.timestamp {{ block.timestamp }}
+        td.timestamp {{ block.timestamp | localTime }}
         td.transaction-count {{ block['transaction-count'] }}
         td.version {{ block.version }}
 </template>
 
 <script>
-import fecha from 'fecha';
-
 export default {
   props: {
     blocks: {
@@ -49,10 +47,7 @@ export default {
     clearInterval(this.intervalHandler);
   },
   methods: {
-    formatTimeStamp(timeStamp) {
-      const date = timeStamp / 10000;
-      return fecha.format(date, 'YYYY-MM-DD HH:mm:ss');
-    },
+
   },
   computed: {
     sortedBlocks() {

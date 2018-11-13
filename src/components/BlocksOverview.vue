@@ -4,12 +4,12 @@
       .title Blocks
       button.btn(@click="$router.push({ name: 'blocks' })") View All
     ul.overview
-      li.block(v-for="block in blocks" :key="block.id")
+      li.block(v-for="block in blocks " :key="block.id")
         .main
           router-link.link(
             :to="{ name: 'block', params: { blockId: block['block-id'] } }"
           ) Block {{ block['block-id'] }}
-          .timestamp {{ ago(block.timestamp) }}
+          .timestamp {{ block.timestamp | localTime }}
         .desc
           .mined Signed &mdash; {{ block['escort-signatures'][0].signature }}
           .txns {{ block['transaction-count'] }} Txns
@@ -17,8 +17,6 @@
 
 <script>
 import api from '@/api';
-import fecha from 'fecha';
-import timeago from 'timeago.js';
 import MileLoader from './MileLoader.vue';
 
 export default {
@@ -60,10 +58,15 @@ export default {
       const blocks = await api.getBlockHistory(range.from, range.limit, ['transactions', 'escort-signatures', 'fee-transactions']);
       this.blocks = blocks.slice().reverse()
     },
-    ago(timestamp) {
-      const date = fecha.parse(timestamp, 'YYYY-MMM-DD HH:mm:ss');
-      return timeago().format(date);
-    },
+  },
+  filters: {
+    sortArray: function(value) {
+      if (value) {
+        return value.slice().reverse()
+      } else {
+        return []
+      }
+    }
   },
 };
 </script>

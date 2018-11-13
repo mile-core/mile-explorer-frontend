@@ -21,7 +21,8 @@
               :to="{ name: 'wallet', params: { publicKey: transaction['to'] } }"
               ) {{ transaction['to'] }}
           p.amount(v-for="item in transaction['asset']")
-            span.item Amount {{item['amount']}} {{Assets[item['code']]['name']}}
+            template(v-if="Assets[item['code']]")
+              span.item Amount {{item['amount']}} {{Assets[item['code']]['name']}}
 
 </template>
 <script>
@@ -68,8 +69,8 @@ export default {
   },
   methods: {
       async fetchRange(range) {
-          this.transactions = await api.getTransactionHistory(range.from, range.limit,['TransferAssetsTransaction', 'EmissionTransaction']);
           this.Assets = await api.getAssets();
+          this.transactions = await api.getTransactionHistory(range.from, range.limit,['TransferAssetsTransaction', 'EmissionTransaction']);
       },
   },
 };

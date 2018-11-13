@@ -24,8 +24,9 @@
               :to="{ name: 'wallet', params: { publicKey: transaction['to'] } }"
               ) {{ transaction['to'] }}
         template(v-for="item in transaction['asset']")
-            td.transaction-asset {{Assets[item['code']]['name']}}
-            td.amount {{item['amount']}}
+            template(v-if="Assets[item['code']]")
+                td.transaction-asset {{Assets[item['code']]['name']}}
+                td.amount {{item['amount']}}
         td.block-id
           router-link(:to="'/blocks/' + transaction['block-id']") {{ transaction['block-id'] }}
         td.transaction-id

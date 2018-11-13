@@ -48,7 +48,6 @@ export default {
     // This is equal get-block-history with limit:1 but more efficient
     getBlock(blockId) {
         var result = jsonRpc('get-block', {id: blockId});
-        console.log(result);
         return result;
     },
 
@@ -115,7 +114,6 @@ export default {
                 search = uniq.indexOf(item['transaction-id']);
                 if (search == -1) {
                     if (filter.length){
-                        console.log(filter);
                       if (filter.indexOf(item['transaction-type']) != -1){
                           T.push(item);
                           uniq.push(item['transaction-id']);
