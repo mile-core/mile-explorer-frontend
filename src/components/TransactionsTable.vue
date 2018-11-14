@@ -23,10 +23,14 @@
               router-link.link.address-tag(
               :to="{ name: 'wallet', params: { publicKey: transaction['to'] } }"
               ) {{ transaction['to'] }}
-        template(v-for="item in transaction['asset']")
-            template(v-if="Assets[item['code']]")
-                td.transaction-asset {{Assets[item['code']]['name']}}
-                td.amount {{item['amount']}}
+        template(v-if="!transaction['asset']")
+               td.transaction-asset
+                td.amount
+        template(v-else)
+            template(v-for="item in transaction['asset']")
+                template(v-if="Assets[item['code']]")
+                    td.transaction-asset {{Assets[item['code']]['name']}}
+                    td.amount {{item['amount']}}
         td.block-id
           router-link(:to="'/blocks/' + transaction['block-id']") {{ transaction['block-id'] }}
         td.transaction-id
@@ -79,6 +83,10 @@ export default {
   },
   computed: {
       sortedTransactions() {
+          function compareSerial(txsA, txsB) {
+              return parseInt(txsB['serial']) - parseInt(txsA['serial']);
+          }
+          this.transactions.sort(compareSerial);
           return this.transactions;
       },
   },

@@ -36,6 +36,7 @@ export default {
   },
   methods: {
     async fetchRange(range) {
+        console.log(range.limit);
       this.done = false;
       this.transactions = await api.getTransactionHistory(range.from, range.limit);
       this.done = true;

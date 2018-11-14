@@ -28,10 +28,14 @@
                   router-link.link.address-tag(
                   :to="{ name: 'wallet', params: { publicKey: transaction['to'] } }"
                   ) {{ transaction['to'] }}
-              template(v-for="item in transaction['asset']")
-                template(v-if="Assets[item['code']]")
-                    td.transaction-asset {{Assets[item['code']]['name']}}
-                    td.amount {{item['amount']}}
+              template(v-if="!transaction['asset']")
+                td.transaction-asset
+                td.amount
+              template(v-else)
+                  template(v-for="item in transaction['asset']")
+                    template(v-if="Assets[item['code']]")
+                        td.transaction-asset {{Assets[item['code']]['name']}}
+                        td.amount {{item['amount']}}
               td.block-id
                 router-link(:to="'/blocks/' + transaction['block-id']") {{ transaction['block-id'] }}
               td.transaction-id
@@ -88,6 +92,10 @@ export default {
   },
   methods: {
       async fetchTransactions() {
+          function compareSerial(txsA, txsB) {
+              return parseInt(txsB['serial']) - parseInt(txsA['serial']);
+          }
+
           this.done = false;
           const result = await api.getWalletHistoryTransactions(
               this.publicKey,
@@ -95,18 +103,20 @@ export default {
               this.count,
           );
           this.done = true;
-          const resultTransactions = [];
+          var resultTransactions = [];
 
-          await result.forEach(async function(element) {
-              const resultTransaction = await api.getTransactionInfo(
+          result.forEach(async function(element) {
+              var resultTransaction = await api.getTransactionInfo(
                   element['public-key'],
                   element.id
               );
               resultTransaction.id = element.id;
               if (resultTransaction['from'] && resultTransaction['to']) {
-                  resultTransactions.push(resultTransaction)
+                  resultTransactions.push(resultTransaction);
+                  resultTransactions.sort(compareSerial);
               }
           });
+
           this.transactions = resultTransactions;
           this.Assets = await api.getAssets();
       },

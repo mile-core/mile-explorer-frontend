@@ -23,7 +23,7 @@ export default {
     return {
       count: 0,
       first: 0,
-      refreshRate: 5000,
+      refreshRate: 20000,
     };
   },
   methods: {

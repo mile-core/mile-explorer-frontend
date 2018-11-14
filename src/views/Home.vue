@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      refreshRate: 5000,
+      refreshRate: 20000,
       blockCount: 0,
       blockfirst: 0,
       blockLimit: 10,

@@ -83,7 +83,7 @@ export default {
     getTransactionInfo(publicKey, id) {
         return jsonRpc('get-transaction', {
             'public-key': publicKey,
-            'id':  id,
+            'id': id,
         });
     },
 
@@ -110,19 +110,14 @@ export default {
             'first': first,
             limit,
         }).then((resp) => {
+            console.log(resp);
             resp.forEach(function (item) {
-                search = uniq.indexOf(item['transaction-id']);
-                if (search == -1) {
-                    if (filter.length){
-                      if (filter.indexOf(item['transaction-type']) != -1){
-                          T.push(item);
-                          uniq.push(item['transaction-id']);
-                      }
-                    }else{
+                if (filter.length) {
+                    if (filter.indexOf(item['transaction-type']) != -1) {
                         T.push(item);
-                        uniq.push(item['transaction-id']);
                     }
-
+                } else {
+                    T.push(item);
                 }
             });
         });
@@ -154,13 +149,13 @@ export default {
 
     getAssets() {
         var assets = {};
-       var result = jsonRpc('get-blockchain-info').then((resp) => {
-           resp['info']['supported-assets'].forEach(function (item, i, arr) {
-               assets[item['code']] = item;
-           });
-           return assets;
-       });
+        var result = jsonRpc('get-blockchain-info').then((resp) => {
+            resp['info']['supported-assets'].forEach(function (item, i, arr) {
+                assets[item['code']] = item;
+            });
+            return assets;
+        });
 
-       return result;
+        return result;
     },
 };
