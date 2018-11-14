@@ -10,16 +10,16 @@
         p.description Sorry! This is an invalid wallet public key.
         button.btn(@click="$router.push({ name: 'home' })") Back Home
       template(v-else)
-        wallet-blocks(
-          :publicKey="publicKey"
-          :count="blockCount"
-          :first="blockfirst")
         wallet-transactions(
           :publicKey="publicKey"
           :count="transactionCount"
           :first="transactionfirst"
         )
-
+        wallet-blocks(
+          :publicKey="publicKey"
+          :count="blockCount"
+          :first="blockfirst"
+        )
 </template>
 
 <script>

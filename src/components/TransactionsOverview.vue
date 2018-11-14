@@ -10,19 +10,24 @@
           h3.main TX# 
             router-link.link(
               :to="{ name: 'transaction', params: { transactionId: transaction['transaction-id'], publicKey: transaction['from'] } }"
-            ) {{ transaction['transaction-id'] }}
+            ) {{ transaction['from'] }}:{{ transaction['transaction-id'] }}
           p.info 
-            span.address-tag from
+            span.address-tag
+              strong from:
               router-link.link.address-tag(
               :to="{ name: 'wallet', params: { publicKey: transaction['from'] } }"
               ) {{ transaction['from'] }}
-            span.address-tag to
+            span.address-tag
+              strong to:
               router-link.link.address-tag(
               :to="{ name: 'wallet', params: { publicKey: transaction['to'] } }"
               ) {{ transaction['to'] }}
           p.amount(v-for="item in transaction['asset']")
             template(v-if="Assets[item['code']]")
-              span.item Amount {{item['amount']}} {{Assets[item['code']]['name']}}
+              span.item
+                strong Amount:
+                span {{item['amount']}} {{Assets[item['code']]['name']}}
+
 
 </template>
 <script>
@@ -151,12 +156,12 @@ export default {
           padding: 0 1rem
         >p.info
           >span.address-tag 
-            width: 200px
+            width: 260px
             display: inline-block
             vertical-align: bottom
             text-overflow: ellipsis
             overflow: hidden
             >a.link
               margin-left: 5px
-
+              color: $color-blue
 </style>

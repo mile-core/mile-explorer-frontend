@@ -11,13 +11,14 @@
           ) Block {{ block['block-id'] }}
           .timestamp {{ block.timestamp | localTime }}
         .desc
-          .mined Signed &mdash; {{ block['escort-signatures'][0].signature }}
+          .mined Signed: {{ block['escort-signatures'][0].key }}
           .txns {{ block['transaction-count'] }} Txns
 </template>
 
 <script>
 import api from '@/api';
 import MileLoader from './MileLoader.vue';
+
 
 export default {
   components: {
@@ -124,6 +125,7 @@ export default {
         color: $color-white
         padding: .5rem 1rem
         text-align: center
+        width: 135px
         > .link
           color: $color-white
           text-decoration: none
@@ -133,14 +135,14 @@ export default {
           font-size: 11px
           line-height: 1rem
       > .desc
-        padding: 0 1rem
+        padding: 0 0 0 1rem
         max-width: 500px
         width: 100%
         display: inline-block
         vertical-align: bottom
         text-overflow: ellipsis
         overflow: hidden
-
+        margin-top: 8px
 @media screen and (max-width: 650px)
   .blocks-overview
     > ul.overview

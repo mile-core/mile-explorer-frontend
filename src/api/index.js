@@ -92,7 +92,7 @@ export default {
     getNodes(first, count) {
         return jsonRpc('get-nodes', {
             'first': first,
-            count,
+            'limit': count,
         });
     },
 

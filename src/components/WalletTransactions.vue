@@ -103,10 +103,10 @@ export default {
               this.count,
           );
           this.done = true;
-          var resultTransactions = [];
+          const resultTransactions = [];
 
-          result.forEach(async function(element) {
-              var resultTransaction = await api.getTransactionInfo(
+          await result.forEach(async function(element) {
+              const resultTransaction = await api.getTransactionInfo(
                   element['public-key'],
                   element.id
               );
@@ -116,9 +116,9 @@ export default {
                   resultTransactions.sort(compareSerial);
               }
           });
-
           this.transactions = resultTransactions;
           this.Assets = await api.getAssets();
+          this.done = true;
       },
   },
 };

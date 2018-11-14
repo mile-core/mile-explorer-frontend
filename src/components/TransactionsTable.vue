@@ -37,7 +37,7 @@
           div.t-id
             router-link(:to="'/transactions/' + transaction['from'] +'/'+transaction['transaction-id']") {{ transaction['id'] }}
         td.fee {{transaction['fee']}}
-        td.description {{transaction['description']}}
+        td.description.field-ellipsis(v-bind:title="transaction['description']") {{transaction['description']}}
         td.transaction-name {{transaction['transaction-type']}}
 </template>
 

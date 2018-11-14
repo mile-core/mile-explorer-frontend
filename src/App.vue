@@ -103,6 +103,12 @@ input
       &:hover
         background-color: $color-blue-light
         color: $color-white
+
+.field-ellipsis
+  max-width: 500px
+  text-overflow: ellipsis
+  overflow: hidden
+  display: inline-block
 </style>
 
 <style lang="sass" scoped>

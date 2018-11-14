@@ -23,7 +23,10 @@
                 template(v-else)
                   td {{ key }}
                   td
-                    strong {{ value }}
+                    template(v-if="key == 'description'")
+                      strong.field-ellipsis(v-bind:title="value") {{ value }}
+                    template(v-else)
+                      strong {{ value }}
         template(v-else)
           h1.title Oops!
           p.description Sorry! This is an invalid wallet public key or transaction id.

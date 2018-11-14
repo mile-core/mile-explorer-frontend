@@ -26,7 +26,7 @@ export default {
       refreshRate: 20000,
       blockCount: 0,
       blockfirst: 0,
-      blockLimit: 10,
+      blockLimit: 25,
       transactionCount: 0,
       transactionfirst: 0,
       transactionLimit: 25
