@@ -12,9 +12,8 @@ import timeago from 'timeago.js';
 Vue.config.productionTip = false;
 
 Vue.filter('localTime', function (value) {
-  var stillUtc = moment.utc(value).toDate();
-  var local = moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss');
-  return timeago().format(local);
+  var stillUtc = moment.unix(value).utc().toDate();
+  return timeago().format(stillUtc);
 })
 
 router.beforeEach((to, from, next) => {
@@ -28,4 +27,3 @@ new Vue({
   i18n,
   render: h => h(App),
 }).$mount('#app');
-
