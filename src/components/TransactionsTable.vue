@@ -112,7 +112,5 @@ table.transactions-table
     text-overflow: ellipsis
   td.amount.xdr
     padding-right:30px,
-  .timestamp
-    font-family: monospace
 </style>
 
