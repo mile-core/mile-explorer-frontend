@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import api from '@/api';
 import Wallet from '@/components/Wallet.vue';
 
 export default {
@@ -21,10 +22,12 @@ export default {
   data() {
     return {
       wallet: '',
+      count: 0,
+      first: 0,
     };
   },
   methods: {
-    submit() {
+    async submit() {
       this.$router.push(`/wallet/${this.wallet}`);
     },
   },

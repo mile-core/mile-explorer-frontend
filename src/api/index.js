@@ -102,26 +102,22 @@ export default {
     },
 
     getTransactionHistory(first, limit = 3, filter = []) {
-        var uniq = [];
-        var T = [];
-        var search = 0;
+        var transactions = [];
+        var other = [];
 
         jsonRpc('get-transaction-history', {
             'first': first,
             limit,
         }).then((resp) => {
-            console.log(resp);
             resp.forEach(function (item) {
-                if (filter.length) {
-                    if (filter.indexOf(item['transaction-type']) != -1) {
-                        T.push(item);
-                    }
-                } else {
-                    T.push(item);
+                if (item['transaction-type']=='TransferAssetsTransaction'){
+                    transactions.push(item);
+                }else{
+                    other.push(item);
                 }
             });
         });
-        return T;
+        return {'TransferAssetsTransaction':transactions,'OtherTransaction':other};
     },
     getTransactionHistoryState() {
         return jsonRpc('get-transaction-history-state', {});

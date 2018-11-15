@@ -1,5 +1,5 @@
 <template lang="pug">
-  table.transactions-table(v-if="sortedTransactions.length")
+  table.transfer-assets-transactions-table(v-if="sortedTransactions.length")
     thead
       tr
         th.serial #
@@ -13,7 +13,7 @@
         th.description description
         th.transaction-name transaction type
     tbody
-    tr(v-for="transaction in sortedTransactions" :key="transaction['transaction-id']" :unique-key="true")
+    tr(v-for="transaction in sortedTransactions" :key="transaction['serial']" :unique-key="true")
         td.serial {{transaction['serial']}}
         td.from
               router-link.link.address-tag(

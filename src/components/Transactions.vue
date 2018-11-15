@@ -2,20 +2,28 @@
   .transactions
     transactions-paginator(:count="count" :first="first" @input="fetchRange($event)")
     mile-loader(v-if="!done")
+    h4 Transfer Assets Transactions
     .table-responsive
-      transactions-table(:transactions="transactions")
+      transfer-assets-transactions-table(:transactions="transferAssetsTransactions")
+    template(v-if="otherTransactions.length")
+        h4(v-on:click="visible=!visible") Other Transactions
+        div(v-show="visible").table-responsive
+          other-transactions-table(:transactions="otherTransactions")
+
 </template>
 
 <script>
 import api from '@/api';
 import MileLoader from './MileLoader.vue';
-import TransactionsTable from './TransactionsTable.vue';
+import TransferAssetsTransactionsTable from './TransferAssetsTransactionsTable.vue';
+import OtherTransactionsTable from './OtherTransactionsTable.vue';
 import TransactionsPaginator from './TransactionsPaginator.vue';
 
 export default {
   components: {
     MileLoader,
-    TransactionsTable,
+    TransferAssetsTransactionsTable,
+    OtherTransactionsTable,
     TransactionsPaginator,
   },
   props: {
@@ -31,15 +39,17 @@ export default {
   data() {
     return {
       done: true,
-      transactions: [],
+        otherTransactions: [],
+        transferAssetsTransactions: [],
+        visible: false
     };
   },
   methods: {
     async fetchRange(range) {
-        console.log(range.limit);
       this.done = false;
-      console.log(range.from);
-      this.transactions = await api.getTransactionHistory(range.from, range.limit);
+      var T = await api.getTransactionHistory(range.from, range.limit);
+      this.transferAssetsTransactions = T['TransferAssetsTransaction'];
+      this.otherTransactions = T['OtherTransaction'];
       this.done = true;
     },
   },

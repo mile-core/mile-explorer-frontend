@@ -40,7 +40,7 @@ import MileLoader from './MileLoader.vue';
 import BlockTrnx from './BlockTrnx.vue';
 import BlockFeeTrnx from './BlockFeeTrnx.vue';
 import BlockSignature from './BlockSignature.vue';
-import TransactionsTable from './TransactionsTable.vue';
+import TransactionsTable from './TransferAssetsTransactionsTable.vue';
 
 export default {
   components: {
