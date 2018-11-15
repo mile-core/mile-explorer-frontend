@@ -1,22 +1,22 @@
 <template lang="pug">
-  .blocks
-    blocks-paginator(:count="count" :first="first" @input="fetchRange($event)")
+  .transactions
+    transactions-paginator(:count="count" :first="first" @input="fetchRange($event)")
     mile-loader(v-if="!done")
     .table-responsive
-      blocks-table(:blocks="blocks")
+      transactions-table(:transactions="transactions")
 </template>
 
 <script>
 import api from '@/api';
 import MileLoader from './MileLoader.vue';
-import BlocksTable from './BlocksTable.vue';
-import BlocksPaginator from './BlocksPaginator.vue';
+import TransactionsTable from './TransactionsTable.vue';
+import TransactionsPaginator from './TransactionsPaginator.vue';
 
 export default {
   components: {
     MileLoader,
-    BlocksTable,
-    BlocksPaginator,
+    TransactionsTable,
+    TransactionsPaginator,
   },
   props: {
     count: {
@@ -31,21 +31,17 @@ export default {
   data() {
     return {
       done: true,
-      blocks: [],
+      transactions: [],
     };
   },
   methods: {
     async fetchRange(range) {
+        console.log(range.limit);
       this.done = false;
-      this.blocks = await api.getBlockHistory(range.from, range.limit, ['transactions', 'escort-signatures', 'fee-transactions']);
+      console.log(range.from);
+      this.transactions = await api.getTransactionHistory(range.from, range.limit);
       this.done = true;
     },
   },
 };
 </script>
-
-<style lang="sass" scoped>
-.table-responsive
-  max-width: 100%
-  overflow: auto
-</style>

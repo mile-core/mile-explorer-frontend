@@ -2,9 +2,85 @@
   .transaction-overview
     .headline
       .title Transactions
-      button.btn View All
+      button.btn(@click="$router.push({ name: 'transactions' })") View All
     ul.overview
+      li.transaction(v-for="transaction in transactions" :key="transaction['serial']")
+        span.profile-icon
+        div.profile-post-in
+          h3.main TX# 
+            router-link.link(
+              :to="{ name: 'transaction', params: { transactionId: transaction['transaction-id'], publicKey: transaction['from'] } }"
+            ) {{ transaction['from'] }}:{{ transaction['transaction-id'] }}
+          p.info 
+            span.address-tag
+              strong from:
+              router-link.link.address-tag(
+              :to="{ name: 'wallet', params: { publicKey: transaction['from'] } }"
+              ) {{ transaction['from'] }}
+            span.address-tag
+              strong to:
+              router-link.link.address-tag(
+              :to="{ name: 'wallet', params: { publicKey: transaction['to'] } }"
+              ) {{ transaction['to'] }}
+          p.amount(v-for="item in transaction['asset']")
+            template(v-if="Assets[item['code']]")
+              span.item
+                strong Amount:
+                span {{item['amount']}} {{Assets[item['code']]['name']}}
+
+
 </template>
+<script>
+import api from '@/api';
+import fecha from 'fecha';
+import timeago from 'timeago.js';
+import MileLoader from './MileLoader.vue';
+
+export default {
+  components: {
+    MileLoader,
+  },
+  props: {
+    from: {
+      type: Number,
+      required: true,
+    },
+    limit: {
+      type: Number,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      done: false,
+      transactions: [],
+      SortedTransactions: [],
+      Assets:[]
+    };
+  },
+  computed: {
+    range() {
+      return {
+        from: this.from,
+        limit: this.limit,
+      };
+    },
+  },
+  watch: {
+    range: {
+      handler: 'fetchRange',
+      immediate: true,
+    },
+  },
+  methods: {
+      async fetchRange(range) {
+          this.Assets = await api.getAssets();
+          this.transactions = await api.getTransactionHistory(range.from, range.limit,['TransferAssetsTransaction', 'EmissionTransaction']);
+      },
+  },
+};
+</script>
+
 
 <style lang="sass" scoped>
 .transaction-overview
@@ -14,7 +90,7 @@
     flex-direction: row
     align-items: center
     justify-content: space-between
-    padding: 1rem
+    padding: 0.5rem 1rem
     background-color: $color-ghost
     border-bottom: 1px solid $color-gray-light
     > .title
@@ -46,6 +122,46 @@
   > ul.overview
     padding: 0
     font-size: 14px
-    height: 17.5rem
+    height: 42rem
     overflow-y: scroll
+    > li.transaction
+      float: left
+      list-style: none
+      display: block
+      padding: 0 0 .25rem
+      margin: 0 1rem .25rem
+      border-bottom: 1px solid #fafafa
+      background: #fff
+      margin-bottom: 2px
+      padding: 0
+      >span.profile-icon
+        float: left
+        color: #999
+        font-size: 20px
+        font-weight: 200
+        padding: 5px 12px
+      >div.profile-post-in
+        float: left
+        a
+          color: #3d4852
+        > .main
+          > .link
+            text-decoration: none
+            &:hover
+              text-decoration: underline
+          > .timestamp
+            font-size: 11px
+            line-height: 1rem
+        > .desc
+          padding: 0 1rem
+        >p.info
+          >span.address-tag 
+            width: 260px
+            display: inline-block
+            vertical-align: bottom
+            text-overflow: ellipsis
+            overflow: hidden
+            >a.link
+              margin-left: 5px
+              color: $color-blue
 </style>

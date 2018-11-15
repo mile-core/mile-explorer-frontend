@@ -40,10 +40,10 @@ export default {
     padding: 0
   input
     display: block
-    border: 1px solid $color-blue
-    margin-bottom: .5rem
-    width: 32rem
-    padding: .25rem
+    width: 100%
+    max-width: 450px
+    margin-bottom: 10px
+
   button[type=submit]
     background-color: $color-blue
     color: $color-white

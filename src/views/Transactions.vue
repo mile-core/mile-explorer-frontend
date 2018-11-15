@@ -1,7 +1,7 @@
 <template lang="pug">
-  .blocks
+  .transactions
     h1 {{ $t('title') }}
-    blocks(
+    transactions(
       v-if="count"
       :count="count"
       :first="first"
@@ -11,12 +11,12 @@
 
 <script>
 import api from '@/api';
-import Blocks from '@/components/Blocks.vue';
+import Transactions from '@/components/Transactions.vue';
 import MileLoader from '@/components/MileLoader.vue';
 
 export default {
   components: {
-    Blocks,
+    Transactions,
     MileLoader,
   },
   data() {
@@ -29,7 +29,7 @@ export default {
   methods: {
     async refreshState() {
       try {
-        const state = await api.getBlockHistoryState();
+        const state = await api.getTransactionHistoryState();
         this.count = state.count;
         this.first = state['first'];
       } finally {
@@ -49,7 +49,7 @@ export default {
 <i18n>
 {
   "en": {
-    "title": "Blocks"
+    "title": "Transactions"
   }
 }
 </i18n>

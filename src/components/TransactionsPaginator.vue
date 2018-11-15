@@ -1,5 +1,5 @@
 <template lang="pug">
-  .blocks-paginator.paginator
+  .transactions-paginator.paginator
     ul.pages(v-if="pages > 1")
       template(v-if="showFirst")
         li.page(
@@ -32,7 +32,7 @@ export default {
       type: Number,
       required: true,
     },
-    first: {
+      first: {
       type: Number,
       required: true,
     },
@@ -81,7 +81,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.blocks-paginator
+.transactions-paginator
   ul.pages
     display: flex
     padding: 0

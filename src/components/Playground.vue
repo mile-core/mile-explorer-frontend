@@ -10,11 +10,38 @@
         mile-loader(v-if="loading.help")
         pre(v-else) {{ results.help }}
 
+    .section
+      .method getAssets
+      .description Get all allowed methods
+      .actions
+        button(@click="request('getAssets')") Fetch
+      .results
+        mile-loader(v-if="loading.getAssets")
+        pre(v-else) {{ results.getAssets }}
+
+    .section
+      .method ping
+      .description Ping
+      .actions
+        button(@click="request('Ping')") Fetch
+      .results
+        mile-loader(v-if="loading.Ping")
+        pre(v-else) {{ results.Ping }}
+
+    .section
+      .method get-blockchain-info
+      .description Get all allowed methods
+      .actions
+        button(@click="request('getBlockchainInfo')") Fetch
+      .results
+        mile-loader(v-if="loading.getBlockchainInfo")
+        pre(v-else) {{ results.getBlockchainInfo }}
+
     h2 Explore blocks
 
     .section
       .method get-block-history-state
-      .description Get chains history from block first-id with limit of history length
+      .description Get chains history from block first with limit of history length
       .actions
         button(@click="request('getBlockHistoryState')") Fetch
       .results
@@ -23,14 +50,14 @@
 
     .section
       .method get-block-history
-      .description Get chains history from block first-id with limit of history length
+      .description Get chains history from block first with limit of history length
       .params
         .param
-          label(for="get-block-history_first-id") first-id
+          label(for="get-block-history_first") first
           input(
-            id="get-block-history_first-id"
+            id="get-block-history_first"
             type="number"
-            v-model.number="params.getBlockHistory.firstId"
+            v-model.number="params.getBlockHistory.first"
           )
         .param
           label(for="get-block-history_limit") limit
@@ -39,42 +66,12 @@
             type="number"
             v-model.number="params.getBlockHistory.limit"
           )
-        .param
-          label filter-field
-          ul.select
-            li
-              input(
-                id="get-block-history_escort-signatures"
-                name="get-block-history_filter"
-                type="checkbox"
-                value="escort-signatures"
-                v-model="params.getBlockHistory.filter"
-              )
-              label(for="get-block-history_escort-signatures") escort-signatures
-            li
-              input(
-                id="get-block-history_fee-transactions"
-                name="get-block-history_filter"
-                type="checkbox"
-                value="fee-transactions"
-                v-model="params.getBlockHistory.filter"
-              )
-              label(for="get-block-history_fee-transactions") fee-transactions
-            li
-              input(
-                id="get-block-history_transactions"
-                name="get-block-history_filter"
-                type="checkbox"
-                value="transactions"
-                v-model="params.getBlockHistory.filter"
-              )
-              label(for="get-block-history_transactions") transactions
       .actions
         button(
           @click=`
             request(
               'getBlockHistory',
-              params.getBlockHistory.firstId,
+              params.getBlockHistory.first,
               params.getBlockHistory.limit,
               params.getBlockHistory.filter
             )`
@@ -136,11 +133,11 @@
             v-model="params.getWalletHistoryBlocks.publicKey"
           )
         .param
-          label(for="get-wallet-history-blocks_first-id") first-id
+          label(for="get-wallet-history-blocks_first") first
           input(
-            id="get-wallet-history-blocks_first-id"
+            id="get-wallet-history-blocks_first"
             type="number"
-            v-model.number="params.getWalletHistoryBlocks.firstId"
+            v-model.number="params.getWalletHistoryBlocks.first"
           )
         .param
           label(for="get-wallet-history-blocks_limit") limit
@@ -153,7 +150,7 @@
         button(@click=`request(
           'getWalletHistoryBlocks',
           params.getWalletHistoryBlocks.publicKey,
-          params.getWalletHistoryBlocks.firstId,
+          params.getWalletHistoryBlocks.first,
           params.getWalletHistoryBlocks.limit,
         )`) Fetch
       .results
@@ -164,7 +161,7 @@
       .method get-wallet-history-transactions
       .description
         | Get wallet transaction history
-        | for the known public-key from first-id
+        | for the known public-key from first
         | with limit of transactions list
       .params
         .param
@@ -175,11 +172,11 @@
             v-model="params.getWalletHistoryTransactions.publicKey"
           )
         .param
-          label(for="get-wallet-history-transactions_first-id") first-id
+          label(for="get-wallet-history-transactions_first") first
           input(
-            id="get-wallet-history-transactions_first-id"
+            id="get-wallet-history-transactions_first"
             type="number"
-            v-model.number="params.getWalletHistoryTransactions.firstId"
+            v-model.number="params.getWalletHistoryTransactions.first"
           )
         .param
           label(for="get-wallet-history-transactions_limit") limit
@@ -192,12 +189,56 @@
         button(@click=`request(
           'getWalletHistoryTransactions',
           params.getWalletHistoryTransactions.publicKey,
-          params.getWalletHistoryTransactions.firstId,
+          params.getWalletHistoryTransactions.first,
           params.getWalletHistoryTransactions.limit
         )`) Fetch
       .results
         mile-loader(v-if="loading.getWalletHistoryTransactions")
         pre(v-else) {{ results.getWalletHistoryTransactions }}
+
+    .section
+      .method get-wallet-state
+      .description
+        | Get wallet transaction state
+        | for the known public-key from first
+      .params
+        .param
+          label(for="get-wallet-state_public-key") public-key
+          input(
+            id="get-wallet-state_public-key"
+            type="text"
+            v-model="params.getWalletState.publicKey"
+          )
+      .actions
+        button(@click=`request(
+          'getWalletState',
+          params.getWalletState.publicKey,
+        )`) Fetch
+      .results
+        mile-loader(v-if="loading.getWalletState")
+        pre(v-else) {{ results.getWalletState }}
+
+    .section
+      .method get-wallet-node
+      .description
+        | Get wallet transaction node
+        | for the known public-key from first
+      .params
+        .param
+          label(for="get-wallet-node_public-key") public-key
+          input(
+            id="get-wallet-node_public-key"
+            type="text"
+            v-model="params.getWalletNode.publicKey"
+          )
+      .actions
+        button(@click=`request(
+          'getWalletNode',
+          params.getWalletNode.publicKey,
+        )`) Fetch
+      .results
+        mile-loader(v-if="loading.getWalletNode")
+        pre(v-else) {{ results.getWalletNode }}
 
     .section
       .method get-transaction-info
@@ -227,6 +268,48 @@
         mile-loader(v-if="loading.getTransactionInfo")
         pre(v-else) {{ results.getTransactionInfo }}
 
+    .section
+      .method get-transaction-history
+      .description
+        | Get transaction history
+        | for the known first
+        | with limit of transactions list
+      .params
+        .param
+          label(for="get-transaction-history_first") first
+          input(
+            id="get-transaction-history_first"
+            type="number"
+            v-model.number="params.getTransactionHistory.first"
+          )
+        .param
+          label(for="get-transaction-history_limit") limit
+          input(
+            id="get-transaction-history_limit"
+            type="number"
+            v-model.number="params.getTransactionHistory.limit"
+          )
+      .actions
+        button(@click=`request(
+          'getTransactionHistory',
+          params.getTransactionHistory.first,
+          params.getTransactionHistory.limit
+        )`) Fetch
+      .results
+        mile-loader(v-if="loading.getTransactionHistory")
+        pre(v-else) {{ results.getTransactionHistory }}
+
+    .section
+      .method get-transaction-history-state
+      .description
+      .params
+      .actions
+        button(@click=`request(
+          'getTransactionHistoryState',
+        )`) Fetch
+      .results
+        mile-loader(v-if="loading.getTransactionHistoryState")
+        pre(v-else) {{ results.getTransactionHistoryState }}
 
     h2 Explore network and nodes
 
@@ -235,13 +318,13 @@
       .description TODO: Add description
       .params
         .param
-          label(for="get-nodes_first-id") first-id
-          input(id="get-nodes_first-id" type="number" v-model.number="params.getNodes.firstId")
+          label(for="get-nodes_first") first
+          input(id="get-nodes_first" type="number" v-model.number="params.getNodes.first")
         .param
-          label(for="get-nodes_count") count
-          input(id="get-nodes_count" type="number" v-model.number="params.getNodes.count")
+          label(for="get-nodes_limit") limit
+          input(id="get-nodes_limit" type="number" v-model.number="params.getNodes.limit")
       .actions
-        button(@click="request('getNodes', params.getNodes.firstId, params.getNodes.count)") Fetch
+        button(@click="request('getNodes', params.getNodes.first, params.getNodes.limit)") Fetch
       .results
         mile-loader(v-if="loading.getNodes")
         pre(v-else) {{ results.getNodes }}
@@ -270,7 +353,7 @@ export default {
       loading: {},
       params: {
         getBlockHistory: {
-          firstId: 0,
+          first: 0,
           limit: 1,
           filter: [],
         },
@@ -279,7 +362,7 @@ export default {
         },
         getWalletHistoryBlocks: {
           publicKey: 'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x',
-          firstId: 0,
+          first: 0,
           limit: 2,
         },
         getWalletHistoryState: {
@@ -287,7 +370,11 @@ export default {
         },
         getWalletHistoryTransactions: {
           publicKey: 'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x',
-          firstId: 0,
+          first: 0,
+          limit: 3,
+        },
+        getTransactionHistory: {
+          first: 0,
           limit: 3,
         },
         getTransactionInfo: {
@@ -295,9 +382,15 @@ export default {
           id: 1,
         },
         getNodes: {
-          firstId: 0,
-          count: 10,
+          first: 0,
+          limit: 10,
         },
+        getWalletNode: {
+            publicKey:'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x'
+        },
+        getWalletState: {
+              publicKey:'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x'
+          }
       },
       results: {},
     };
@@ -384,5 +477,6 @@ export default {
     &[type=number]
       width: 3rem
     &[type=text]
-      width: 32rem
+      width: 100%
+      max-width: 500px
 </style>

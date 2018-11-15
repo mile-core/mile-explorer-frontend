@@ -1,10 +1,10 @@
 {
   "block": {
     "count": 8,
-    "first-id": 0
+    "first": 0
   },
   "transaction": {
     "count": 13,
-    "first-id": 0
+    "first": 0
   }
 }

@@ -29,7 +29,7 @@ table.block-sign
     background-color: $color-ghost
   th,
   td
-    padding: .25rem
+
     text-align: left
     &.key,
     &.signature

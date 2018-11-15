@@ -25,7 +25,7 @@ export default {
       type: Number,
       required: true,
     },
-    firstId: {
+    first: {
       type: Number,
       required: true,
     },
@@ -40,7 +40,7 @@ export default {
     state() {
       return {
         count: this.count,
-        firstId: this.firstId,
+        first: this.first,
       };
     },
   },
@@ -53,9 +53,9 @@ export default {
   methods: {
     async fetchWalletBlocks() {
       this.done = false;
-      const result = await api.getWalletHistoryBlocks(this.publicKey, this.firstId, this.count);
+      const result = await api.getWalletHistoryBlocks(this.publicKey, this.first, this.count);
       this.done = true;
-      this.blocks = result.blocks;
+      this.blocks = result;
     },
   },
 };
@@ -67,9 +67,11 @@ ul.blocks
   margin: 0
   padding: 0
   margin-bottom: .5rem
+  flex-wrap: wrap
   > li.block
     margin: 0
     margin-right: .25rem
+    margin-bottom: .25rem
     list-style: none
     padding: .5rem
     text-align: center
