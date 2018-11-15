@@ -10,28 +10,44 @@
         p.description Sorry! This is an invalid block id.
         button.btn(@click="$router.push({ name: 'home' })") Back Home
     template(v-else)
-      h3 Info
-      dl
-        dt block-header-digest
-        dd {{ block['block-header-digest'] }}
-        dt block-id
-        dd {{ block['block-id'] }}
-        dt merkle-root
-        dd {{ block['merkle-root'] }}
-        dt number-of-signers
-        dd {{ block['number-of-signers'] }}
-        dt previous-block-digest
-        dd {{ block['previous-block-digest'] }}
-        dt round
-        dd {{ block['round'] }}
-        dt signature
-        dd {{ block['signature'] }}
-        dt Date
-        dd {{ block['timestamp'] | localTime }}
-        dt transaction-count
-        dd {{ block['transaction-count'] }}
-        dt version
-        dd {{ block['version'] }}
+        h3 Info
+        .table-responsive
+            table
+                thead
+                    tr
+                        th Key
+                        th Value
+                tbody
+                    tr
+                        td.block-header-digest block-header-digest
+                        td.block-header-digest {{ block['block-header-digest'] }}
+                    tr
+                        td.block-id block-id
+                        td.block-id {{ block['block-id'] }}
+                    tr
+                        td.merkle-root merkle-root
+                        td.merkle-root {{ block['merkle-root'] }}
+                    tr
+                        td.number-of-signers number-of-signers
+                        td.number-of-signers {{ block['number-of-signers'] }}
+                    tr
+                        td.previous-block-digest previous-block-digest
+                        td.previous-block-digest {{ block['previous-block-digest'] }}
+                    tr
+                        td.round round
+                        td.round {{ block['round'] }}
+                    tr
+                        td.signature signature
+                        td.signature {{ block['escort-signatures'][0].key }}
+                    tr
+                        td.date date
+                        td.date {{ block['timestamp'] | localTime }}
+                    tr
+                        td.transaction-count transaction-count
+                        td.transaction-count {{ block['transaction-count'] }}
+                    tr
+                        td.version version
+                        td.version {{ version }}
 </template>
 
 <script>
