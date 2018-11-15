@@ -2,10 +2,18 @@
   .home
     .info-wrapper
       .section
-        blocks-overview(v-if="blockCount" :from="blockFrom" :limit="blockLimit")
+        blocks-overview(
+          v-if="blockCount"
+          :from="blockFrom"
+          :limit="blockLimit"
+        )
         mile-loader(v-else)
       .section
-        transactions-overview(v-if="transactionCount" :from="transactionFrom" :limit="transactionLimit")
+        transactions-overview(
+          v-if="transactionCount"
+          :from="transactionFrom"
+          :limit="transactionLimit"
+        )
         mile-loader(v-else)
 </template>
 
@@ -29,7 +37,7 @@ export default {
       blockLimit: 25,
       transactionCount: 0,
       transactionfirst: 0,
-      transactionLimit: 25
+      transactionLimit: 25,
     };
   },
   computed: {
@@ -47,7 +55,7 @@ export default {
       try {
         const blockState = await api.getBlockHistoryState();
         this.blockCount = blockState.count;
-        this.blockfirst = blockState['first'];
+        this.blockfirst = blockState.first;
       } finally {
         this.$_blockStateTimeoutHandler = setTimeout(
           () => this.refreshBlockState(),
@@ -59,7 +67,7 @@ export default {
       try {
         const transactionState = await api.getTransactionHistoryState();
         this.transactionCount = transactionState.count;
-        this.transactionfirst = transactionState['first'];
+        this.transactionfirst = transactionState.first;
       } finally {
         this.$_transactionStateTimeoutHandler = setTimeout(
           () => this.refreshTransactionState(),
@@ -74,6 +82,7 @@ export default {
   },
   beforeDestroy() {
     clearTimeout(this.$_blockStateTimeoutHandler);
+    clearTimeout(this.$_transactionStateTimeoutHandler);
   },
 };
 </script>
