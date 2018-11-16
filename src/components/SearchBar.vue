@@ -3,7 +3,7 @@
     input.input(
       type="text"
       v-model="userInput"
-      placeholder="Search by Address / Txhash / Block "
+      placeholder="Search by Address / Block "
       v-on:keyup.13="go"
     )
     button.btn(@click="go") Go

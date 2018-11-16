@@ -95,7 +95,6 @@ export default {
               e['block-id'] = blockId
           })
       }
-    console.log(this.block['block-id']);
       this.done = true;
     }catch(error){
       if (isNaN(this.blockId)){
