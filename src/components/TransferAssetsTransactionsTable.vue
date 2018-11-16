@@ -11,35 +11,36 @@
         th.block-id block id
         th.transaction-id transaction id
         th.fee fee
-        th.description description
+        th.description memo
         th.transaction-name transaction type
     tbody
-      tr(v-for="transaction in sortedTransactions" :key="transaction['transaction-id']" :unique-key="true")
-          td.serial {{transaction['serial']}}
-          td.from
-                router-link.link.address-tag(
-                :to="{ name: 'wallet', params: { publicKey: transaction['from'] } }"
-                ) {{ transaction['from'] }}
-          td.to
-                router-link.link.address-tag(
-                :to="{ name: 'wallet', params: { publicKey: transaction['to'] } }"
-                ) {{ transaction['to'] }}
-          template(v-if="!transaction['asset']")
-                 td.transaction-asset
-                  td.amount
-          template(v-else)
-              template(v-for="item in transaction['asset']")
-                  template(v-if="Assets[item['code']]")
-                      td.transaction-asset {{Assets[item['code']]['name']}}
-                      td.amount {{item['amount']}}
-          td.block-id
-            router-link(:to="'/blocks/' + transaction['block-id']") {{ transaction['block-id'] }}
-          td.transaction-id
-            div.t-id
-              router-link(:to="'/transactions/' + transaction['from'] +'/'+transaction['transaction-id']") {{ transaction['id'] }}
-          td.fee {{transaction['fee']}}
-          td.description.field-ellipsis(v-bind:title="transaction['description']") {{transaction['description']}}
-          td.transaction-name {{transaction['transaction-type']}}
+      tr(v-for="transaction in sortedTransactions" :key="transaction['serial']" :unique-key="true")
+        td.serial {{transaction['serial']}}
+        td.from
+              router-link.link.address-tag(
+              :to="{ name: 'wallet', params: { publicKey: transaction['from'] } }"
+              ) {{ transaction['from'] }}
+        td.to
+              router-link.link.address-tag(
+              :to="{ name: 'wallet', params: { publicKey: transaction['to'] } }"
+              ) {{ transaction['to'] }}
+        template(v-if="!transaction['asset']")
+               td.transaction-asset
+                td.amount
+        template(v-else)
+            template(v-for="item in transaction['asset']")
+                template(v-if="Assets[item['code']]")
+                    td.transaction-asset {{Assets[item['code']]['name']}}
+                    td.amount {{item['amount']}}
+        td.block-id
+          router-link(:to="'/blocks/' + transaction['block-id']") {{ transaction['block-id'] }}
+        td.transaction-id
+          div.t-id
+            router-link(:to="'/transactions/' + transaction['from'] +'/'+transaction['transaction-id']") {{ transaction['id'] }}
+        td.fee {{transaction['fee']}}
+        td.description.field-ellipsis(v-bind:title="transaction['description']") {{transaction['description']}}
+        td.transaction-name {{transaction['transaction-type']}}
+
 </template>
 
 <script>

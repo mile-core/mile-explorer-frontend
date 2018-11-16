@@ -1,6 +1,5 @@
 <template lang="pug">
   .wallet-transactions
-    h4 Wallet Transactions
     mile-loader(v-if="!done")
     template(v-else)
       .table-responsive
@@ -95,30 +94,32 @@ export default {
           function compareSerial(txsA, txsB) {
               return parseInt(txsB['serial']) - parseInt(txsA['serial']);
           }
-
-          this.done = false;
-          const result = await api.getWalletHistoryTransactions(
-              this.publicKey,
-              this.first,
-              this.count,
-          );
-          this.done = true;
-          const resultTransactions = [];
-
-          await result.forEach(async function(element) {
-              const resultTransaction = await api.getTransactionInfo(
-                  element['public-key'],
-                  element.id
+          if (this.count){
+              const result = await api.getWalletHistoryTransactions(
+                  this.publicKey,
+                  this.first,
+                  this.count,
               );
-              resultTransaction.id = element.id;
-              if (resultTransaction['from'] && resultTransaction['to']) {
+
+              this.done = false;
+
+              this.done = true;
+              const resultTransactions = [];
+
+              await result.forEach(async function(element) {
+                  const resultTransaction = await api.getTransactionInfo(
+                      element['public-key'],
+                      element.id
+                  );
+                  resultTransaction.id = element.id;
                   resultTransactions.push(resultTransaction);
                   resultTransactions.sort(compareSerial);
-              }
-          });
-          this.transactions = resultTransactions;
-          this.Assets = await api.getAssets();
-          this.done = true;
+
+              });
+              this.transactions = resultTransactions;
+              this.Assets = await api.getAssets();
+              this.done = true;
+          }
       },
   },
 };

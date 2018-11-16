@@ -1,5 +1,6 @@
 <template lang="pug">
   .transaction-info
+
     mile-loader(v-if="!done")
     template(v-else)
     .table-responsive
@@ -11,22 +12,55 @@
                 th Key
                 th Value
             tbody
-              tr(v-for="(value, key) in info")
-                template(v-if="key == 'asset'")
-                  template(v-for="item in value")
-                    template(v-if="item['code'] === '1'")
-                      td.transaction-asset MILE
-                    template(v-if="item['code'] === '0'")
-                      td.transaction-asset XDR
-                    td.amount
-                      strong {{ item['amount'] }}
-                template(v-else)
-                  td {{ key }}
-                  td
-                    template(v-if="key == 'description'")
-                      strong.field-ellipsis(v-bind:title="value") {{ value }}
-                    template(v-else)
-                      strong {{ value }}
+              tr
+                template(v-for="item in info['asset']")
+                  template(v-if="item['code'] === '1'")
+                    td.transaction-asset MILE
+                  template(v-if="item['code'] === '0'")
+                    td.transaction-asset XDR
+                  td.amount
+                    strong {{ item['amount'] }}
+              tr
+                td.block-id block-id
+                td.block-id
+                  strong {{ info['block-id'] }}
+              tr
+                td.id id
+                td.id
+                  strong {{ info['id'] }}
+              tr
+                td.to to
+                td.to
+                  strong {{ info['to'] }}
+              tr
+                td.from from
+                td.from
+                  strong {{ info['from'] }}
+              tr
+                td.fee fee
+                td.fee
+                  strong {{ info['fee'] }}
+              tr
+                td.timestamp date
+                td.timestamp
+                  strong {{ info['timestamp'] }}
+              tr
+                td.transaction-id transaction-id
+                td.transaction-id
+                  strong {{ info['transaction-id'] }}
+              tr
+                td.transaction-type transaction-type
+                td.transaction-type
+                  strong {{ info['transaction-type'] }}
+              tr
+                td.memo memo
+                td.memo
+                  strong.field-ellipsis(v-bind:title="info['value']") {{ info['value'] }}
+              tr
+                td.serial serial
+                td.serial
+                  strong {{ info['serial'] }}
+
         template(v-else)
           h1.title Oops!
           p.description Sorry! This is an invalid wallet public key or transaction id.

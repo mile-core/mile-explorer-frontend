@@ -4,7 +4,7 @@
       .title Transactions
       button.btn(@click="$router.push({ name: 'transactions' })") View All
     ul.overview
-      li.transaction(v-for="transaction in transactions" :key="transaction['serial']")
+      li.transaction(v-for="transaction in transactions['TransferAssetsTransaction']" :key="transaction['serial']")
         span.profile-icon
         div.profile-post-in
           h3.main TX#
