@@ -112,10 +112,8 @@ export default {
                       element.id
                   );
                   resultTransaction.id = element.id;
-                  if (resultTransaction['from'] && resultTransaction['to']) {
-                      resultTransactions.push(resultTransaction);
-                      resultTransactions.sort(compareSerial);
-                  }
+                  resultTransactions.push(resultTransaction);
+                  resultTransactions.sort(compareSerial);
               });
               this.transactions = resultTransactions;
               this.Assets = await api.getAssets();
