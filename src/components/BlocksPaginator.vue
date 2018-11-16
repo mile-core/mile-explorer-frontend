@@ -81,10 +81,5 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.blocks-paginator
-  ul.pages
-    display: flex
-    padding: 0
-    > li.ellipsis
-      list-style: none
+
 </style>

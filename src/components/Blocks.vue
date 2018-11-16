@@ -1,6 +1,6 @@
 <template lang="pug">
   .blocks
-    blocks-paginator(:count="count" :first="first" @input="fetchRange($event)")
+    paginator(:count="count" :first="first" @input="fetchRange($event)")
     mile-loader(v-if="!done")
     .table-responsive
       blocks-table(:blocks="blocks")
@@ -10,13 +10,13 @@
 import api from '@/api';
 import MileLoader from './MileLoader.vue';
 import BlocksTable from './BlocksTable.vue';
-import BlocksPaginator from './BlocksPaginator.vue';
+import Paginator from './Paginator.vue';
 
 export default {
   components: {
     MileLoader,
     BlocksTable,
-    BlocksPaginator,
+    Paginator,
   },
   props: {
     count: {
@@ -45,7 +45,5 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.table-responsive
-  max-width: 100%
-  overflow: auto
+
 </style>

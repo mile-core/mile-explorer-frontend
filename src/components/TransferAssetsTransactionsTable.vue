@@ -1,8 +1,9 @@
 <template lang="pug">
-  table.transfer-assets-transactions-table(v-if="sortedTransactions.length")
+.table-wrap.js-ps-cont
+  table.table(v-if="sortedTransactions.length")
     thead
       tr
-        th.serial #
+        th.serial serial
         th.from from
         th.to to
         th.transaction-asset transaction-asset
@@ -10,10 +11,10 @@
         th.block-id block id
         th.transaction-id transaction id
         th.fee fee
-        th.description description
+        th.description memo
         th.transaction-name transaction type
     tbody
-    tr(v-for="transaction in sortedTransactions" :key="transaction['serial']" :unique-key="true")
+      tr(v-for="transaction in sortedTransactions" :key="transaction['serial']" :unique-key="true")
         td.serial {{transaction['serial']}}
         td.from
               router-link.link.address-tag(
@@ -39,11 +40,13 @@
         td.fee {{transaction['fee']}}
         td.description.field-ellipsis(v-bind:title="transaction['description']") {{transaction['description']}}
         td.transaction-name {{transaction['transaction-type']}}
+
 </template>
 
 <script>
 import fecha from 'fecha';
 import api from '@/api';
+import ps from 'perfect-scrollbar/dist/perfect-scrollbar';
 
 export default {
   props: {
@@ -55,7 +58,7 @@ export default {
   data() {
     return {
       now: Date.now(),
-      Assets: []
+      Assets: [],
     };
   },
   created() {
@@ -66,51 +69,35 @@ export default {
   destroyed() {
     clearInterval(this.intervalHandler);
   },
-    watch: {
-        range: {
-            handler: 'GetAsset',
-            immediate: true,
-        },
+  watch: {
+    range: {
+      handler: 'GetAsset',
+      immediate: true,
     },
+  },
   methods: {
     formatTimeStamp(timeStamp) {
       const date = timeStamp / 10000;
       return fecha.format(date, 'YYYY-MM-DD HH:mm:ss');
     },
-    async GetAsset(){
-          this.Assets = await api.getAssets();
-    }
+    async GetAsset() {
+      this.Assets = await api.getAssets();
+    },
   },
   computed: {
-      sortedTransactions() {
-          function compareSerial(txsA, txsB) {
-              return parseInt(txsB['serial']) - parseInt(txsA['serial']);
-          }
-          this.transactions.sort(compareSerial);
-          return this.transactions;
-      },
+    sortedTransactions() {
+      function compareSerial(txsA, txsB) {
+        return parseInt(txsB.serial) - parseInt(txsA.serial);
+      }
+
+      this.transactions.sort(compareSerial);
+      return this.transactions;
+    },
   },
 };
 </script>
 
 <style lang="sass" scoped>
-table.transactions-table
-  width: 100%
-  th,
-  td
-    &.block-header-digest,
-    &.previous-block-digest,
-    &.merkle-root
-      max-width: 10rem
-      white-space: nowrap
-      overflow: hidden
-      text-overflow: ellipsis
-  div.t-id
-    max-width: 6rem
-    white-space: nowrap
-    overflow: hidden
-    text-overflow: ellipsis
-  td.amount.xdr
-    padding-right:30px,
+
 </style>
 

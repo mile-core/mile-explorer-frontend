@@ -154,4 +154,16 @@ export default {
 
         return result;
     },
+    getWalletSate( publicKey, count ) {
+        return axios.post(
+            "https://lotus001.testnet.mile.global/v1/api",
+            {
+                method: "get-wallet-state",
+                params: { "public-key": publicKey },
+                id: 1,
+                jsonrpc: "2.0",
+                version: "1.0"
+            }
+        )
+    },
 };

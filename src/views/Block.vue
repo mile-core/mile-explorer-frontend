@@ -24,8 +24,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.breadcrumbs
-  span:not(:last-child)::after
-    content: " / "
+
 </style>
 

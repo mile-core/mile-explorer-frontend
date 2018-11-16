@@ -12,6 +12,11 @@
         p.description Sorry! This is an invalid wallet public key.
         button.btn(@click="$router.push({ name: 'home' })") Back Home
       template(v-else)
+        h4 Wallet balance
+        div.balance
+          template(v-for="asset in balance")
+            template(v-if="assets[asset['code']]")
+              div.balance-value {{ assets[asset['code']]['name'] }}: {{ asset.amount }}
         h4 Wallet Transactions
         wallet-transactions-paginator(:count="paginatorCount" :first="paginatorfirst" @input="fetchWalletState($event)")
         wallet-transactions(
@@ -42,8 +47,10 @@ export default {
     WalletTransactionsPaginator,
   },
   props: {
-    publicKey: String,
-    required: true,
+    publicKey: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
@@ -55,13 +62,19 @@ export default {
       paginatorfirst: 0,
       done: true,
       error: false,
-        totalTransactionCount:0,
-        totalBlockCount:0,
+            totalTransactionCount:0,
+            totalBlockCount:0,
+      balance: [],
+      assets: [],
     };
   },
   watch: {
     publicKey: {
       handler: 'fetchWalletState',
+      immediate: true,
+    },
+    balance: {
+      handler: 'getBalance',
       immediate: true,
     },
   },
@@ -89,32 +102,18 @@ export default {
         this.error = true;
       }
     },
+    async getBalance() {
+      if (this.balance.length == 0) {
+        this.assets = await api.getAssets();
+        const state = await api.getWalletSate(this.publicKey);
+        this.balance = state.data.result.balance
+      }
+    },
   },
 };
 </script>
 
 <style lang="sass" scoped>
-.wallet-info
-  .wallet-search
-    text-align: center
-    pre
-      display: block
-      padding: 9.5px
-      width: 80%
-      margin: 0 auto
-      font-size: 13px
-      line-height: 1.42857143
-      color: #333
-      word-break: break-all
-      word-wrap: break-word
-      background-color: #f5f5f5
-      border: 1px solid #ccc
-      border-radius: 4px  
-  .public-key
-    width: 100%
-    display: inline-block
-    vertical-align: bottom
-    text-overflow: ellipsis 
-    overflow: hidden
+
 </style>
 

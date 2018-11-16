@@ -22,20 +22,5 @@ export default {
 };
 </script>
 <style lang="sass" scoped>
-.search
-	text-align: center
 
-	> pre
-		display: block
-		padding: 9.5px
-		width: 80%
-    margin: 0 auto
-		font-size: 13px
-		line-height: 1.42857143
-		color: #333
-		word-break: break-all
-		word-wrap: break-word
-		background-color: #f5f5f5
-		border: 1px solid #ccc
-		border-radius: 4px
 </style>

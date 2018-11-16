@@ -1,30 +1,29 @@
 <template lang="pug">
   .transactions
-    transactions-paginator(:count="count" :first="first" @input="fetchRange($event)")
     mile-loader(v-if="!done")
     h4 Transfer Assets Transactions
-    .table-responsive
-      transfer-assets-transactions-table(:transactions="transferAssetsTransactions")
+    transfer-assets-transactions-table(:transactions="transferAssetsTransactions")
+    div(style="text-align: right")
+      paginator(:count="count" :first="first" @input="fetchRange($event)")
     template(v-if="otherTransactions.length")
-        h4(v-on:click="visible=!visible") Other Transactions
-        div(v-show="visible").table-responsive
-          other-transactions-table(:transactions="otherTransactions")
-
+      h4(v-on:click="visible=!visible") Other Transactions
+      div(v-show="visible").table-responsive
+        other-transactions-table(:transactions="otherTransactions")
 </template>
 
 <script>
 import api from '@/api';
 import MileLoader from './MileLoader.vue';
+import Paginator from './Paginator.vue';
 import TransferAssetsTransactionsTable from './TransferAssetsTransactionsTable.vue';
 import OtherTransactionsTable from './OtherTransactionsTable.vue';
-import TransactionsPaginator from './TransactionsPaginator.vue';
 
 export default {
   components: {
     MileLoader,
+    Paginator,
     TransferAssetsTransactionsTable,
     OtherTransactionsTable,
-    TransactionsPaginator,
   },
   props: {
     count: {

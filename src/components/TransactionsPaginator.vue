@@ -32,7 +32,7 @@ export default {
       type: Number,
       required: true,
     },
-      first: {
+    first: {
       type: Number,
       required: true,
     },
@@ -81,10 +81,5 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.transactions-paginator
-  ul.pages
-    display: flex
-    padding: 0
-    > li.ellipsis
-      list-style: none
+
 </style>
