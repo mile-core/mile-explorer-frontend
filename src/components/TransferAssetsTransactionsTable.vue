@@ -10,7 +10,7 @@
         th.block-id block id
         th.transaction-id transaction id
         th.fee fee
-        th.description description
+        th.description memo
         th.transaction-name transaction type
     tbody
     tr(v-for="transaction in sortedTransactions" :key="transaction['serial']" :unique-key="true")
@@ -83,6 +83,7 @@ export default {
   },
   computed: {
       sortedTransactions() {
+          console.log(this.transactions)
           function compareSerial(txsA, txsB) {
               return parseInt(txsB['serial']) - parseInt(txsA['serial']);
           }

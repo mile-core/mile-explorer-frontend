@@ -48,6 +48,10 @@
                     tr
                         td.version version
                         td.version {{ version }}
+    template(v-if="block['transactions'].length")
+        h3 Transactions
+        .table-responsive
+            transactions-table(:transactions="block['transactions']")
 </template>
 
 <script>
@@ -84,7 +88,14 @@ export default {
   },
   async created() {
     try {
+      const blockId = this.blockId
       this.block = await api.getBlock(this.blockId);
+      if (this.block['transactions'].length > 0) {
+          this.block['transactions'].forEach(function(e) {
+              e['block-id'] = blockId
+          })
+      }
+    console.log(this.block['block-id']);
       this.done = true;
     }catch(error){
       if (isNaN(this.blockId)){
