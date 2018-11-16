@@ -28,8 +28,8 @@ export default {
       const reg_for_keys = /(([a-z]+\d+)|(\d+[a-z]+))[a-z\d]*/;
       const reg_for_blockId = /^[0-9]+$/;
 
-      if (String(this.query).indexOf('-') !== -1) {
-        const Query = String(this.query).split('-');
+      if (String(this.query).indexOf(':') !== -1) {
+        const Query = String(this.query).split(':');
         const publicKey = Query[0];
         const transactionId = Query[1];
         this.$router.push({ name: 'transaction', params: { publicKey, transactionId } });
