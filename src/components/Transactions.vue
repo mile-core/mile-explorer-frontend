@@ -1,22 +1,22 @@
 <template lang="pug">
   .transactions
-    transactions-paginator(:count="count" :first="first" @input="fetchRange($event)")
     mile-loader(v-if="!done")
-    .table-responsive
-      transactions-table(:transactions="transactions")
+    transactions-table(:transactions="transactions")
+    div(style="text-align: right")
+      paginator(:count="count" :first="first" @input="fetchRange($event)")
 </template>
 
 <script>
 import api from '@/api';
 import MileLoader from './MileLoader.vue';
 import TransactionsTable from './TransactionsTable.vue';
-import TransactionsPaginator from './TransactionsPaginator.vue';
+import Paginator from './Paginator.vue';
 
 export default {
   components: {
     MileLoader,
     TransactionsTable,
-    TransactionsPaginator,
+    Paginator,
   },
   props: {
     count: {

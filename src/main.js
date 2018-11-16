@@ -1,5 +1,6 @@
 import 'normalize.css/normalize.css';
 import 'hamburgers/dist/hamburgers.min.css';
+import 'perfect-scrollbar/css/perfect-scrollbar.css';
 
 import Vue from 'vue';
 import App from './App.vue';

@@ -82,7 +82,7 @@ export default {
         this.error = true;
         this.done = true;
       }
-      
+
 
     },
   },
@@ -91,18 +91,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-table.transaction-table
-  width: 100%
-  max-width: 900px
-  &.block-header-digest,
-  &.previous-block-digest,
-  &.merkle-root
-    max-width: 10rem
-    white-space: nowrap
-    overflow: hidden
-    text-overflow: ellipsis
-  .timestamp
-    font-family: monospace
+
 </style>
 
 <i18n>

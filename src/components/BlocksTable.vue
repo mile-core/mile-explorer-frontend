@@ -64,17 +64,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-table.blocks-table
-  width: 100%
-  th,
-  td
-    text-align: center
-    &.block-header-digest,
-    &.previous-block-digest,
-    &.merkle-root
-      max-width: 10rem
-      white-space: nowrap
-      overflow: hidden
-      text-overflow: ellipsis
+
 </style>
 

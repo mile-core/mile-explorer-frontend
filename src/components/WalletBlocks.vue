@@ -62,26 +62,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-ul.blocks
-  display: flex
-  margin: 0
-  padding: 0
-  margin-bottom: .5rem
-  flex-wrap: wrap
-  > li.block
-    margin: 0
-    margin-right: .25rem
-    margin-bottom: .25rem
-    list-style: none
-    padding: .5rem
-    text-align: center
-    border: 1px solid $color-blue
-    &:hover
-      background: $color-blue
-      color: $color-white
-      > a
-        color: $color-white
-    > a
-      text-decoration: none
+
 </style>
 

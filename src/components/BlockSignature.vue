@@ -23,18 +23,5 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-table.block-sign
-  width: 100%
-  tr:nth-child(2n+1)
-    background-color: $color-ghost
-  th,
-  td
 
-    text-align: left
-    &.key,
-    &.signature
-      max-width: 10rem
-      white-space: nowrap
-      overflow: hidden
-      text-overflow: ellipsis
 </style>

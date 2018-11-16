@@ -123,17 +123,7 @@ export default {
   },
 };
 </script>
+
 <style lang="sass" scoped>
 
-table.transactions
-  width: 100%
-  th,
-  td
-    &.block-header-digest,
-    &.previous-block-digest,
-    &.merkle-root
-      max-width: 10rem
-      white-space: nowrap
-      overflow: hidden
-      text-overflow: ellipsis
 </style>
