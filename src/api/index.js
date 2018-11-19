@@ -87,6 +87,12 @@ export default {
         });
     },
 
+    getTransactionDigest(publicKey) {
+        return jsonRpc('get-transaction', {
+            'digest': publicKey,
+        });
+    },
+
     // TODO: need description
     // {"jsonrpc":"2.0","method":"get-nodes","params": {"first":0, "count":10},"id":"12"}
     getNodes(first, count) {
