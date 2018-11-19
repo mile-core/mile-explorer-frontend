@@ -40,7 +40,6 @@
         td.fee {{transaction['fee']}}
         td.description.field-ellipsis(v-bind:title="transaction['description']") {{transaction['description']}}
         td.transaction-name {{transaction['transaction-type']}}
-
 </template>
 
 <script>

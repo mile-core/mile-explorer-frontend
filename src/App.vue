@@ -1,5 +1,6 @@
 <template lang="pug">
   #app
+    .content-wrapper.page-bg
     the-header
     .main.content-wrapper
       router-view
@@ -42,8 +43,17 @@ export default {
     max-width: 1250px
     width: 100%
 
+  .page-bg
+    position: absolute
+    z-index: -1
+    top: 0
+    bottom: 0
+    right: 0
+    left: 0
+    background: url(assets/bg-logo.svg) right -59px top -138px no-repeat
+
   .main
-    margin-bottom: 50px
+    padding-bottom: 50px
 
   hr
     height: 0
@@ -161,9 +171,84 @@ export default {
       padding: 3rem 0
     > .info-wrapper
       display: flex
+      justify-content: space-between
+      height: 550px
       > .section
         width: calc(50% - 1rem)
-        margin: 0 .5rem
+
+  .section
+    box-shadow: 0 0 12px rgba(3,1,56,0.12)
+    background-color: #fff
+
+  .text-overflow
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+  .nowrap
+    white-space: nowrap
+
+  .block-list
+    padding: 21px 30px
+    &__head
+      display: flex
+      justify-content: space-between
+      padding-bottom: 24px
+    &__title
+      font-size: 15px
+      line-height: 21px
+      color: $color-black
+      font-family: $font-title
+      font-weight: bold
+      text-transform: uppercase
+    &__list
+      position: relative
+      &_scrollbar
+        margin-right: -18px
+        padding-right: 18px
+
+  .list-blocks
+    margin: 0
+    padding: 0
+    list-style-type: none
+    border-top: 1px solid #eaeaea
+    &__item
+      padding: 17px 0
+      border-bottom: 1px solid #eaeaea
+      font-style: 13px
+
+  .list-item
+    &__pill
+      margin-bottom: 13px
+
+  .pill
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 8px 18px
+    height: 42px
+    border-radius: 21px
+    background-color: $color-green
+    color: #fff
+    font-size: 15px
+    &__body
+    &__tip
+      margin-left: 20px
+      padding-left: 10px
+      border-left: 1px solid rgba(255,255,255,.5)
+      font-size: 12px
+    a
+      color: #fff
+
+  .row-info
+    display: flex
+    justify-content: space-between
+    align-items: center
+    &__col
+      &:not(:first-child)
+        margin-left: 20px
+      strong
+        margin-right: .25em
 
   @media screen and (max-width: 992px)
     .home
@@ -172,13 +257,17 @@ export default {
       > .info-wrapper
         flex-direction: column
         > .section
-          width: calc(100% - 1rem)
+          width: 100%
 
   .footer
     background-color: $footer-bg
     color: $color-white
     font-size: .875rem
     -webkit-font-smoothing: antialiased
+    &__panel
+      padding: 7px 0
+      height: 35px
+      background-color: $color-green
     &__inner
       display: flex
       justify-content: space-between
@@ -201,6 +290,19 @@ export default {
       font-size: 15px
       line-height: 26px
 
+  .separate-list
+    display: flex
+    font-size: 13px
+    color: #fff
+    &__item
+      display: flex
+      margin-right: 25px
+      padding-right: 25px
+      align-items: center
+      text-transform: uppercase
+      &:not(:last-child)
+        border-right: 1px solid #fff
+
   .bottom-menu
     a
       color: #fff
@@ -212,7 +314,7 @@ export default {
       flex-wrap: nowrap
       align-items: center
       position: relative
-      padding-top: 30px
+      padding-top: 18px
       padding-bottom: 30px
     &__logo
       margin: 0
@@ -222,7 +324,7 @@ export default {
       justify-content: space-between
       width: 100%
     &__bottom
-      margin-top: 46px
+      margin-top: 18px
       width: 100%
     &__menu
       margin-top: -27px
@@ -293,6 +395,7 @@ export default {
     .top-menu
       display: block
       position: absolute
+      z-index: 10
       top: 97px
       width: 100%
       text-align: center
@@ -310,20 +413,9 @@ export default {
     .top-menu
       display: block !important
 
-  @media screen and (max-width: 1366px)
-    .search-wrapper
-      max-width: 500px
-
-  @media screen and (max-width: 1160px)
-    .search-wrapper
-      max-width: 300px
-
   @media screen and (max-width: 650px)
     .header
       padding-bottom: 70px
-    .search-wrapper
-      position: absolute
-      bottom: 20px
 
   .breadcrumbs
     span:not(:last-child)::after
@@ -804,6 +896,28 @@ export default {
         white-space: nowrap
         overflow: hidden
         text-overflow: ellipsis
+
+  .tabs
+    display: flex
+    &__item
+      position: relative
+      padding: 16px 29px
+      background-color: #e8edf3
+      box-shadow: 0 -9px 12px -10px rgba(3, 1, 56, 0.12) inset
+      color: $color-green
+      text-transform: uppercase
+      cursor: pointer
+      &.active
+        background-color: #fff
+        box-shadow: 0 0 12px rgba(3,1,56,0.12)
+        &:after
+          content: ""
+          position: absolute
+          bottom: -8px
+          right: 0
+          left: 0
+          height: 8px
+          background-color: #fff
 </style>
 
 <style lang="sass" scoped>

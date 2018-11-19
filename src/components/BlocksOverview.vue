@@ -1,24 +1,26 @@
 <template lang="pug">
-  .blocks-overview
-    .headline
-      .title Blocks
-      button.btn(@click="$router.push({ name: 'blocks' })") View All
-    ul.overview
-      li.block(v-for="block in blocks " :key="block.id")
-        .main
-          router-link.link(
-            :to="{ name: 'block', params: { blockId: block['block-id'] } }"
-          ) Block {{ block['block-id'] }}
-          .timestamp {{ block.timestamp | localTime }}
-        .desc
-          .mined Signed: {{ block['escort-signatures'][0].key }}
-          .txns {{ block['transaction-count'] }} Txns
+  .block-list
+    .block-list__head
+      .block-list__title Blocks
+      a(@click="$router.push({ name: 'blocks' })" href="javascript:void(0)") VIEW ALL
+    .block-list__list.block-list__list_scrollbar(style="height: 460px; overflow: hidden;")
+      ul.list-blocks
+        li.list-blocks__item.row-info(v-for="block in blocks " :key="block.id")
+          .row-info__col.pill
+            .pill__body
+              router-link(
+                :to="{ name: 'block', params: { blockId: block['block-id'] } }"
+              ) {{ block['block-id'] }}
+            .pill__tip.text-overflow {{ block.timestamp | localTime }}
+          .row-info__col.text-overflow
+            strong SIGNED
+            span {{ block['escort-signatures'][0].key }}
+          .row-info__col.nowrap {{ block['transaction-count'] }} Txns
 </template>
-
 <script>
+import ps from 'perfect-scrollbar/dist/perfect-scrollbar';
 import api from '@/api';
 import MileLoader from './MileLoader.vue';
-
 
 export default {
   components: {
@@ -57,20 +59,23 @@ export default {
   methods: {
     async fetchRange(range) {
       const blocks = await api.getBlockHistory(range.from, range.limit, ['transactions', 'escort-signatures', 'fee-transactions']);
-      this.blocks = blocks.slice().reverse()
+      this.blocks = blocks.slice().reverse();
     },
   },
   filters: {
-    sortArray: function(value) {
+    sortArray(value) {
       if (value) {
-        return value.slice().reverse()
-      } else {
-        return []
+        return value.slice().reverse();
       }
-    }
+      return [];
+    },
+  },
+  mounted() {
+    const scrollObj = new ps(this.$el.querySelector('.block-list__list'));
   },
 };
 </script>
+
 
 <style lang="sass" scoped>
 

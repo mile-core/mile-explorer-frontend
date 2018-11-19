@@ -23,77 +23,59 @@
 </template>
 
 <script>
-    import fecha from 'fecha';
-    import api from '@/api';
+import fecha from 'fecha';
+import api from '@/api';
 
-    export default {
-        props: {
-            transactions: {
-                type: Array,
-                required: true,
-            },
-        },
-        data() {
-            return {
-                now: Date.now(),
-                Assets: []
-            };
-        },
-        created() {
-            this.intervalHandler = setInterval(() => {
-                this.now = Date.now();
-            }, 500);
-        },
-        destroyed() {
-            clearInterval(this.intervalHandler);
-        },
-        watch: {
-            range: {
-                handler: 'GetAsset',
-                immediate: true,
-            },
-        },
-        methods: {
-            formatTimeStamp(timeStamp) {
-                const date = timeStamp / 10000;
-                return fecha.format(date, 'YYYY-MM-DD HH:mm:ss');
-            },
-            async GetAsset(){
-                this.Assets = await api.getAssets();
-            }
-        },
-        computed: {
-            sortedTransactions() {
-                function compareSerial(txsA, txsB) {
-                    return parseInt(txsB['serial']) - parseInt(txsA['serial']);
-                }
-                console.log("other");
-                console.log(this.transactions);
-                this.transactions.sort(compareSerial);
-                return this.transactions;
-            },
-        },
+export default {
+  props: {
+    transactions: {
+      type: Array,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      now: Date.now(),
+      Assets: [],
     };
+  },
+  created() {
+    this.intervalHandler = setInterval(() => {
+      this.now = Date.now();
+    }, 500);
+  },
+  destroyed() {
+    clearInterval(this.intervalHandler);
+  },
+  watch: {
+    range: {
+      handler: 'GetAsset',
+      immediate: true,
+    },
+  },
+  methods: {
+    formatTimeStamp(timeStamp) {
+      const date = timeStamp / 10000;
+      return fecha.format(date, 'YYYY-MM-DD HH:mm:ss');
+    },
+    async GetAsset() {
+      this.Assets = await api.getAssets();
+    },
+  },
+  computed: {
+    sortedTransactions() {
+      function compareSerial(txsA, txsB) {
+        return parseInt(txsB.serial) - parseInt(txsA.serial);
+      }
+
+      this.transactions.sort(compareSerial);
+      return this.transactions;
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>
-    table.transactions-table
-        width: 100%
-        th,
-        td
-            &.block-header-digest,
-            &.previous-block-digest,
-            &.merkle-root
-                max-width: 10rem
-                white-space: nowrap
-                overflow: hidden
-                text-overflow: ellipsis
-        div.t-id
-            max-width: 6rem
-            white-space: nowrap
-            overflow: hidden
-            text-overflow: ellipsis
-        td.amount.xdr
-            padding-right:30px,
+
 </style>
 

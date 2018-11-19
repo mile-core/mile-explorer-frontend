@@ -1,6 +1,12 @@
 <template lang="pug">
   footer.footer
-    .footer__inner.content-wrapper
+    .footer__panel
+      .separate-list.content-wrapper
+        .separate-list__item blocks: 5169
+        .separate-list__item transactions: 37748
+        .separate-list__item(v-if="stats.amount") per day: {{ stats.amount }}
+        .separate-list__item wallet: 15237748394876
+    .footer__inner.content-wrapper(style="height: 100%")
       .footer__copyright
         p(v-html="$t('copyright')")
       .footer__text
@@ -8,6 +14,40 @@
       nav.footer__menu.bottom-menu
         router-link(to="/playground") API Playground
 </template>
+
+<script>
+import api from '@/api';
+
+export default {
+  data() {
+    return {
+      stats: {},
+    };
+  },
+  methods: {
+    async fetchStats() {
+      const data = await api.getTurnovers();
+      console.log(data);
+      const res = {
+        amount: 0,
+      };
+      console.log(res.amount);
+
+      if (data.assets) {
+        data.assets.forEach((asset) => {
+          res.amount += asset.amount;
+        });
+      }
+
+      console.log(res.amount);
+      return data;
+    },
+  },
+  created() {
+    this.stats = this.fetchStats();
+  },
+};
+</script>
 
 <style lang="sass" scoped>
 

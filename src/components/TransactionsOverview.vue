@@ -1,40 +1,41 @@
 <template lang="pug">
-  .transaction-overview
-    .headline
-      .title Transactions
-      button.btn(@click="$router.push({ name: 'transactions' })") View All
-    ul.overview
-      li.transaction(v-for="transaction in transactions['TransferAssetsTransaction']" :key="transaction['serial']")
-        span.profile-icon
-        div.profile-post-in
-          h3.main TX#
-            router-link.link(
-              :to="{ name: 'transaction', params: { transactionId: transaction['transaction-id'], publicKey: transaction['from'] } }"
-            ) {{ transaction['from'] }}:{{ transaction['transaction-id'] }}
-          p.info
-            span.address-tag
-              strong from:
-              router-link.link.address-tag(
+  .block-list
+    .block-list__head
+      .block-list__title Transactions
+      a(@click="$router.push({ name: 'transactions' })" href="javascript:void(0)") VIEW ALL
+    .block-list__list.block-list__list_scrollbar(style="height: 460px; overflow: hidden;")
+      ul.list-blocks
+        li.list-blocks__item.list-item(v-for="transaction in transactions['TransferAssetsTransaction']" :key="transaction['serial']")
+          .list-item__pill.pill
+            .pill__body.text-overflow
+              router-link(
+                :to="{ name: 'transaction', params: { transactionId: transaction['transaction-id'], publicKey: transaction['from'] } }"
+              ) {{ transaction['from'] }}:{{ transaction['transaction-id'] }}
+            .pill__tip.nowrap {{ transaction.timestamp | localTime }}
+          .row-info
+            .row-info__col.text-overflow
+              strong FROM
+              router-link(
               :to="{ name: 'wallet', params: { publicKey: transaction['from'] } }"
               ) {{ transaction['from'] }}
-            span.address-tag
-              strong to:
-              router-link.link.address-tag(
+            .row-info__col.text-overflow
+              strong TO
+              router-link(
               :to="{ name: 'wallet', params: { publicKey: transaction['to'] } }"
               ) {{ transaction['to'] }}
-          p.amount(v-for="item in transaction['asset']")
-            template(v-if="Assets[item['code']]")
-              span.item
-                strong Amount:
-                span {{item['amount']}} {{Assets[item['code']]['name']}}
-
-
+            .row-info__col.nowrap(v-for="item in transaction['asset']")
+              template(v-if="Assets[item['code']]")
+                span.item
+                  strong AMOUNT
+                  span {{item['amount']}} {{Assets[item['code']]['name']}}
 </template>
 <script>
-import api from '@/api';
+import ps from 'perfect-scrollbar/dist/perfect-scrollbar';
 import fecha from 'fecha';
 import timeago from 'timeago.js';
+import api from '@/api';
 import MileLoader from './MileLoader.vue';
+
 
 export default {
   components: {
@@ -55,7 +56,7 @@ export default {
       done: false,
       transactions: [],
       SortedTransactions: [],
-      Assets:[]
+      Assets: [],
     };
   },
   computed: {
@@ -73,10 +74,13 @@ export default {
     },
   },
   methods: {
-      async fetchRange(range) {
-          this.Assets = await api.getAssets();
-          this.transactions = await api.getTransactionHistory(range.from, range.limit,['TransferAssetsTransaction', 'EmissionTransaction']);
-      },
+    async fetchRange(range) {
+      this.Assets = await api.getAssets();
+      this.transactions = await api.getTransactionHistory(range.from, range.limit, ['TransferAssetsTransaction', 'EmissionTransaction']);
+    },
+  },
+  mounted() {
+    const scrollObj = new ps(this.$el.querySelector('.block-list__list'));
   },
 };
 </script>

@@ -1,4 +1,5 @@
 <template lang="pug">
+div(:style="{ textAlign: align }")
   .paginator
     ul.pages(v-if="pages > 1")
       template(v-if="showFirst")
@@ -35,6 +36,10 @@ export default {
     first: {
       type: Number,
       required: true,
+    },
+    align: {
+      type: String,
+      default: 'right',
     },
   },
   data() {
