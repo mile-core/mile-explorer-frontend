@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import api from '@/api';
+
 export default {
   data() {
     return {
@@ -23,7 +25,7 @@ export default {
     },
   },
   methods: {
-    go() {
+    async go() {
       const blockId = parseInt(this.query, 10);
       const reg_for_keys = /(([a-z]+\d+)|(\d+[a-z]+))[a-z\d]*/;
       const reg_for_blockId = /^[0-9]+$/;
@@ -36,7 +38,14 @@ export default {
       } else if (reg_for_blockId.test(String(this.query)) === true) {
         this.$router.push({ name: 'block', params: { blockId } });
       } else if (reg_for_keys.test(String(this.query)) === true) {
-        this.$router.push({ name: 'wallet', params: { publicKey: this.query } });
+        const Query = String(this.query).split(':');
+        const publicKey = Query[0];
+        const isDigest = await api.getTransactionDigest(publicKey);
+        if(isDigest.length > 0) {
+          this.$router.push({ name: 'digest', params: { publicKey: this.query } });
+        } else {
+          this.$router.push({ name: 'wallet', params: { publicKey: this.query } });
+        }
       } else {
         this.$router.push({ name: 'search', params: { query: this.query } });
       }

@@ -69,6 +69,13 @@ export default new Router({
       meta: {title: 'Public key info'},
     },
     {
+      path: '/digest/:publicKey',
+      name: 'digest',
+      component: Transaction,
+      props: true,
+      meta: {title: 'Public key info'},
+    },
+    {
       path: '/wallet/:publicKey/transactions/:transactionId',
       name: 'transaction',
       component: Transaction,

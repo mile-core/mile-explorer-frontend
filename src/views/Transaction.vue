@@ -5,7 +5,6 @@
         router-link(:to="'/wallet/' + publicKey") Wallet
       span Transaction # {{ transactionIdInt }}
     wallet-transaction-info(
-      v-if="transactionId"
       :publicKey="publicKey"
       :transactionId="transactionIdInt"
     )
@@ -25,12 +24,15 @@ export default {
     },
     transactionId: {
       type: String,
-      required: true,
     },
   },
   computed: {
     transactionIdInt() {
-      return this.transactionId;
+      if (this.transactionId) {
+        return this.transactionId;
+      } else {
+        return this.publicKey;
+      }
     },
   },
 };

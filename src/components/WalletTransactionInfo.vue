@@ -37,6 +37,10 @@
                 td.from
                   strong {{ info['from'] }}
               tr
+                td.digest digest
+                td.digest
+                  strong {{ info['digest'] }}
+              tr
                 td.fee fee
                 td.fee
                   strong {{ info['fee'] }}
@@ -84,7 +88,6 @@ export default {
     },
     transactionId: {
       type: String,
-      required: true,
     },
   },
   data() {
@@ -95,7 +98,7 @@ export default {
     };
   },
   watch: {
-    transactionId: {
+    publicKey: {
       handler: 'fetchTransactionInfo',
       immediate: true,
     },
@@ -112,12 +115,20 @@ export default {
           this.error = true;
           this.done = true;
         }
-      }else{
+      }else if (this.publicKey){
+        try{
+          this.done = false;
+          const result = await api.getTransactionDigest(this.publicKey);
+          this.done = true;
+          this.info = result[0];
+        }catch(error){
+          this.error = true;
+          this.done = true;
+        }
+      } else {
         this.error = true;
         this.done = true;
       }
-
-
     },
   },
 
