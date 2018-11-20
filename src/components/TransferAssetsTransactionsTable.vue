@@ -14,7 +14,7 @@
         th.description memo
         th.transaction-name transaction type
     tbody
-      tr(v-for="transaction in sortedTransactions" :key="transaction['serial']" :unique-key="true")
+      tr(v-for="transaction in transactions" :key="transaction['serial']" :unique-key="true")
         td.serial {{transaction['serial']}}
         td.from
               router-link.link.address-tag(
@@ -81,16 +81,6 @@ export default {
     },
     async GetAsset() {
       this.Assets = await api.getAssets();
-    },
-  },
-  computed: {
-    sortedTransactions() {
-      function compareSerial(txsA, txsB) {
-        return parseInt(txsB.serial) - parseInt(txsA.serial);
-      }
-
-      this.transactions.sort(compareSerial);
-      return this.transactions;
     },
   },
 };

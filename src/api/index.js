@@ -111,6 +111,10 @@ export default {
     const transactions = [];
     const other = [];
 
+    function compareSerial(txsA, txsB) {
+      return parseInt(txsB.serial) - parseInt(txsA.serial);
+    }
+
     jsonRpc('get-transaction-history', {
       first,
       limit,
@@ -118,13 +122,17 @@ export default {
       resp.forEach((item) => {
         if (item['transaction-type'] == 'TransferAssetsTransaction') {
           transactions.push(item);
+          transactions.sort(compareSerial);
         } else {
           other.push(item);
+          transactions.sort(compareSerial);
         }
       });
     });
+
     return { TransferAssetsTransaction: transactions, OtherTransaction: other };
   },
+
   getTransactionHistoryState() {
     return jsonRpc('get-transaction-history-state', {});
   },
