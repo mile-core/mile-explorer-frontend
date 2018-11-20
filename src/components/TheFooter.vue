@@ -27,11 +27,9 @@ export default {
   methods: {
     async fetchStats() {
       const data = await api.getTurnovers();
-      console.log(data);
       const res = {
         amount: 0,
       };
-      console.log(res.amount);
 
       if (data.assets) {
         data.assets.forEach((asset) => {
@@ -39,12 +37,23 @@ export default {
         });
       }
 
-      console.log(res.amount);
-      return data;
+      return res;
     },
   },
   created() {
-    this.stats = this.fetchStats();
+    const that = this;
+
+    function fetchStats() {
+      that.fetchStats().then((res) => {
+        that.stats = res;
+      });
+    }
+
+    fetchStats();
+
+    setInterval(() => {
+      fetchStats();
+    }, 60000);
   },
 };
 </script>

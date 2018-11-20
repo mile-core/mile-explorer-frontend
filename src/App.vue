@@ -66,7 +66,6 @@ export default {
     max-width: 100%
     overflow: auto
     table
-      /*border: 1px solid #293891*/
       border-spacing: 0px
       border-radius: 5px
       overflow: hidden
@@ -172,7 +171,6 @@ export default {
     > .info-wrapper
       display: flex
       justify-content: space-between
-      height: 550px
       > .section
         width: calc(50% - 1rem)
 
