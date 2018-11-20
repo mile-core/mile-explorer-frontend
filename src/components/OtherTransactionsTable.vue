@@ -1,5 +1,5 @@
 <template lang="pug">
-  table.other-transactions-table(v-if="sortedTransactions.length")
+  table.other-transactions-table(v-if="transactions.length")
     thead
       tr
         th.serial #
@@ -8,7 +8,7 @@
         th.transaction-id transaction id
         th.transaction-name transaction type
     tbody
-    tr(v-for="transaction in sortedTransactions" :key="transaction['serial']" :unique-key="true")
+    tr(v-for="transaction in transactions" :key="transaction['serial']" :unique-key="true")
         td.serial {{transaction['serial']}}
         td.public-key
               router-link.link.address-tag(
@@ -60,16 +60,6 @@ export default {
     },
     async GetAsset() {
       this.Assets = await api.getAssets();
-    },
-  },
-  computed: {
-    sortedTransactions() {
-      function compareSerial(txsA, txsB) {
-        return parseInt(txsB.serial) - parseInt(txsA.serial);
-      }
-
-      this.transactions.sort(compareSerial);
-      return this.transactions;
     },
   },
 };

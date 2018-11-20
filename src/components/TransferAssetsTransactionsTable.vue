@@ -1,6 +1,6 @@
 <template lang="pug">
 .table-wrap.js-ps-cont
-  table.table(v-if="sortedTransactions.length")
+  table.table(v-if="transactions.length")
     thead
       tr
         th.serial serial
