@@ -96,16 +96,6 @@ export default {
       this.Assets = await api.getAssets();
     },
   },
-  computed: {
-    sortedTransactions() {
-      function compareSerial(txsA, txsB) {
-        return parseInt(txsB.serial) - parseInt(txsA.serial);
-      }
-
-      this.transactions.sort(compareSerial);
-      return this.transactions;
-    },
-  },
 };
 </script>
 

@@ -55,7 +55,6 @@ export default {
     return {
       done: false,
       transactions: [],
-      SortedTransactions: [],
       Assets: [],
     };
   },
