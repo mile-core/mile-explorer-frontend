@@ -1,13 +1,7 @@
 <template lang="pug">
   footer.footer
-    .footer__panel
-      .separate-list.content-wrapper
-        .separate-list__item blocks: 5169
-        .separate-list__item transactions: 37748
-        .separate-list__item(v-if="stats.amount") per day: {{ stats.amount }}
-        .separate-list__item wallet: 15237748394876
     .footer__inner.content-wrapper(style="height: 100%")
-      .footer__copyright
+      .footer__copyright.indent-symbol
         p(v-html="$t('copyright')")
       .footer__text
         p(v-html="$t('blockTimeInfo')")
@@ -35,6 +29,10 @@ export default {
         data.assets.forEach((asset) => {
           res.amount += asset.amount;
         });
+      }
+
+      if (data.count) {
+        res.count = data.count;
       }
 
       return res;

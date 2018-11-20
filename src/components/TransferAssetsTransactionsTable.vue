@@ -1,45 +1,46 @@
 <template lang="pug">
-.table-wrap.js-ps-cont
-  table.table(v-if="sortedTransactions.length")
-    thead
-      tr
-        th.serial serial
-        th.from from
-        th.to to
-        th.transaction-asset transaction-asset
-        th.amount amount
-        th.block-id block id
-        th.transaction-id transaction id
-        th.fee fee
-        th.description memo
-        th.transaction-name transaction type
-    tbody
-      tr(v-for="transaction in sortedTransactions" :key="transaction['serial']" :unique-key="true")
-        td.serial {{transaction['serial']}}
-        td.from
-              router-link.link.address-tag(
-              :to="{ name: 'wallet', params: { publicKey: transaction['from'] } }"
-              ) {{ transaction['from'] }}
-        td.to
-              router-link.link.address-tag(
-              :to="{ name: 'wallet', params: { publicKey: transaction['to'] } }"
-              ) {{ transaction['to'] }}
-        template(v-if="!transaction['asset']")
-               td.transaction-asset
-                td.amount
-        template(v-else)
-            template(v-for="item in transaction['asset']")
-                template(v-if="Assets[item['code']]")
-                    td.transaction-asset {{Assets[item['code']]['name']}}
-                    td.amount {{item['amount']}}
-        td.block-id
-          router-link(:to="'/blocks/' + transaction['block-id']") {{ transaction['block-id'] }}
-        td.transaction-id
-          div.t-id
-            router-link(:to="'/transactions/' + transaction['from'] +'/'+transaction['transaction-id']") {{ transaction['id'] }}
-        td.fee {{transaction['fee']}}
-        td.description.field-ellipsis(v-bind:title="transaction['description']") {{transaction['description']}}
-        td.transaction-name {{transaction['transaction-type']}}
+.table-wrap
+  .table-wrap__inner.table-wrap__inner_height_small
+    table.table.table_limit-with_small(v-if="sortedTransactions.length")
+      thead
+        tr
+          th.serial serial
+          th.from from
+          th.to to
+          th.transaction-asset transaction-asset
+          th.amount amount
+          th.block-id block id
+          th.transaction-id transaction id
+          th.fee fee
+          th.description memo
+          th.transaction-name transaction type
+      tbody
+        tr(v-for="transaction in sortedTransactions" :key="transaction['serial']" :unique-key="true")
+          td.serial {{transaction['serial']}}
+          td.from
+                router-link.link.address-tag(
+                :to="{ name: 'wallet', params: { publicKey: transaction['from'] } }"
+                ) {{ transaction['from'] }}
+          td.to
+                router-link.link.address-tag(
+                :to="{ name: 'wallet', params: { publicKey: transaction['to'] } }"
+                ) {{ transaction['to'] }}
+          template(v-if="!transaction['asset']")
+                 td.transaction-asset
+                  td.amount
+          template(v-else)
+              template(v-for="item in transaction['asset']")
+                  template(v-if="Assets[item['code']]")
+                      td.transaction-asset {{Assets[item['code']]['name']}}
+                      td.amount {{item['amount']}}
+          td.block-id
+            router-link(:to="'/blocks/' + transaction['block-id']") {{ transaction['block-id'] }}
+          td.transaction-id
+            div.t-id
+              router-link(:to="'/transactions/' + transaction['from'] +'/'+transaction['transaction-id']") {{ transaction['id'] }}
+          td.fee {{transaction['fee']}}
+          td.description.field-ellipsis(v-bind:title="transaction['description']") {{transaction['description']}}
+          td.transaction-name {{transaction['transaction-type']}}
 </template>
 
 <script>
@@ -58,6 +59,7 @@ export default {
     return {
       now: Date.now(),
       Assets: [],
+      scrollObj: null,
     };
   },
   created() {
@@ -72,6 +74,17 @@ export default {
     range: {
       handler: 'GetAsset',
       immediate: true,
+    },
+    sortedTransactions: {
+      handler() {
+        if (!this.scrollObj) {
+          this.scrollObj = new ps(this.$el.querySelector('.table-wrap__inner'), {
+            wheelSpeed: 0.5,
+          });
+        } else {
+          this.scrollObj.update();
+        }
+      },
     },
   },
   methods: {

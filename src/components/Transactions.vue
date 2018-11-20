@@ -1,14 +1,15 @@
 <template lang="pug">
   .transactions
     mile-loader(v-if="!done")
-    h4 Transfer Assets Transactions
-    <!--tabs-->
-    transfer-assets-transactions-table(:transactions="transferAssetsTransactions")
-    paginator(:count="count" :first="first" @input="fetchRange($event)")
-    template(v-if="otherTransactions.length")
-      h4(v-on:click="visible=!visible") Other Transactions
-      div(v-show="visible").table-responsive
+    .tabs
+      .tabs__item(:class="{active : activeTab == 1}" @click="activeTab = 1") Transfer assets transactions
+      .tabs__item(:class="{active : activeTab == 2}" @click="activeTab = 2") Other transactions
+    .tabs-content
+      .tabs-content__block(:class="{active : activeTab == 1}")
+        transfer-assets-transactions-table(:transactions="transferAssetsTransactions")
+      .tabs-content__block(:class="{active : activeTab == 2}")
         other-transactions-table(:transactions="otherTransactions")
+    paginator(:count="count" :first="first" @input="fetchRange($event)")
 </template>
 
 <script>
@@ -42,7 +43,7 @@ export default {
       done: true,
       otherTransactions: [],
       transferAssetsTransactions: [],
-      visible: false,
+      activeTab: 1,
     };
   },
   methods: {

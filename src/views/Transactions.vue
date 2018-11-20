@@ -1,6 +1,6 @@
 <template lang="pug">
   .transactions
-    h1 {{ $t('title') }}
+    h1.h1 {{ $t('title') }}
     transactions(
       v-if="count"
       :count="count"

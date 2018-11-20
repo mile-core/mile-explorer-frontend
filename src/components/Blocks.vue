@@ -1,9 +1,8 @@
 <template lang="pug">
   .blocks
-    paginator(:count="count" :first="first" @input="fetchRange($event)")
     mile-loader(v-if="!done")
-    .table-responsive
-      blocks-table(:blocks="blocks")
+    blocks-table(:blocks="blocks")
+    paginator(:count="count" :first="first" @input="fetchRange($event)")
 </template>
 
 <script>

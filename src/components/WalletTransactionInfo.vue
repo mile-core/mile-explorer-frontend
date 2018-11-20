@@ -1,76 +1,61 @@
 <template lang="pug">
   .transaction-info
-
     mile-loader(v-if="!done")
     template(v-else)
-    .table-responsive
-      template(v-if="!error")
-        template(v-if="Object.keys(info).length !== 0")
-          table.transaction-table
-            thead
-              tr
-                th Key
-                th Value
-            tbody
-              tr
-                template(v-for="item in info['asset']")
-                  template(v-if="item['code'] === '1'")
-                    td.transaction-asset MILE
-                  template(v-if="item['code'] === '0'")
-                    td.transaction-asset XDR
-                  td.amount
-                    strong {{ item['amount'] }}
-              tr
-                td.block-id block-id
-                td.block-id
-                  strong {{ info['block-id'] }}
-              tr
-                td.id id
-                td.id
-                  strong {{ info['id'] }}
-              tr
-                td.to to
-                td.to
-                  strong {{ info['to'] }}
-              tr
-                td.from from
-                td.from
-                  strong {{ info['from'] }}
-              tr
-                td.digest digest
-                td.digest
-                  strong {{ info['digest'] }}
-              tr
-                td.fee fee
-                td.fee
-                  strong {{ info['fee'] }}
-              tr
-                td.timestamp date
-                td.timestamp
-                  strong {{ info['timestamp'] }}
-              tr
-                td.transaction-id transaction-id
-                td.transaction-id
-                  strong {{ info['transaction-id'] }}
-              tr
-                td.transaction-type transaction-type
-                td.transaction-type
-                  strong {{ info['transaction-type'] }}
-              tr
-                td.memo memo
-                td.memo
-                  strong.field-ellipsis(v-bind:title="info['value']") {{ info['value'] }}
-              tr
-                td.serial serial
-                td.serial
-                  strong {{ info['serial'] }}
+      .table-wrap
+        .table-wrap__inner
+          template(v-if="!error")
+            template(v-if="Object.keys(info).length !== 0")
+              table.table
+                tbody
+                  tr
+                    template(v-for="item in info['asset']")
+                      template(v-if="item['code'] === '1'")
+                        th.transaction-asset MILE
+                      template(v-if="item['code'] === '0'")
+                        th.transaction-asset XDR
+                      td.amount {{ item['amount'] }}
+                  tr
+                    th.block-id block-id
+                    td.block-id {{ info['block-id'] }}
+                  tr
+                    th.id id
+                    td.id {{ info['id'] }}
+                  tr
+                    th.to to
+                    td.to {{ info['to'] }}
+                  tr
+                    th.from from
+                    td.from {{ info['from'] }}
+                  tr
+                    th.digest digest
+                    td.digest {{ info['digest'] }}
+                  tr
+                    th.fee fee
+                    td.fee {{ info['fee'] }}
+                  tr
+                    th.timestamp date
+                    td.timestamp {{ info['timestamp'] }}
+                  tr
+                    th.transaction-id transaction-id
+                    td.transaction-id {{ info['transaction-id'] }}
+                  tr
+                    th.transaction-type transaction-type
+                    td.transaction-type {{ info['transaction-type'] }}
+                  tr
+                    th.memo memo
+                    td.memo
+                      .field-ellipsis(v-bind:title="info['value']") {{ info['value'] }}
+                  tr
+                    th.serial serial
+                    td.serial {{ info['serial'] }}
 
-        template(v-else)
-          h1.title Oops!
-          p.description Sorry! This is an invalid wallet public key or transaction id.
-          button.btn(@click="$router.push({ name: 'home' })") Back Home
-      template(v-else)
-        span.error
+            template(v-else)
+              h1.title Oops!
+              p.description Sorry! This is an invalid wallet public key or transaction id.
+              button.btn(@click="$router.push({ name: 'home' })") Back Home
+          template(v-else)
+            span.error
 </template>
 
 <script>

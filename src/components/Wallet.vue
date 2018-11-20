@@ -18,13 +18,13 @@
             template(v-if="assets[asset['code']]")
               div.balance-value {{ assets[asset['code']]['name'] }}: {{ asset.amount }}
         h4 Wallet Transactions
-        wallet-transactions-paginator(:count="paginatorCount" :first="paginatorfirst" @input="fetchWalletState($event)")
         wallet-transactions(
           v-if="transactionCount"
           :publicKey="publicKey"
           :count="transactionCount"
           :first="transactionfirst"
         )
+        paginator(:count="paginatorCount" :first="paginatorfirst" @input="fetchWalletState($event)")
         wallet-blocks(
           :publicKey="publicKey"
           :count="blockCount"
@@ -37,14 +37,14 @@ import api from '@/api';
 import MileLoader from './MileLoader.vue';
 import WalletBlocks from './WalletBlocks.vue';
 import WalletTransactions from './WalletTransactions.vue';
-import WalletTransactionsPaginator from './WalletTransactionsPaginator.vue';
+import Paginator from './Paginator.vue';
 
 export default {
   components: {
     MileLoader,
     WalletBlocks,
     WalletTransactions,
-    WalletTransactionsPaginator,
+    Paginator,
   },
   props: {
     publicKey: {
