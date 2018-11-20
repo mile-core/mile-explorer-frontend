@@ -42,6 +42,16 @@ export default {
       Assets: [],
     };
   },
+  computed: {
+    sortedTransactions() {
+      function compareSerial(txsA, txsB) {
+        return parseInt(txsB.serial) - parseInt(txsA.serial);
+      }
+
+      this.transactions.sort(compareSerial);
+      return this.transactions;
+    },
+  },
   created() {
     this.intervalHandler = setInterval(() => {
       this.now = Date.now();
