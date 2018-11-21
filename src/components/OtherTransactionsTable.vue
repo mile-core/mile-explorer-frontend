@@ -1,30 +1,33 @@
 <template lang="pug">
-  table.other-transactions-table(v-if="transactions.length")
-    thead
-      tr
-        th.serial #
-        th.public-key public-key
-        th.block-id block id
-        th.transaction-id transaction id
-        th.transaction-name transaction type
-    tbody
-    tr(v-for="transaction in transactions" :key="transaction['serial']" :unique-key="true")
-        td.serial {{transaction['serial']}}
-        td.public-key
-              router-link.link.address-tag(
-              :to="{ name: 'wallet', params: { publicKey: transaction['public-key'] } }"
-              ) {{ transaction['public-key'] }}
-        td.block-id
-          router-link(:to="'/blocks/' + transaction['block-id']") {{ transaction['block-id'] }}
-        td.transaction-id
-          div.t-id
-            router-link(:to="'/transactions/' + transaction['public-key'] +'/'+transaction['transaction-id']") {{ transaction['id'] }}
-        td.transaction-name {{transaction['transaction-type']}}
+.table-wrap
+  .table-wrap__inner.table-wrap__inner_height_small
+    table.table(v-if="sortedTransactions.length")
+      thead
+        tr
+          th.serial #
+          th.public-key public-key
+          th.block-id block id
+          th.transaction-id transaction id
+          th.transaction-name transaction type
+      tbody
+        tr(v-for="transaction in sortedTransactions" :key="transaction['serial']" :unique-key="true")
+          td.serial {{transaction['serial']}}
+          td.public-key
+            router-link.link.address-tag(
+            :to="{ name: 'wallet', params: { publicKey: transaction['public-key'] } }"
+            ) {{ transaction['public-key'] }}
+          td.block-id
+            router-link(:to="'/blocks/' + transaction['block-id']") {{ transaction['block-id'] }}
+          td.transaction-id
+            div.t-id
+              router-link(:to="'/transactions/' + transaction['public-key'] +'/'+transaction['transaction-id']") {{ transaction['id'] }}
+          td.transaction-name {{transaction['transaction-type']}}
 </template>
 
 <script>
 import fecha from 'fecha';
 import api from '@/api';
+import ps from 'perfect-scrollbar/dist/perfect-scrollbar';
 
 export default {
   props: {
@@ -39,6 +42,16 @@ export default {
       Assets: [],
     };
   },
+  computed: {
+    sortedTransactions() {
+      function compareSerial(txsA, txsB) {
+        return parseInt(txsB.serial) - parseInt(txsA.serial);
+      }
+
+      this.transactions.sort(compareSerial);
+      return this.transactions;
+    },
+  },
   created() {
     this.intervalHandler = setInterval(() => {
       this.now = Date.now();
@@ -51,6 +64,17 @@ export default {
     range: {
       handler: 'GetAsset',
       immediate: true,
+    },
+    sortedTransactions: {
+      handler() {
+        if (!this.scrollObj) {
+          this.scrollObj = new ps(this.$el.querySelector('.table-wrap__inner'), {
+            wheelSpeed: 0.5,
+          });
+        } else {
+          this.scrollObj.update();
+        }
+      },
     },
   },
   methods: {

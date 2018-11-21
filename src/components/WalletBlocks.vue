@@ -3,9 +3,8 @@
     h4 Wallet Blocks
     mile-loader(v-if="!done")
     template(v-else)
-      ul.blocks(v-if="blocks.length")
-        li.block(v-for="block in blocks" :key="block")
-          router-link(:to="'/blocks/' + block") {{ block }}
+      .brick-list(v-if="blocks.length")
+        router-link.brick-list__item(v-for="block in blocks" :key="block" :to="'/blocks/' + block") {{ block }}
 </template>
 
 <script>

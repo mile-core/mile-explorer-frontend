@@ -1,8 +1,5 @@
 <template lang="pug">
-  .wallet-info
-    p.public-key-responsive publicKey: {{ publicKey }}
-    p.count-transaction-responsive Total transaction count: {{ totalTransactionCount }}
-    p.count-transaction-responsive Total block count: {{ totalBlockCount }}
+  div
     mile-loader(v-if="!done")
     template(v-else)
       .wallet-search(v-if="error")
@@ -12,19 +9,28 @@
         p.description Sorry! This is an invalid wallet public key.
         button.btn(@click="$router.push({ name: 'home' })") Back Home
       template(v-else)
-        h4 Wallet balance
-        div.balance
-          template(v-for="asset in balance")
-            template(v-if="assets[asset['code']]")
-              div.balance-value {{ assets[asset['code']]['name'] }}: {{ asset.amount }}
+        .pairs-list
+          .pairs-list__item.pair
+            .pair__key public key
+            .pair__value.text-overflow {{ publicKey }}
+          .pairs-list__item.pair
+            .pair__key transaction count
+            .pair__value {{ totalTransactionCount }}
+          .pairs-list__item.pair
+            .pair__key block count
+            .pair__value {{ totalBlockCount }}
+          .pairs-list__item.pair(v-for="asset in balance")
+            .pair__key {{ assets[asset['code']]['name'] }} balance
+            .pair__value {{ asset.amount }}
+
         h4 Wallet Transactions
-        wallet-transactions-paginator(:count="paginatorCount" :first="paginatorfirst" @input="fetchWalletState($event)")
         wallet-transactions(
           v-if="transactionCount"
           :publicKey="publicKey"
           :count="transactionCount"
           :first="transactionfirst"
         )
+        paginator(:count="paginatorCount" :first="paginatorfirst" @input="fetchWalletState($event)")
         wallet-blocks(
           :publicKey="publicKey"
           :count="blockCount"
@@ -37,14 +43,14 @@ import api from '@/api';
 import MileLoader from './MileLoader.vue';
 import WalletBlocks from './WalletBlocks.vue';
 import WalletTransactions from './WalletTransactions.vue';
-import WalletTransactionsPaginator from './WalletTransactionsPaginator.vue';
+import Paginator from './Paginator.vue';
 
 export default {
   components: {
     MileLoader,
     WalletBlocks,
     WalletTransactions,
-    WalletTransactionsPaginator,
+    Paginator,
   },
   props: {
     publicKey: {

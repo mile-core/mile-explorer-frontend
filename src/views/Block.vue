@@ -1,9 +1,7 @@
 <template lang="pug">
   .block
-    h1.breadcrumbs
-      span
-        router-link(to="/blocks") Blocks
-      span # {{ blockId }}
+    router-link.button.button_black.button_uppercase.button_icon_arrow-left(to="/blocks") Blocks
+    h1.h1 Block \#{{ blockIdInt }}
     block(:block-id="blockIdInt")
 </template>
 

@@ -1,9 +1,7 @@
 <template lang="pug">
   .page-transaction
-    h1.breadcrumbs
-      span
-        router-link(:to="'/wallet/' + digest") Wallet
-      span Transaction # {{ transactionIdInt }}
+    router-link.button.button_black.button_uppercase.button_icon_arrow-left(:to="'/wallet/' + digest") Wallet
+    h1.h1 Transaction \#{{ transactionIdInt }}
     wallet-transaction-info(
       :digest="transactionIdInt"
     )
@@ -36,3 +34,4 @@ export default {
 <style lang="sass" scoped>
 
 </style>
+

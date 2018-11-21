@@ -1,11 +1,12 @@
 <template lang="pug">
   .wallet
-    h1 {{ $t('title') }}
+    h1.h1 {{ $t('title') }}
     wallet(v-if="publicKey" :public-key="publicKey")
     form.wallet-form(v-else @submit.prevent="submit")
       label(for="wallet-public-key") Enter public key:
-      input(id="wallet-public-key" type="text" v-model="wallet")
-      button(type="submit") Enter
+      .form-input-block
+        input.form-input(id="wallet-public-key" type="text" v-model="wallet")
+      button.button(type="submit") Enter
 </template>
 
 <script>

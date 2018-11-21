@@ -2,56 +2,52 @@
   .block-info
     mile-loader(v-if="!done")
     template(v-else)
-    template(v-if="error")
-      .search
-        h1.title Oops!
-        p.description The block id you entered was:
-        pre {{this.response}}
-        p.description Sorry! This is an invalid block id.
-        button.btn(@click="$router.push({ name: 'home' })") Back Home
-    template(v-else)
-        h3 Info
-        .table-responsive
-            table
-                thead
-                    tr
-                        th Key
-                        th Value
-                tbody
-                    tr
-                        td.block-header-digest block-header-digest
-                        td.block-header-digest {{ block['block-header-digest'] }}
-                    tr
-                        td.block-id block-id
-                        td.block-id {{ block['block-id'] }}
-                    tr
-                        td.merkle-root merkle-root
-                        td.merkle-root {{ block['merkle-root'] }}
-                    tr
-                        td.number-of-signers number-of-signers
-                        td.number-of-signers {{ block['number-of-signers'] }}
-                    tr
-                        td.previous-block-digest previous-block-digest
-                        td.previous-block-digest {{ block['previous-block-digest'] }}
-                    tr
-                        td.round round
-                        td.round {{ block['round'] }}
-                    tr
-                        td.signature signature
-                        td.signature {{ block['escort-signatures'][0].key }}
-                    tr
-                        td.date date
-                        td.date {{ block['timestamp'] | localTime }}
-                    tr
-                        td.transaction-count transaction-count
-                        td.transaction-count {{ block['transaction-count'] }}
-                    tr
-                        td.version version
-                        td.version {{ version }}
+      template(v-if="error")
+        .search
+          h1.title Oops!
+          p.description The block id you entered was:
+          pre {{this.response}}
+          p.description Sorry! This is an invalid block id.
+          button.btn(@click="$router.push({ name: 'home' })") Back Home
+      template(v-else)
+        .table-wrap
+          .table-wrap__inner
+            table.table
+              tbody
+                tr
+                  th.block-header-digest block-header-digest
+                  td.block-header-digest {{ block['block-header-digest'] }}
+                tr
+                  th.block-id block-id
+                  td.block-id {{ block['block-id'] }}
+                tr
+                  th.merkle-root merkle-root
+                  td.merkle-root {{ block['merkle-root'] }}
+                tr
+                  th.number-of-signers number-of-signers
+                  td.number-of-signers {{ block['number-of-signers'] }}
+                tr
+                  th.previous-block-digest previous-block-digest
+                  td.previous-block-digest {{ block['previous-block-digest'] }}
+                tr
+                  th.round round
+                  td.round {{ block['round'] }}
+                tr
+                  th.signature signature
+                  td.signature {{ block['escort-signatures'][0].key }}
+                tr
+                  th.date date
+                  td.date {{ block['timestamp'] | localTime }}
+                tr
+                  th.transaction-count transaction-count
+                  td.transaction-count {{ block['transaction-count'] }}
+                tr
+                  th.version version
+                  td.version {{ version }}
+
     template(v-if="block['transactions'].length")
-        h3 Transactions
-        .table-responsive
-            transactions-table(:transactions="block['transactions']")
+      h3 Transactions
+      transfer-assets-transactions-table(:transactions="block['transactions']")
 </template>
 
 <script>
@@ -60,7 +56,7 @@ import MileLoader from './MileLoader.vue';
 import BlockTrnx from './BlockTrnx.vue';
 import BlockFeeTrnx from './BlockFeeTrnx.vue';
 import BlockSignature from './BlockSignature.vue';
-import TransactionsTable from './TransferAssetsTransactionsTable.vue';
+import TransferAssetsTransactionsTable from './TransferAssetsTransactionsTable.vue';
 
 export default {
   components: {
@@ -68,7 +64,7 @@ export default {
     BlockTrnx,
     BlockFeeTrnx,
     BlockSignature,
-    TransactionsTable,
+    TransferAssetsTransactionsTable,
   },
   props: {
     blockId: {
@@ -88,12 +84,12 @@ export default {
   },
   async created() {
     try {
-      const blockId = this.blockId
+      const blockId = this.blockId;
       this.block = await api.getBlock(this.blockId);
-      if (this.block['transactions'].length > 0) {
-          this.block['transactions'].forEach(function(e) {
-              e['block-id'] = blockId
-          })
+      if (this.block.transactions.length > 0) {
+        this.block.transactions.forEach((e) => {
+          e['block-id'] = blockId;
+        });
       }
       this.done = true;
     } catch (error) {

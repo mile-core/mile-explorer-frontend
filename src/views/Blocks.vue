@@ -1,6 +1,6 @@
 <template lang="pug">
   .blocks
-    h1 {{ $t('title') }}
+    h1.h1 {{ $t('title') }}
     blocks(
       v-if="count"
       :count="count"

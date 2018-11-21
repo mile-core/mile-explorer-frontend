@@ -26,6 +26,9 @@ export default {
   *::before
     box-sizing: border-box
 
+  html, body
+    height: 100%
+
   body
     font-family: $font-main
     color: $color-black
@@ -33,7 +36,7 @@ export default {
 
   #app
     display: flex
-    min-height: 100vh
+    height: 100%
     flex-direction: column
 
   .content-wrapper
@@ -53,6 +56,7 @@ export default {
     background: url(assets/bg-logo.svg) right -59px top -138px no-repeat
 
   .main
+    margin-top: 0
     padding-bottom: 50px
 
   hr
@@ -61,6 +65,13 @@ export default {
     border-top: 1px solid rgba(0, 0, 0, .1)
     box-sizing: content-box
     overflow: visible
+
+  .h1
+    font-size: 60px
+    color: $color-black
+    font-family: $font-title
+    font-weight: bold
+    text-transform: uppercase
 
   .table-responsive
     max-width: 100%
@@ -122,6 +133,7 @@ export default {
 
   .form-input-block
     position: relative
+    margin: 0 0 20px
 
   .input-icon
     position: absolute
@@ -132,6 +144,34 @@ export default {
       background: url(assets/loupe.svg) no-repeat center/35%
     + .form-input
       padding-left: 56px
+
+  .button
+    display: inline-block
+    padding: 0.7em 1.3em
+    background-color: $color-green
+    border: none
+    border-radius: 21px
+    color: #fff
+    text-decoration: none
+    transition: all .3s
+    cursor: pointer
+    &:hover, &:focus
+      background-color: darken($color-green, 8%)
+      text-decoration: none
+    &_black
+      background-color: $color-black
+      &:hover, &:focus
+        background-color: $color-black
+    &_uppercase
+      text-transform: uppercase
+    &_icon_arrow-left
+      &:before
+        content: ''
+        display: inline-block
+        margin-right: 14px
+        width: 7px
+        height: 13px
+        background: url(assets/angle-left.svg) 0 0 no-repeat
 
   .paginator
     ul.pages
@@ -165,18 +205,39 @@ export default {
     overflow: hidden
     display: inline-block
 
+  .pairs-list
+    margin-bottom: 1.4em
+    &__item
+      margin-bottom: .7em
+
+  .pair
+    &__key
+      display: block
+      font-weight: bold
+      text-transform: uppercase
+    &__value
+      display: block
+
   .home
     > .search-wrapper
       padding: 3rem 0
     > .info-wrapper
       display: flex
       justify-content: space-between
+      min-height: 550px
       > .section
         width: calc(50% - 1rem)
 
   .section
+    position: relative
     box-shadow: 0 0 12px rgba(3,1,56,0.12)
     background-color: #fff
+    .mile-loader
+      position: absolute
+      top: 50%
+      left: 50%
+      margin-top: -15px
+      margin-left: -15px
 
   .text-overflow
     white-space: nowrap
@@ -187,7 +248,7 @@ export default {
     white-space: nowrap
 
   .block-list
-    padding: 21px 30px
+    padding: 21px 30px 24px
     &__head
       display: flex
       justify-content: space-between
@@ -243,29 +304,33 @@ export default {
     justify-content: space-between
     align-items: center
     &__col
-      &:not(:first-child)
-        margin-left: 20px
+      margin-left: 20px
+      &:first-child
+        margin-left: 0
       strong
         margin-right: .25em
 
-  @media screen and (max-width: 992px)
-    .home
-      > .search-wrapper
-        padding: 1rem 0
-      > .info-wrapper
-        flex-direction: column
-        > .section
-          width: 100%
+  .brick-list
+    display: flex
+    margin: 0 0 .5rem
+    padding: 0
+    flex-wrap: wrap
+    &__item
+      margin: 0 10px 10px 0
+      padding: .5em
+      list-style: none
+      text-align: center
+      border: 1px solid $color-green
+      &:hover, &:focus
+        background: $color-green
+        color: $color-white
+        text-decoration: none
 
   .footer
     background-color: $footer-bg
     color: $color-white
     font-size: .875rem
     -webkit-font-smoothing: antialiased
-    &__panel
-      padding: 7px 0
-      height: 35px
-      background-color: $color-green
     &__inner
       display: flex
       justify-content: space-between
@@ -276,7 +341,6 @@ export default {
       line-height: 19px
     &__copyright
       width: 275px
-      text-indent: -1em
     &__text
       margin-left: auto
       width: 255px
@@ -287,6 +351,11 @@ export default {
       font-family: $font-title
       font-size: 15px
       line-height: 26px
+    &__panel
+      display: none
+
+  .indent-symbol
+    text-indent: -1em
 
   .separate-list
     display: flex
@@ -298,20 +367,30 @@ export default {
       padding-right: 25px
       align-items: center
       text-transform: uppercase
-      &:not(:last-child)
-        border-right: 1px solid #fff
+      border-right: 1px solid #fff
+      &:last-child
+        border-right: none
+      &_no-border
+        padding-right: 0
+        border: none
 
   .bottom-menu
     a
       color: #fff
 
   .header
+    &__panel
+      padding: 7px 0
+      height: 35px
+      background-color: $color-green
+    &__stats
+      height: 100%
     &__inner
       display: flex
       flex-direction: column
       flex-wrap: nowrap
       align-items: center
-      position: relative
+      /*position: relative*/
       padding-top: 18px
       padding-bottom: 30px
     &__logo
@@ -325,7 +404,23 @@ export default {
       margin-top: 18px
       width: 100%
     &__menu
-      margin-top: -27px
+      // margin-top: -27px
+      margin-top: 18px
+    &__menu-btn
+      position: relative
+      top: -2px
+    &__close-btn
+      position: absolute
+      top: 24px
+      right: 34px
+    &__mobile-info
+      margin-top: 92px
+      color: #fff
+      font-size: 13px
+      line-height: 1.5
+      a
+        color: #fff
+        font-size: 15px
     > .title
       padding: 0 1rem
       color: $color-gray-dark
@@ -334,6 +429,24 @@ export default {
       font-size: 2rem
       line-height: 2rem
       text-transform: uppercase
+
+  .menu-btn
+    width: 31px
+    height: 24px
+    border: none
+    background: transparent url(assets/hamburger.svg) no-repeat
+    cursor: pointer
+    &:focus
+      outline: none
+
+  .close-btn
+    width: 23px
+    height: 23px
+    border: none
+    background: transparent url(assets/close.svg) no-repeat center/cover
+    cursor: pointer
+    &:focus
+      outline: none
 
   .hamburger
     display: none
@@ -357,8 +470,10 @@ export default {
       text-decoration: none
     &__img
       display: inline-block
-      width: 75px
-      height: 75px
+      /*width: 75px*/
+      /*height: 75px*/
+      width: 51px
+      height: 50px
       background: url(assets/logo.svg)
       background-repeat: no-repeat
       background-size: contain
@@ -369,13 +484,16 @@ export default {
       margin-left: 13px
       color: $color-black
       font-family: $font-title
-      font-size: 60px
+      /*font-size: 60px*/
+      font-size: 30px
       font-weight: bold
       text-decoration: none
       text-transform: uppercase
 
   .search-wrapper
     width: 100%
+    .form-input-block
+      margin: 0
 
   .top-menu
     display: block
@@ -385,35 +503,6 @@ export default {
       font-size: 17px
       color: $color-black
       text-transform: uppercase
-
-  @media screen and (max-width: 992px)
-    .hamburger
-      display: block
-
-    .top-menu
-      display: block
-      position: absolute
-      z-index: 10
-      top: 97px
-      width: 100%
-      text-align: center
-      background: #283891
-      padding-bottom: 15px
-      padding-top: 15px
-      margin: 0
-      a
-        display: block
-        font-size: 20px
-        color: #fff
-        padding: 5px 0 10px 0
-
-  @media screen and (min-width: 992px)
-    .top-menu
-      display: block !important
-
-  @media screen and (max-width: 650px)
-    .header
-      padding-bottom: 70px
 
   .breadcrumbs
     span:not(:last-child)::after
@@ -443,17 +532,8 @@ export default {
       margin-bottom: .5rem
       padding: 0
     input
-      display: block
       width: 100%
       max-width: 450px
-      margin-bottom: 10px
-
-    button[type=submit]
-      background-color: $color-blue
-      color: $color-white
-      padding: .5rem 1rem
-      &:hover
-        background-color: $color-blue-light
 
   .block-info
     dl
@@ -503,18 +583,27 @@ export default {
 
   .table-wrap
     margin-bottom: 20px
-    padding: 28px 28px 4px 28px
+    padding: 22px 28px 4px 28px
     box-shadow: 0 0 12px rgba(3,1,56,0.12)
     background-color: #fff
+    &__inner
+      position: relative
+      overflow: hidden
+      &_height_small
+        height: 522px
 
   .table
-    // width: 100%
-    table-layout: fixed
+    width: 100%
     border-collapse: collapse
+    &_limit-with_small
+      tbody
+        td
+          > *
+            max-width: 140px
     thead
       border-bottom: 1px solid #eaeaea
       th
-        padding: 11px 16px 6px 2px
+        padding: 11px 16px 9px 2px
         text-align: left
         color: #000000
         font-size: 13px
@@ -522,13 +611,19 @@ export default {
         font-weight: bold
         text-transform: uppercase
     tbody
+      tr
+        border-bottom: 1px solid #eaeaea
+        &:last-child
+          border-bottom: none
+      th
+        text-align: left
+        font-weight: bold
       td
         padding: 20px 16px 18px 0
         color: $color-black
         font-size: 15px
         > *
           display: inline-block
-          max-width: 140px
           overflow: hidden
           text-overflow: ellipsis
 
@@ -617,16 +712,6 @@ export default {
           text-overflow: ellipsis
           overflow: hidden
           margin-top: 8px
-  @media screen and (max-width: 650px)
-    .blocks-overview
-      > ul.overview
-        > li.block
-          flex-direction: column
-          .link
-          .timestamp
-          > .desc
-            padding: 0
-            > .mined
 
   table.blocks-table
     width: 100%
@@ -840,35 +925,6 @@ export default {
         background-color: #f5f5f5
         border: 1px solid #ccc
         border-radius: 4px
-    .public-key
-      width: 100%
-      display: inline-block
-      vertical-align: bottom
-      text-overflow: ellipsis
-      overflow: hidden
-
-  ul.blocks
-    display: flex
-    margin: 0
-    padding: 0
-    margin-bottom: .5rem
-    flex-wrap: wrap
-    > li.block
-      margin: 0
-      margin-right: .25rem
-      margin-bottom: .25rem
-      list-style: none
-      padding: .5rem
-      text-align: center
-      border: 1px solid $color-blue
-      &:hover
-        background: $color-blue
-        color: $color-white
-        > a
-          color: $color-white
-      > a
-        color: #28398f
-        text-decoration: none
 
   table.transaction-table
     width: 100%
@@ -897,6 +953,8 @@ export default {
 
   .tabs
     display: flex
+    position: relative
+    z-index: 1
     &__item
       position: relative
       padding: 16px 29px
@@ -908,6 +966,7 @@ export default {
       &.active
         background-color: #fff
         box-shadow: 0 0 12px rgba(3,1,56,0.12)
+        color: $color-black
         &:after
           content: ""
           position: absolute
@@ -916,6 +975,122 @@ export default {
           left: 0
           height: 8px
           background-color: #fff
+
+  .tabs-content
+    &__block
+      display: none
+      &.active
+        display: block
+
+  @media screen and (min-width: 992px)
+    .header
+      &__menu
+        display: block !important
+      &__menu-btn,
+      &__close-btn,
+      &__mobile-info
+        display: none
+
+  @media screen and (max-width: 991px)
+    .hamburger
+      display: block
+
+    .header
+      &__menu
+        position: absolute
+        z-index: 10
+        top: 0
+        right: 0
+        margin: 0
+        width: 288px
+        height: 100%
+        background: $color-black
+        padding: 85px 15px 15px 55px
+        .top-menu__link
+          display: block
+          margin: 0
+          color: $color-green
+          font-family: $font-title
+          font-size: 20px
+          line-height: 40px
+
+    .footer
+      &__inner
+        display: none
+
+    .h1
+      font-size: 36px
+
+    .tabs
+      &__item
+        padding: 10px 12px
+        font-size: 14px
+        line-height: 19px
+
+  @media screen and (max-width: 991px)
+    .home
+      > .search-wrapper
+        padding: 1rem 0
+      > .info-wrapper
+        flex-direction: column
+        > .section
+          margin-bottom: 30px
+          width: 100%
+
+  @media screen and (max-width: 650px)
+    .row-info
+      flex-direction: column
+      align-items: start
+      &__col
+        margin: 0 0 6px
+
+    .logo
+      &__img
+        width: 33px
+        height: 33px
+      &__text
+        top: -6px
+        font-size: 20px
+
+    .header
+      /*&__inner*/
+        /*padding-top: 7px*/
+      /*&__bottom*/
+        /*margin-top: 3px*/
+      &__panel
+        display: none
+        padding: 10px 0
+        height: auto
+      &__stats
+        flex-direction: column
+        font-size: 16px
+        .separate-list__item
+          margin-bottom: 5px
+          border: none
+
+    .footer
+      &__panel
+        display: block
+        padding: 14px 0 10px
+        background-color: $color-green
+      &__stats
+        flex-direction: column
+        height: 100%
+        .separate-list__item
+          margin: 0 0 .3em 0
+          padding-right: 0
+          border: none
+          font-size: 14px
+
+    .blocks-overview
+      > ul.overview
+        > li.block
+          flex-direction: column
+          .link
+          .timestamp
+          > .desc
+            padding: 0
+            > .mined
 </style>
 
 <style lang="sass" scoped>
