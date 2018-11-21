@@ -12,7 +12,7 @@
       template(v-else)
         .table-wrap
           .table-wrap__inner
-            table.table
+            table.table.table_horiz-flat
               tbody
                 tr
                   th.block-header-digest block-header-digest
@@ -41,13 +41,10 @@
                 tr
                   th.transaction-count transaction-count
                   td.transaction-count {{ block['transaction-count'] }}
-                tr
-                  th.version version
-                  td.version {{ version }}
 
     template(v-if="block['transactions'].length")
       h3 Transactions
-      transfer-assets-transactions-table(:transactions="block['transactions']")
+      transfer-assets-transactions-table(:transactions="block['transactions']" :fixHeight=false)
 </template>
 
 <script>

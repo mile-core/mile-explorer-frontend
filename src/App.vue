@@ -595,11 +595,6 @@ export default {
   .table
     width: 100%
     border-collapse: collapse
-    &_limit-with_small
-      tbody
-        td
-          > *
-            max-width: 140px
     thead
       border-bottom: 1px solid #eaeaea
       th
@@ -618,6 +613,7 @@ export default {
       th
         text-align: left
         font-weight: bold
+        text-transform: uppercase
       td
         padding: 20px 16px 18px 0
         color: $color-black
@@ -626,6 +622,11 @@ export default {
           display: inline-block
           overflow: hidden
           text-overflow: ellipsis
+    &_limit-with_small
+      tbody
+        td
+          > *
+            max-width: 140px
 
   table.block-sign
     width: 100%
@@ -1026,6 +1027,21 @@ export default {
         padding: 10px 12px
         font-size: 14px
         line-height: 19px
+
+    .table
+      &_horiz-flat
+        display: block
+        tbody
+          display: block
+          tr
+            display: block
+            padding: 16px 0
+          th, td
+            display: block
+            padding: 0
+            word-break: break-all
+          th
+            margin-bottom: 7px
 
   @media screen and (max-width: 991px)
     .home

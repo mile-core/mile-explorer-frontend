@@ -1,7 +1,8 @@
 <template lang="pug">
   .page-transaction
     router-link.button.button_black.button_uppercase.button_icon_arrow-left(:to="'/wallet/' + digest") Wallet
-    h1.h1.text-overflow Transaction \#{{ transactionIdInt }}
+    h1.h1 Transaction
+      .text-overflow(style="text-transform: none;") \#{{ transactionIdInt }}
     wallet-transaction-info(
       :digest="transactionIdInt"
     )
