@@ -42,11 +42,11 @@ export default new Router({
       meta: {title: 'Transactions'},
     },
     {
-      path: '/transactions/:publicKey/:transactionId',
+      path: '/transactions/:digest',
       name: 'transaction',
       component: Transaction,
       props: true,
-      meta: {title: 'Transaction info'},
+      meta: {title: 'Transaction info #'},
     },
     {
       path: '/search/:query',

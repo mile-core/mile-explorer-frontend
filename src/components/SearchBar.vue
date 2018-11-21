@@ -34,7 +34,7 @@ export default {
         const Query = String(this.query).split(':');
         const publicKey = Query[0];
         const transactionId = Query[1];
-        this.$router.push({ name: 'transaction', params: { publicKey, transactionId } });
+        this.$router.push({ name: 'transaction', params: { digest: this.query } });
       } else if (reg_for_blockId.test(String(this.query)) === true) {
         this.$router.push({ name: 'block', params: { blockId } });
       } else if (reg_for_keys.test(String(this.query)) === true) {
@@ -42,7 +42,7 @@ export default {
         const publicKey = Query[0];
         const isDigest = await api.getTransactionDigest(publicKey);
         if(isDigest.length > 0) {
-          this.$router.push({ name: 'digest', params: { publicKey: this.query } });
+          this.$router.push({ name: 'transaction', params: { digest: this.query } });
         } else {
           this.$router.push({ name: 'wallet', params: { publicKey: this.query } });
         }

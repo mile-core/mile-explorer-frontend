@@ -39,7 +39,7 @@
                 router-link(:to="'/blocks/' + transaction['block-id']") {{ transaction['block-id'] }}
               td.transaction-id
                   div.t-id
-                    router-link(:to="'/transactions/' + transaction['from'] +'/'+transaction['transaction-id']") {{ transaction.id }}
+                    router-link(:to="'/transactions/' + transaction['digest']") {{ transaction.digest }}
               td.fee {{transaction['fee']}}
               td.description {{transaction['description']}}
               td.transaction-type {{transaction['transaction-type']}}

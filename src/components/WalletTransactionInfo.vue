@@ -13,6 +13,14 @@
                 th Value
             tbody
               tr
+                td.digest digest
+                td.digest
+                  strong {{ info['digest'] }}
+              tr
+                td.block-id block-id
+                td.block-id
+                  strong {{ info['block-id'] }}
+              tr
                 template(v-for="item in info['asset']")
                   template(v-if="item['code'] === '1'")
                     td.transaction-asset MILE
@@ -21,33 +29,25 @@
                   td.amount
                     strong {{ item['amount'] }}
               tr
-                td.block-id block-id
-                td.block-id
-                  strong {{ info['block-id'] }}
-              tr
-                td.id id
-                td.id
-                  strong {{ info['id'] }}
-              tr
-                td.to to
-                td.to
-                  strong {{ info['to'] }}
+                td.timestamp date
+                td.timestamp
+                  strong {{ info['timestamp'] | localTime }}
               tr
                 td.from from
                 td.from
                   strong {{ info['from'] }}
               tr
-                td.digest digest
-                td.digest
-                  strong {{ info['digest'] }}
+                td.to to
+                td.to
+                  strong {{ info['to'] }}
+              tr
+                td.id id
+                td.id
+                  strong {{ info['id'] }}
               tr
                 td.fee fee
                 td.fee
                   strong {{ info['fee'] }}
-              tr
-                td.timestamp date
-                td.timestamp
-                  strong {{ info['timestamp'] }}
               tr
                 td.transaction-id transaction-id
                 td.transaction-id
@@ -56,10 +56,6 @@
                 td.transaction-type transaction-type
                 td.transaction-type
                   strong {{ info['transaction-type'] }}
-              tr
-                td.memo memo
-                td.memo
-                  strong.field-ellipsis(v-bind:title="info['value']") {{ info['value'] }}
               tr
                 td.serial serial
                 td.serial
@@ -82,12 +78,9 @@ export default {
     MileLoader,
   },
   props: {
-    publicKey: {
+    digest: {
       type: String,
       required: true,
-    },
-    transactionId: {
-      type: String,
     },
   },
   data() {
@@ -98,27 +91,17 @@ export default {
     };
   },
   watch: {
-    publicKey: {
+    digest: {
       handler: 'fetchTransactionInfo',
       immediate: true,
     },
   },
   methods: {
     async fetchTransactionInfo() {
-      if (!isNaN(this.transactionId)){
+      if (this.digest){
         try{
           this.done = false;
-          const result = await api.getTransactionInfo(this.publicKey, this.transactionId);
-          this.done = true;
-          this.info = result;
-        }catch(error){
-          this.error = true;
-          this.done = true;
-        }
-      }else if (this.publicKey){
-        try{
-          this.done = false;
-          const result = await api.getTransactionDigest(this.publicKey);
+          const result = await api.getTransactionDigest(this.digest);
           this.done = true;
           this.info = result[0];
         }catch(error){
@@ -138,11 +121,3 @@ export default {
 <style lang="sass" scoped>
 
 </style>
-
-<i18n>
-{
-  "en": {
-    "title": "Transaction Info"
-  }
-}
-</i18n>

@@ -9,8 +9,8 @@
           .list-item__pill.pill
             .pill__body.text-overflow
               router-link(
-                :to="{ name: 'transaction', params: { transactionId: transaction['transaction-id'], publicKey: transaction['from'] } }"
-              ) {{ transaction['from'] }}:{{ transaction['transaction-id'] }}
+                :to="{ name: 'transaction', params: { digest: transaction['digest'] } }"
+              ) {{ transaction['digest'] }}
             .pill__tip.nowrap {{ transaction.timestamp | localTime }}
           .row-info
             .row-info__col.text-overflow

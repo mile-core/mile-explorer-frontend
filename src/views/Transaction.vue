@@ -2,11 +2,10 @@
   .page-transaction
     h1.breadcrumbs
       span
-        router-link(:to="'/wallet/' + publicKey") Wallet
+        router-link(:to="'/wallet/' + digest") Wallet
       span Transaction # {{ transactionIdInt }}
     wallet-transaction-info(
-      :publicKey="publicKey"
-      :transactionId="transactionIdInt"
+      :digest="transactionIdInt"
     )
 </template>
 
@@ -18,27 +17,22 @@ export default {
     WalletTransactionInfo,
   },
   props: {
-    publicKey: {
+    digest: {
       type: String,
       required: true,
-    },
-    transactionId: {
-      type: String,
     },
   },
   computed: {
     transactionIdInt() {
-      if (this.transactionId) {
-        return this.transactionId;
-      } else {
-        return this.publicKey;
-      }
+        return this.digest;
     },
   },
+  created: function () {
+    document.title = this.$route.meta.title + this.digest
+  }
 };
 </script>
 
 <style lang="sass" scoped>
 
 </style>
-
