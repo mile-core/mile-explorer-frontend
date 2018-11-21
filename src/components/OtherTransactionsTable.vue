@@ -1,7 +1,7 @@
 <template lang="pug">
 .table-wrap
   .table-wrap__inner.table-wrap__inner_height_small
-    table.table(v-if="sortedTransactions.length")
+    table.table(v-if="transactions.length")
       thead
         tr
           th.serial #
@@ -10,7 +10,7 @@
           th.transaction-id transaction id
           th.transaction-name transaction type
       tbody
-        tr(v-for="transaction in sortedTransactions" :key="transaction['serial']" :unique-key="true")
+        tr(v-for="transaction in transactions" :key="transaction['serial']" :unique-key="true")
           td.serial {{transaction['serial']}}
           td.public-key
             router-link.link.address-tag(
@@ -42,16 +42,6 @@ export default {
       Assets: [],
     };
   },
-  computed: {
-    sortedTransactions() {
-      function compareSerial(txsA, txsB) {
-        return parseInt(txsB.serial) - parseInt(txsA.serial);
-      }
-
-      this.transactions.sort(compareSerial);
-      return this.transactions;
-    },
-  },
   created() {
     this.intervalHandler = setInterval(() => {
       this.now = Date.now();
@@ -65,7 +55,7 @@ export default {
       handler: 'GetAsset',
       immediate: true,
     },
-    sortedTransactions: {
+    transactions: {
       handler() {
         if (!this.scrollObj) {
           this.scrollObj = new ps(this.$el.querySelector('.table-wrap__inner'), {

@@ -1,7 +1,7 @@
 <template lang="pug">
 .table-wrap
     .table-wrap__inner.table-wrap__inner_height_small
-        table.table.table_limit-with_small(v-if="sortedTransactions.length")
+        table.table.table_limit-with_small(v-if="transactions.length")
             thead
               tr
                 th.serial serial

@@ -139,3 +139,12 @@ export default {
 <style lang="sass" scoped>
 
 </style>
+
+
+<i18n>
+    {
+        "en": {
+            "title": "Blocks"
+        }
+    }
+</i18n>
