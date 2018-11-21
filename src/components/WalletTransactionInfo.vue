@@ -17,16 +17,19 @@
                       td.amount {{ item['amount'] }}
                   tr
                     th.block-id block-id
-                    td.block-id {{ info['block-id'] }}
+                    td.block-id
+                      router-link(:to="'/blocks/' + info['block-id']") {{ info['block-id'] }}
                   tr
                     th.id id
                     td.id {{ info['id'] }}
                   tr
                     th.to to
-                    td.to {{ info['to'] }}
+                    td.to
+                      router-link(:to="'/wallet/' + info['to']") {{ info['to'] }}
                   tr
                     th.from from
-                    td.from {{ info['from'] }}
+                    td.from
+                      router-link(:to="'/wallet/' + info['from']") {{ info['from'] }}
                   tr
                     th.digest digest
                     td.digest {{ info['digest'] }}

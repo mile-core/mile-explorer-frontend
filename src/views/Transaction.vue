@@ -1,9 +1,7 @@
 <template lang="pug">
   .page-transaction
-    h1.breadcrumbs
-      span
-        router-link(:to="'/wallet/' + publicKey") Wallet
-      span Transaction # {{ transactionIdInt }}
+    router-link.button.button_black.button_uppercase.button_icon_arrow-left(:to="'/wallet/' + publicKey") Wallet
+    h1.h1 Transaction \#{{ transactionIdInt }}
     wallet-transaction-info(
       :publicKey="publicKey"
       :transactionId="transactionIdInt"
@@ -30,9 +28,8 @@ export default {
     transactionIdInt() {
       if (this.transactionId) {
         return this.transactionId;
-      } else {
-        return this.publicKey;
       }
+      return this.publicKey;
     },
   },
 };

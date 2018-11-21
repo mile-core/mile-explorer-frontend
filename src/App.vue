@@ -146,15 +146,32 @@ export default {
       padding-left: 56px
 
   .button
+    display: inline-block
     padding: 0.7em 1.3em
     background-color: $color-green
     border: none
-    border-radius: 16px
+    border-radius: 21px
     color: #fff
+    text-decoration: none
     transition: all .3s
     cursor: pointer
-    &:hover
+    &:hover, &:focus
       background-color: darken($color-green, 8%)
+      text-decoration: none
+    &_black
+      background-color: $color-black
+      &:hover, &:focus
+        background-color: $color-black
+    &_uppercase
+      text-transform: uppercase
+    &_icon_arrow-left
+      &:before
+        content: ''
+        display: inline-block
+        margin-right: 14px
+        width: 7px
+        height: 13px
+        background: url(assets/angle-left.svg) 0 0 no-repeat
 
   .paginator
     ul.pages
@@ -187,6 +204,19 @@ export default {
     text-overflow: ellipsis
     overflow: hidden
     display: inline-block
+
+  .pairs-list
+    margin-bottom: 1.4em
+    &__item
+      margin-bottom: .7em
+
+  .pair
+    &__key
+      display: block
+      font-weight: bold
+      text-transform: uppercase
+    &__value
+      display: block
 
   .home
     > .search-wrapper
@@ -321,6 +351,8 @@ export default {
       font-family: $font-title
       font-size: 15px
       line-height: 26px
+    &__panel
+      display: none
 
   .indent-symbol
     text-indent: -1em
@@ -335,8 +367,12 @@ export default {
       padding-right: 25px
       align-items: center
       text-transform: uppercase
-      &:not(:last-child)
-        border-right: 1px solid #fff
+      border-right: 1px solid #fff
+      &:last-child
+        border-right: none
+      &_no-border
+        padding-right: 0
+        border: none
 
   .bottom-menu
     a
@@ -889,12 +925,6 @@ export default {
         background-color: #f5f5f5
         border: 1px solid #ccc
         border-radius: 4px
-    .public-key
-      width: 100%
-      display: inline-block
-      vertical-align: bottom
-      text-overflow: ellipsis
-      overflow: hidden
 
   table.transaction-table
     width: 100%
@@ -1038,6 +1068,19 @@ export default {
           margin-bottom: 5px
           border: none
 
+    .footer
+      &__panel
+        display: block
+        padding: 14px 0 10px
+        background-color: $color-green
+      &__stats
+        flex-direction: column
+        height: 100%
+        .separate-list__item
+          margin: 0 0 .3em 0
+          padding-right: 0
+          border: none
+          font-size: 14px
 
     .blocks-overview
       > ul.overview

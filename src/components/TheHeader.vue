@@ -2,10 +2,10 @@
   header.header
     .header__panel
       .header__stats.separate-list.content-wrapper
-        .separate-list__item blocks: 5169
+        .separate-list__item.separate-list__item_no-border
+          strong stats for 24 hours:
         .separate-list__item(v-if="stats.count") transactions: {{ stats.count }}
         .separate-list__item(v-if="stats.amount") per day: {{ stats.amount }}
-        .separate-list__item wallet: 15237748394876
     .header__inner.content-wrapper
       .header__top
         router-link.header__logo.logo(to="/")
@@ -78,7 +78,9 @@ export default {
   watch: {
     $route(to, from) {
       if (from.path !== to.path) {
-        this.mobileMenuIsOpen = false;
+        if (this.mobileMenuIsOpen) {
+          this.toggleMobileMenu();
+        }
       }
     },
   },
