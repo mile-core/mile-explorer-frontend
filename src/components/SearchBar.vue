@@ -27,21 +27,21 @@ export default {
   methods: {
     async go() {
       const blockId = parseInt(this.query, 10);
-      const reg_for_keys = /(([a-z]+\d+)|(\d+[a-z]+))[a-z\d]*/;
-      const reg_for_blockId = /^[0-9]+$/;
+      const regForKeys = /(([a-z]+\d+)|(\d+[a-z]+))[a-z\d]*/;
+      const regForBlockId = /^[0-9]+$/;
 
       if (String(this.query).indexOf(':') !== -1) {
-        const Query = String(this.query).split(':');
-        const publicKey = Query[0];
-        const transactionId = Query[1];
+        // const Query = String(this.query).split(':');
+        // const publicKey = Query[0];
+        // const transactionId = Query[1];
         this.$router.push({ name: 'transaction', params: { digest: this.query } });
-      } else if (reg_for_blockId.test(String(this.query)) === true) {
+      } else if (regForBlockId.test(String(this.query)) === true) {
         this.$router.push({ name: 'block', params: { blockId } });
-      } else if (reg_for_keys.test(String(this.query)) === true) {
+      } else if (regForKeys.test(String(this.query)) === true) {
         const Query = String(this.query).split(':');
         const publicKey = Query[0];
         const isDigest = await api.getTransactionDigest(publicKey);
-        if(isDigest.length > 0) {
+        if (isDigest.length > 0) {
           this.$router.push({ name: 'transaction', params: { digest: this.query } });
         } else {
           this.$router.push({ name: 'wallet', params: { publicKey: this.query } });

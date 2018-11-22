@@ -12,15 +12,15 @@ import timeago from 'timeago.js';
 
 Vue.config.productionTip = false;
 
-Vue.filter('localTime', function (value) {
-  var stillUtc = moment.unix(value).utc().toDate();
+Vue.filter('localTime', (value) => {
+  const stillUtc = moment.unix(value).utc().toDate();
   return timeago().format(stillUtc);
-})
+});
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title
-next()
-})
+  document.title = to.meta.title;
+  next();
+});
 
 new Vue({
   router,

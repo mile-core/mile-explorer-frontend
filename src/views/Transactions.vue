@@ -31,7 +31,7 @@ export default {
       try {
         const state = await api.getTransactionHistoryState();
         this.count = state.count;
-        this.first = state['first'];
+        this.first = state.first;
       } finally {
         this.$_timeoutHandler = setTimeout(() => this.refreshState(), this.refreshRate);
       }

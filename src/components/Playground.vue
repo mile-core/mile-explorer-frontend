@@ -386,11 +386,11 @@ export default {
           limit: 10,
         },
         getWalletNode: {
-            publicKey:'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x'
+          publicKey: 'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x',
         },
         getWalletState: {
-              publicKey:'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x'
-          }
+          publicKey: 'zVG4iPaggWUUaDEkyEyFBv8dNYSaFMm2C7WS8nSMKWLsSh9x',
+        },
       },
       results: {},
     };
