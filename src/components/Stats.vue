@@ -1,5 +1,5 @@
 <template lang="pug">
-.separate-list.content-wrapper
+.separate-list
   .separate-list__item.separate-list__item_no-border
     strong stats for 24 hours:
   .separate-list__item blocks: 4320

@@ -1,7 +1,7 @@
 <template lang="pug">
   footer.footer
     .footer__panel
-      .footer__stats.separate-list.content-wrapper
+      .content-wrapper
         Stats
     .footer__inner.content-wrapper(style="height: 100%")
       .footer__copyright.indent-symbol

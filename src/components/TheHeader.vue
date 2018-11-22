@@ -1,7 +1,7 @@
 <template lang="pug">
   header.header
     .header__panel
-      .header__stats.separate-list.content-wrapper
+      .content-wrapper
         Stats
     .header__inner.content-wrapper
       .header__top

@@ -381,10 +381,9 @@ export default {
   .header
     &__panel
       padding: 7px 0
-      height: 35px
       background-color: $color-green
-    &__stats
-      height: 100%
+      .separate-list
+        min-height: 21px
     &__inner
       display: flex
       flex-direction: column
@@ -1077,26 +1076,26 @@ export default {
         display: none
         padding: 10px 0
         height: auto
-      &__stats
-        flex-direction: column
-        font-size: 16px
-        .separate-list__item
-          margin-bottom: 5px
-          border: none
+        .separate-list
+          flex-direction: column
+          font-size: 16px
+          .separate-list__item
+            margin-bottom: 5px
+            border: none
 
     .footer
       &__panel
         display: block
         padding: 14px 0 10px
         background-color: $color-green
-      &__stats
-        flex-direction: column
-        height: 100%
-        .separate-list__item
-          margin: 0 0 .3em 0
-          padding-right: 0
-          border: none
-          font-size: 14px
+        .separate-list
+          flex-direction: column
+          height: 100%
+          .separate-list__item
+            margin: 0 0 .3em 0
+            padding-right: 0
+            border: none
+            font-size: 14px
 
     .blocks-overview
       > ul.overview
