@@ -2,10 +2,7 @@
   header.header
     .header__panel
       .header__stats.separate-list.content-wrapper
-        .separate-list__item.separate-list__item_no-border
-          strong stats for 24 hours:
-        .separate-list__item(v-if="stats.count") transactions: {{ stats.count }}
-        .separate-list__item(v-if="stats.amount") per day: {{ stats.amount }}
+        Stats
     .header__inner.content-wrapper
       .header__top
         router-link.header__logo.logo(to="/")
@@ -30,15 +27,18 @@
 import api from '@/api';
 import SearchBar from '@/components/SearchBar.vue';
 import ps from 'perfect-scrollbar/dist/perfect-scrollbar';
+import VueNumeric from 'vue-numeric'
+import Stats from '@/components/Stats.vue';
 
 export default {
   components: {
     SearchBar,
+    VueNumeric,
+    Stats,
   },
   data() {
     return {
       mobileMenuIsOpen: false,
-      stats: {},
     };
   },
   methods: {
@@ -56,24 +56,6 @@ export default {
         });
       }
     },
-    async fetchStats() {
-      const data = await api.getTurnovers();
-      const res = {
-        amount: 0,
-      };
-
-      if (data.assets) {
-        data.assets.forEach((asset) => {
-          res.amount += asset.amount;
-        });
-      }
-
-      if (data.count) {
-        res.count = data.count;
-      }
-
-      return res;
-    },
   },
   watch: {
     $route(to, from) {
@@ -83,21 +65,6 @@ export default {
         }
       }
     },
-  },
-  created() {
-    const that = this;
-
-    function fetchStats() {
-      that.fetchStats().then((res) => {
-        that.stats = res;
-      });
-    }
-
-    fetchStats();
-
-    setInterval(() => {
-      fetchStats();
-    }, 60000);
   },
 };
 

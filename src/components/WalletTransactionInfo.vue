@@ -17,11 +17,9 @@
                     router-link(:to="'/blocks/' + info['block-id']") {{ info['block-id'] }}
                 tr
                   template(v-for="item in info['asset']")
-                    template(v-if="item['code'] === '1'")
-                      th.transaction-asset MILE
-                    template(v-if="item['code'] === '0'")
-                      th.transaction-asset XDR
-                    td.amount {{ item['amount'] }}
+                    template(v-if="assets[item['code']]")
+                      td.transaction-asset {{assets[item['code']]['name']}}
+                      td.amount <vue-numeric v-bind:value="item['amount']" read-only=True v-bind:precision="assets[item['code']]['precision']"></vue-numeric>
                 tr
                   th.timestamp date
                   td.timestamp {{ info['timestamp'] | localTime }}
@@ -61,10 +59,12 @@
 <script>
 import api from '@/api';
 import MileLoader from './MileLoader.vue';
+import VueNumeric from 'vue-numeric'
 
 export default {
   components: {
     MileLoader,
+    VueNumeric,
   },
   props: {
     digest: {
@@ -77,6 +77,7 @@ export default {
       info: null,
       done: true,
       error: false,
+      assets: [],
     };
   },
   watch: {
@@ -90,6 +91,7 @@ export default {
       if (this.digest) {
         try {
           this.done = false;
+          this.assets = await api.getAssets();
           const result = await api.getTransactionDigest(this.digest);
           this.done = true;
           this.info = result[0];

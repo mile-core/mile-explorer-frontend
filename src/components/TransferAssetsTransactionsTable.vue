@@ -32,7 +32,7 @@
             template(v-for="item in transaction['asset']")
               template(v-if="Assets[item['code']]")
                 td.transaction-asset {{Assets[item['code']]['name']}}
-                td.amount {{item['amount']}}
+                td.amount <vue-numeric v-bind:value="item['amount']" read-only=True v-bind:precision="Assets[item['code']]['precision']"></vue-numeric>
           td.block-id
             router-link(:to="'/blocks/' + transaction['block-id']") {{ transaction['block-id'] }}
           td.transaction-id
@@ -47,8 +47,12 @@
 import fecha from 'fecha';
 import api from '@/api';
 import ps from 'perfect-scrollbar/dist/perfect-scrollbar';
+import VueNumeric from 'vue-numeric'
 
 export default {
+  components: {
+    VueNumeric,
+  },
   props: {
     transactions: {
       type: Array,

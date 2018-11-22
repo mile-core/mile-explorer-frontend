@@ -2,10 +2,7 @@
   footer.footer
     .footer__panel
       .footer__stats.separate-list.content-wrapper
-        .separate-list__item.separate-list__item_no-border
-          strong stats for 24 hours:
-        .separate-list__item(v-if="stats.count") transactions: {{ stats.count }}
-        .separate-list__item(v-if="stats.amount") per day: {{ stats.amount }}
+        Stats
     .footer__inner.content-wrapper(style="height: 100%")
       .footer__copyright.indent-symbol
         p(v-html="$t('copyright')")
@@ -17,8 +14,12 @@
 
 <script>
 import api from '@/api';
+import Stats from '@/components/Stats.vue';
 
 export default {
+  components: {
+    Stats,
+  },
   data() {
     return {
       stats: {},

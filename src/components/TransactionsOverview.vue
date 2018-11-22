@@ -27,7 +27,7 @@
               template(v-if="Assets[item['code']]")
                 span.item
                   strong AMOUNT
-                  span {{item['amount']}} {{Assets[item['code']]['name']}}
+                  span <vue-numeric v-bind:value="item['amount']" read-only=True v-bind:precision="Assets[item['code']]['precision']"></vue-numeric> {{Assets[item['code']]['name']}}
 </template>
 <script>
 import ps from 'perfect-scrollbar/dist/perfect-scrollbar';
@@ -35,11 +35,12 @@ import fecha from 'fecha';
 import timeago from 'timeago.js';
 import api from '@/api';
 import MileLoader from './MileLoader.vue';
-
+import VueNumeric from 'vue-numeric'
 
 export default {
   components: {
     MileLoader,
+    VueNumeric,
   },
   props: {
     from: {
