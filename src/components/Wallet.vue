@@ -68,8 +68,8 @@ export default {
       paginatorfirst: 0,
       done: true,
       error: false,
-            totalTransactionCount:0,
-            totalBlockCount:0,
+      totalTransactionCount: 0,
+      totalBlockCount: 0,
       balance: [],
       assets: [],
     };
@@ -87,23 +87,23 @@ export default {
   methods: {
     async fetchWalletState(range) {
       this.done = false;
-        this.done = true;
-      try{
+      this.done = true;
+      try {
         const state = await api.getWalletHistoryState(this.publicKey);
         this.done = true;
         if (!state) {
           this.$router.replace('/wallet');
           return;
         }
-          this.blockCount = state.block.count;
-          this.totalBlockCount = state.block.count;
-          this.totalTransactionCount = state.transaction.count;
-          this.blockfirst = state.block.first;
-          this.transactionCount = range.limit;
-          this.transactionfirst = range.from;
-          this.paginatorCount = state.transaction.count;
-          this.paginatorfirst = state.transaction.first;
-      }catch(error){
+        this.blockCount = state.block.count;
+        this.totalBlockCount = state.block.count;
+        this.totalTransactionCount = state.transaction.count;
+        this.blockfirst = state.block.first;
+        this.transactionCount = range.limit;
+        this.transactionfirst = range.from;
+        this.paginatorCount = state.transaction.count;
+        this.paginatorfirst = state.transaction.first;
+      } catch (error) {
         this.done = true;
         this.error = true;
       }
@@ -112,7 +112,7 @@ export default {
       if (this.balance.length == 0) {
         this.assets = await api.getAssets();
         const state = await api.getWalletSate(this.publicKey);
-        this.balance = state.data.result.balance
+        this.balance = state.data.result.balance;
       }
     },
   },

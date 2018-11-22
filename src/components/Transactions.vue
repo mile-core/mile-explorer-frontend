@@ -3,12 +3,12 @@
     mile-loader(v-if="!done")
     .tabs
       .tabs__item(:class="{active : activeTab == 1}" @click="activeTab = 1") Transfer assets transactions
-      .tabs__item(:class="{active : activeTab == 2}" @click="activeTab = 2") Other transactions
+      <!--.tabs__item(:class="{active : activeTab == 2}" @click="activeTab = 2") Other transactions-->
     .tabs-content
       .tabs-content__block(:class="{active : activeTab == 1}")
         transfer-assets-transactions-table(:transactions="transferAssetsTransactions")
-      .tabs-content__block(:class="{active : activeTab == 2}")
-        other-transactions-table(:transactions="otherTransactions")
+      <!--.tabs-content__block(:class="{active : activeTab == 2}")-->
+        <!--other-transactions-table(:transactions="otherTransactions")-->
     paginator(:count="count" :first="first" @input="fetchRange($event)")
 </template>
 

@@ -23,12 +23,12 @@ export default {
   },
   computed: {
     transactionIdInt() {
-        return this.digest;
+      return this.digest;
     },
   },
-  created: function () {
-    document.title = this.$route.meta.title + this.digest
-  }
+  created() {
+    document.title = this.$route.meta.title + this.digest;
+  },
 };
 </script>
 
