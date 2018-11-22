@@ -9,6 +9,7 @@ import store from './store';
 import i18n from './i18n';
 import moment from 'moment';
 import timeago from 'timeago.js';
+import { routerHistory, writeHistory } from 'vue-router-back-button';
 
 Vue.config.productionTip = false;
 
@@ -17,10 +18,35 @@ Vue.filter('localTime', (value) => {
   return timeago().format(stillUtc);
 });
 
+Vue.filter('backButtonText', (value) => {
+  if (!value) { return value; }
+
+  const arPath = value.split('/');
+
+  if (arPath[1]) {
+    switch (arPath[1]) {
+      case 'transactions':
+        if (arPath[2]) { return 'transaction'; }
+        return arPath[1];
+      case 'blocks':
+        if (arPath[2]) { return 'block'; }
+        return arPath[1];
+      case 'wallet':
+        return arPath[1];
+      default:
+        return 'main';
+    }
+  } else {
+    return 'main';
+  }
+});
+
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title;
   next();
 });
+
+router.afterEach(writeHistory);
 
 new Vue({
   router,

@@ -42,7 +42,7 @@
                   th.transaction-count transaction-count
                   td.transaction-count {{ block['transaction-count'] }}
 
-    template(v-if="block['transactions'].length")
+    template(v-if="block['transactions'] && block['transactions'].length")
       h3 Transactions
       transfer-assets-transactions-table(:transactions="block['transactions']" :fixHeight=false)
 </template>
@@ -83,7 +83,7 @@ export default {
     try {
       const blockId = this.blockId;
       this.block = await api.getBlock(this.blockId);
-      if (this.block.transactions.length > 0) {
+      if (this.block.transactions && this.block.transactions.length > 0) {
         this.block.transactions.forEach((e) => {
           e['block-id'] = blockId;
         });

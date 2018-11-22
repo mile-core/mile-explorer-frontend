@@ -1,6 +1,6 @@
 <template lang="pug">
   .page-transaction
-    router-link.button.button_black.button_uppercase.button_icon_arrow-left(:to="'/wallet/' + digest") Wallet
+    router-link.button.button_black.button_uppercase.button_icon_arrow-left(:to="{ path: backBtnPath}") {{ backBtnPath | backButtonText }}
     h1.h1 Transaction
       .text-overflow(style="text-transform: none;") \#{{ transactionIdInt }}
     wallet-transaction-info(
@@ -10,6 +10,7 @@
 
 <script>
 import WalletTransactionInfo from '@/components/WalletTransactionInfo.vue';
+import { routerHistory } from 'vue-router-back-button';
 
 export default {
   components: {
@@ -24,6 +25,9 @@ export default {
   computed: {
     transactionIdInt() {
       return this.digest;
+    },
+    backBtnPath() {
+      return routerHistory.hasPrevious() ? routerHistory.previous().path : '/';
     },
   },
   created() {

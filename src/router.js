@@ -9,8 +9,10 @@ import Wallet from './views/Wallet.vue';
 import Playground from './views/Playground.vue';
 import Transaction from './views/Transaction.vue';
 import Transactions from './views/Transactions.vue';
+import { routerHistory } from 'vue-router-back-button';
 
 Vue.use(Router);
+Vue.use(routerHistory);
 
 export default new Router({
   mode: 'history',
