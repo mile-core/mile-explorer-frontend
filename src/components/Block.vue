@@ -34,17 +34,18 @@
                   td.round {{ block['round'] }}
                 tr
                   th.signature signature
-                  td.signature {{ block['escort-signatures'][0].key }}
+                  td.signature
+                    router-link(:to="'/wallet/' + block['escort-signatures'][0].key") {{ block['escort-signatures'][0].key }}
                 tr
                   th.date date
-                  td.date {{ block['timestamp'] | localTime }}
+                  td.date {{ block['timestamp'] | timeAgo }}
                 tr
                   th.transaction-count transaction-count
                   td.transaction-count {{ block['transaction-count'] }}
 
     template(v-if="block['transactions'] && block['transactions'].length")
       h3 Transactions
-      transfer-assets-transactions-table(:transactions="block['transactions']" :fixHeight=false)
+      transfer-assets-transactions-table(:transactions="block['transactions']")
 </template>
 
 <script>

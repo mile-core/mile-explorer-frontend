@@ -1,12 +1,13 @@
 <template lang="pug">
 .table-wrap
-  .table-wrap__inner.table-wrap__inner_height_small
+  .table-wrap__inner
     mile-loader(v-if="!done")
     template(v-else)
       table.table.table_limit-with_small(v-if="transactions.length")
         thead
           tr
             th.serial serial
+            th date
             th.from from
             th.to to
             th.transaction-asset transaction asset
@@ -19,6 +20,7 @@
         tbody
           tr(v-for="transaction in transactions" v-if="transaction")
             td.transaction-id {{ transaction['serial'] }}
+            td {{ transaction['timestamp'] | dateUTC }}
             td.from
                 router-link.link.address-tag(
                 :to="{ name: 'wallet', params: { publicKey: transaction['from'] } }"
@@ -47,9 +49,9 @@
 </template>
 
 <script>
+import ps from 'perfect-scrollbar/dist/perfect-scrollbar';
 import api from '@/api';
 import MileLoader from './MileLoader.vue';
-import ps from 'perfect-scrollbar/dist/perfect-scrollbar';
 
 export default {
   components: {
@@ -91,9 +93,12 @@ export default {
     },
     transactions: {
       handler() {
+        const that = this;
         if (!this.scrollObj) {
-          this.scrollObj = new ps(this.$el.querySelector('.table-wrap__inner'), {
-            wheelSpeed: 0.5,
+          setTimeout(() => {
+            this.scrollObj = new ps(that.$el.querySelector('.table-wrap__inner'), {
+              wheelSpeed: 0.5,
+            });
           });
         } else {
           this.scrollObj.update();

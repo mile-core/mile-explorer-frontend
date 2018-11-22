@@ -2,17 +2,16 @@
 .separate-list
   .separate-list__item.separate-list__item_no-border
     strong stats for 24 hours:
-  .separate-list__item blocks: 4320
+  <!--.separate-list__item blocks: 4320-->
   .separate-list__item(v-if="stats.count") transactions: {{ stats.count }}
-  .separate-list__item.separate-list__item_no-border per day:
   template(v-for="asset in stats.assets")
-    td.separate-list__item.separate-list__item_no-border {{assets[asset['code']]['name']}}:&nbsp;
+    .separate-list__item.separate-list__item_no-border {{assets[asset['code']]['name']}}:&nbsp;
       <vue-numeric v-bind:value="asset['amount']" read-only="True" v-bind:precision="assets[asset['code']]['precision']"></vue-numeric>
 </template>
 
 <script>
 import api from '@/api';
-import VueNumeric from 'vue-numeric'
+import VueNumeric from 'vue-numeric';
 
 export default {
   components: {

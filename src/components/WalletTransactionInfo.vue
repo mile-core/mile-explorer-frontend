@@ -22,7 +22,7 @@
                       td.amount <vue-numeric v-bind:value="item['amount']" read-only=True v-bind:precision="assets[item['code']]['precision']"></vue-numeric>
                 tr
                   th.timestamp date
-                  td.timestamp {{ info['timestamp'] | localTime }}
+                  td.timestamp {{ info['timestamp'] | dateUTC }} ({{ info['timestamp'] | timeAgo }})
                 tr
                   th.from from
                   td.from

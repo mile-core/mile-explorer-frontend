@@ -1,6 +1,6 @@
 <template lang="pug">
 .table-wrap
-  .table-wrap__inner.table-wrap__inner_height_small
+  .table-wrap__inner
     table.table(v-if="sortedBlocks.length")
       thead
         tr
@@ -22,7 +22,7 @@
           td.merkle-root {{ block['merkle-root'] }}
           td.number-of-signers {{ block['number-of-signers'] }}
           td.round {{ block.round }}
-          td.timestamp {{ block.timestamp | localTime }}
+          td.timestamp {{ block.timestamp | timeAgo }}
           td.transaction-count {{ block['transaction-count'] }}
           td.version {{ block.version }}
 </template>
@@ -67,9 +67,12 @@ export default {
   watch: {
     sortedBlocks: {
       handler() {
+        const that = this;
         if (!this.scrollObj) {
-          this.scrollObj = new ps(this.$el.querySelector('.table-wrap__inner'), {
-            wheelSpeed: 0.5,
+          setTimeout(() => {
+            this.scrollObj = new ps(that.$el.querySelector('.table-wrap__inner'), {
+              wheelSpeed: 0.5,
+            });
           });
         } else {
           this.scrollObj.update();

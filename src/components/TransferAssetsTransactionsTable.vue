@@ -1,10 +1,11 @@
 <template lang="pug">
 .table-wrap
-  .table-wrap__inner(:class="{ 'table-wrap__inner_height_small' : fixHeight}")
+  .table-wrap__inner
     table.table.table_limit-with_small(v-if="transactions.length")
       thead
         tr
           th.serial serial
+          th date
           th.from from
           th.to to
           th.transaction-asset transaction-asset
@@ -12,11 +13,11 @@
           th.block-id block id
           th.transaction-id transaction id
           th.fee fee
-          th.description memo
           th.transaction-name transaction type
       tbody
         tr(v-for="transaction in transactions" :key="transaction['serial']" :unique-key="true")
           td.serial {{transaction['serial']}}
+          td {{ transaction['timestamp'] | timeAgo }}
           td.from
             router-link.link.address-tag(
             :to="{ name: 'wallet', params: { publicKey: transaction['from'] } }"
@@ -39,7 +40,6 @@
             div.t-id
               router-link(:to="'/transactions/' + transaction['digest']") {{ transaction['digest'] }}
           td.fee {{transaction['fee']}}
-          td.description.field-ellipsis(v-bind:title="transaction['description']") {{transaction['description']}}
           td.transaction-name {{transaction['transaction-type']}}
 </template>
 
@@ -47,7 +47,7 @@
 import fecha from 'fecha';
 import api from '@/api';
 import ps from 'perfect-scrollbar/dist/perfect-scrollbar';
-import VueNumeric from 'vue-numeric'
+import VueNumeric from 'vue-numeric';
 
 export default {
   components: {
@@ -57,10 +57,6 @@ export default {
     transactions: {
       type: Array,
       required: true,
-    },
-    fixHeight: {
-      type: Boolean,
-      default: true,
     },
   },
   data() {
@@ -85,9 +81,12 @@ export default {
     },
     transactions: {
       handler() {
+        const that = this;
         if (!this.scrollObj) {
-          this.scrollObj = new ps(this.$el.querySelector('.table-wrap__inner'), {
-            wheelSpeed: 0.5,
+          setTimeout(() => {
+            this.scrollObj = new ps(that.$el.querySelector('.table-wrap__inner'), {
+              wheelSpeed: 0.5,
+            });
           });
         } else {
           this.scrollObj.update();

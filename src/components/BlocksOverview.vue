@@ -11,10 +11,10 @@
               router-link(
                 :to="{ name: 'block', params: { blockId: block['block-id'] } }"
               ) {{ block['block-id'] }}
-            .pill__tip.text-overflow {{ block.timestamp | localTime }}
+            .pill__tip.text-overflow {{ block.timestamp | timeAgo }}
           .row-info__col.text-overflow
             strong SIGNED
-            span {{ block['escort-signatures'][0].key }}
+            router-link(:to="'/wallet/' + block['escort-signatures'][0].key") {{ block['escort-signatures'][0].key }}
           .row-info__col.nowrap {{ block['transaction-count'] }} Txns
 </template>
 <script>

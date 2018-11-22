@@ -13,9 +13,13 @@ import { routerHistory, writeHistory } from 'vue-router-back-button';
 
 Vue.config.productionTip = false;
 
-Vue.filter('localTime', (value) => {
+Vue.filter('timeAgo', (value) => {
   const stillUtc = moment.unix(value).utc().toDate();
   return timeago().format(stillUtc);
+});
+
+Vue.filter('dateUTC', (value) => {
+  return moment.unix(value).utc().format('HH:mm:ss DD.MM.YYYY') + ' UTC';
 });
 
 Vue.filter('backButtonText', (value) => {

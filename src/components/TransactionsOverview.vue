@@ -11,7 +11,7 @@
               router-link(
                 :to="{ name: 'transaction', params: { digest: transaction['digest'] } }"
               ) {{ transaction['digest'] }}
-            .pill__tip.nowrap {{ transaction.timestamp | localTime }}
+            .pill__tip.nowrap {{ transaction.timestamp | timeAgo }}
           .row-info
             .row-info__col.text-overflow
               strong FROM
