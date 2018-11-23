@@ -10,7 +10,7 @@
     <vue-numeric v-bind:value="stats.assets[0]['amount']" read-only="True" v-bind:precision="assets[stats.assets[0]['code']]['precision']"></vue-numeric>
 </template>
 
-<script> 
+<script>
 import api from '@/api';
 import VueNumeric from 'vue-numeric';
 
