@@ -5,9 +5,7 @@
       thead
         tr
           th.block-id block id
-          th.block-header-digest block header digest
-          th.previous-block-digest previous block digest
-          th.merkle-root merkle root
+          th.signed signed
           th.number-of-signers number of signers
           th.round round
           th.timestamp Date
@@ -17,9 +15,8 @@
         tr(v-for="block in sortedBlocks" :key="block.id")
           td.block-id
             router-link(:to="'/blocks/' + block['block-id']") {{ block['block-id'] }}
-          td.block-header-digest {{ block['block-header-digest'] }}
-          td.previous-block-digest {{ block['previous-block-digest'] }}
-          td.merkle-root {{ block['merkle-root'] }}
+          td.signed
+            router-link(:to="'/wallet/' + block['escort-signatures'][0].key") {{ block['escort-signatures'][0].key }}
           td.number-of-signers {{ block['number-of-signers'] }}
           td.round {{ block.round }}
           td.timestamp {{ block.timestamp | timeAgo }}

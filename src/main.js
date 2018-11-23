@@ -52,6 +52,12 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach(writeHistory);
 
+router.afterEach((toRoute, fromRoute) => {
+  if (toRoute['name'] != 'home') {
+    window.document.title = window.document.title + " | MILE and XDR block explorer";
+  }
+})
+
 new Vue({
   router,
   store,

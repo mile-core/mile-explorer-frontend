@@ -2,17 +2,17 @@
   .home
     .info-wrapper
       .section
-        blocks-overview(
-          v-if="blockCount"
-          :from="blockFrom"
-          :limit="blockLimit"
-        )
-        mile-loader(v-else)
-      .section
         transactions-overview(
           v-if="transactionCount"
           :from="transactionFrom"
           :limit="transactionLimit"
+        )
+        mile-loader(v-else)
+      .section
+        blocks-overview(
+          v-if="blockCount"
+          :from="blockFrom"
+          :limit="blockLimit"
         )
         mile-loader(v-else)
 </template>

@@ -4,9 +4,10 @@
     strong stats for 24 hours:
   <!--.separate-list__item blocks: 4320-->
   .separate-list__item(v-if="stats.count") transactions: {{ stats.count }}
-  template(v-for="asset in stats.assets")
-    .separate-list__item.separate-list__item_no-border {{assets[asset['code']]['name'].split(' ')[0]}}&nbsp;turnover:&nbsp;
-      <vue-numeric v-bind:value="asset['amount']" read-only="True" v-bind:precision="assets[asset['code']]['precision']"></vue-numeric>
+  .separate-list__item.separate-list__item_no-border {{assets[stats.assets[1]['code']]['name'].split(' ')[0]}}&nbsp;turnover:&nbsp;
+    <vue-numeric v-bind:value="stats.assets[1]['amount']" read-only="True" v-bind:precision="assets[stats.assets[1]['code']]['precision']"></vue-numeric>
+  .separate-list__item.separate-list__item_no-border {{assets[stats.assets[0]['code']]['name'].split(' ')[0]}}&nbsp;turnover:&nbsp;
+    <vue-numeric v-bind:value="stats.assets[0]['amount']" read-only="True" v-bind:precision="assets[stats.assets[0]['code']]['precision']"></vue-numeric>
 </template>
 
 <script>
