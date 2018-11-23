@@ -116,6 +116,9 @@ export default {
       }
     },
   },
+  created() {
+    window.location.reload();
+  },
 };
 </script>
 
