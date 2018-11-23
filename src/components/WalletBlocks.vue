@@ -1,6 +1,6 @@
 <template lang="pug">
   .wallet-blocks
-    h4 Wallet Blocks
+    h4.h4 Wallet Blocks
     mile-loader(v-if="!done")
     template(v-else)
       .brick-list(v-if="blocks.length")

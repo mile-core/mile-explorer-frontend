@@ -5,7 +5,7 @@
   <!--.separate-list__item blocks: 4320-->
   .separate-list__item(v-if="stats.count") transactions: {{ stats.count }}
   template(v-for="asset in stats.assets")
-    .separate-list__item.separate-list__item_no-border {{assets[asset['code']]['name']}}:&nbsp;
+    .separate-list__item.separate-list__item_no-border {{assets[asset['code']]['name'].split(' ')[0]}}&nbsp;turnover:&nbsp;
       <vue-numeric v-bind:value="asset['amount']" read-only="True" v-bind:precision="assets[asset['code']]['precision']"></vue-numeric>
 </template>
 

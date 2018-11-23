@@ -23,7 +23,7 @@
             .pair__key {{ assets[asset['code']]['name'] }} balance
             .pair__value {{ asset.amount }}
 
-        h4 Wallet Transactions
+        h4.h4 Wallet Transactions
         wallet-transactions(
           v-if="transactionCount"
           :publicKey="publicKey"

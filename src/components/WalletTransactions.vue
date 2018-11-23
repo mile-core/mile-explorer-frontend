@@ -15,7 +15,6 @@
             th.block-id block id
             th.transaction-id transaction id
             th.fee fee
-            th.description description
             th.transaction-type transaction type
         tbody
           tr(v-for="transaction in transactions" v-if="transaction")
@@ -43,7 +42,6 @@
                 div.t-id
                     router-link(:to="'/transactions/' + transaction['digest']") {{ transaction.digest }}
             td.fee {{transaction['fee']}}
-            td.description {{transaction['description']}}
             td.transaction-type {{transaction['transaction-type']}}
 
 </template>

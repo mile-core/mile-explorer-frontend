@@ -67,10 +67,14 @@ export default {
     overflow: visible
 
   .h1
-    font-size: 60px
+    margin: .4em 0 .8em
+    font-size: 36px
     color: $color-black
     font-family: $font-title
     font-weight: bold
+    text-transform: uppercase
+
+  .h4
     text-transform: uppercase
 
   .table-responsive

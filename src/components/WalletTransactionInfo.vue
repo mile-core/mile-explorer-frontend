@@ -18,7 +18,7 @@
                 tr
                   template(v-for="item in info['asset']")
                     template(v-if="assets[item['code']]")
-                      td.transaction-asset {{assets[item['code']]['name']}}
+                      th.transaction-asset {{assets[item['code']]['name']}}
                       td.amount <vue-numeric v-bind:value="item['amount']" read-only=True v-bind:precision="assets[item['code']]['precision']"></vue-numeric>
                 tr
                   th.timestamp date
