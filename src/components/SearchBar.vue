@@ -5,7 +5,7 @@
       input.form-input.form-input_icon_search(
         type="text"
         v-model="userInput"
-        placeholder="Search by Address / Block "
+        placeholder="Search by Address / Block / TrxDigest"
         v-on:keyup.13="go"
       )
 </template>

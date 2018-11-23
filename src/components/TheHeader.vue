@@ -81,7 +81,7 @@ export default {
     "home": "MILE Explorer",
     "blocks": "Blocks",
     "transactions": "Transactions",
-    "wallet": "Wallet"
+    "wallet": "Wallets"
   }
 }
 </i18n>

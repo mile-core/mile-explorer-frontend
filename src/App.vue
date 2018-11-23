@@ -1,4 +1,4 @@
-<template lang="pug"> 
+<template lang="pug">
   #app
     .content-wrapper.page-bg
     the-header
