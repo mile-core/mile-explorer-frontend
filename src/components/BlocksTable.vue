@@ -16,7 +16,10 @@
           td.block-id
             router-link(:to="'/blocks/' + block['block-id']") {{ block['block-id'] }}
           td.signed
-            router-link(:to="'/wallet/' + block['escort-signatures'][0].key") {{ block['escort-signatures'][0].key }}
+            router-link(:to="'/wallet/' + block['escort-signatures']")
+              template(v-for="(signature, index) in block['escort-signatures']" v-if="index<1")
+                router-link(:to="'/wallet/' + signature['key']")
+                  span {{ signature['key'] }}
           td.number-of-signers {{ block['number-of-signers'] }}
           td.round {{ block.round }}
           td.timestamp {{ block.timestamp | timeAgo }}

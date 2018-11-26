@@ -170,7 +170,7 @@ export default {
   },
   getWalletSate(publicKey, count) {
     return axios.post(
-      'https://lotus001.testnet.mile.global/v1/api',
+      'https://lotus000.i.mile.global/v1/api',
       {
         method: 'get-wallet-state',
         params: { 'public-key': publicKey },
