@@ -79,10 +79,6 @@ export default {
       handler: 'fetchWalletState',
       immediate: true,
     },
-    balance: {
-      handler: 'getBalance',
-      immediate: true,
-    },
   },
   methods: {
     async fetchWalletState(range) {
@@ -90,6 +86,10 @@ export default {
       this.done = true;
       try {
         const state = await api.getWalletHistoryState(this.publicKey);
+        this.assets = await api.getAssets();
+        const balance = await api.getWalletSate(this.publicKey);
+        this.balance = balance.data.result.balance;
+
         this.done = true;
         if (!state) {
           this.$router.replace('/wallet');
@@ -108,13 +108,7 @@ export default {
         this.error = true;
       }
     },
-    async getBalance() {
-      if (this.balance.length == 0) {
-        this.assets = await api.getAssets();
-        const state = await api.getWalletSate(this.publicKey);
-        this.balance = state.data.result.balance;
-      }
-    },
+
   },
 };
 </script>
