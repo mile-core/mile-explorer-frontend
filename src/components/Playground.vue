@@ -1,73 +1,74 @@
 <template lang="pug">
   .api-playground
 
-    .section
-      .method help
-      .description Get all allowed methods
-      .actions
-        button(@click="request('help')") Fetch
-      .results
+    .api-playground__section.section.api-block
+      .api-block__title help
+      .api-block__description Get all allowed methods
+      .api-block__actions
+        button.button(@click="request('help')") Fetch
+      .api-block__result
         mile-loader(v-if="loading.help")
-        pre(v-else) {{ results.help }}
+        pre(v-if="results.help") {{ results.help }}
 
-    .section
-      .method getAssets
-      .description Get all allowed methods
-      .actions
-        button(@click="request('getAssets')") Fetch
-      .results
+    .api-playground__section.section.api-block
+      .api-block__title getAssets
+      .api-block__description Get all allowed methods
+      .api-block__actions
+        button.button(@click="request('getAssets')") Fetch
+      .api-block__result
         mile-loader(v-if="loading.getAssets")
-        pre(v-else) {{ results.getAssets }}
+        pre(v-if="results.getAssets") {{ results.getAssets }}
 
-    .section
-      .method ping
-      .description Ping
-      .actions
-        button(@click="request('Ping')") Fetch
-      .results
+    .api-playground__section.section.api-block
+      .api-block__title ping
+      .api-block__description Ping
+      .api-block__actions
+        button.button(@click="request('Ping')") Fetch
+      .api-block__result
         mile-loader(v-if="loading.Ping")
-        pre(v-else) {{ results.Ping }}
+        pre(v-if="results.Ping") {{ results.Ping }}
 
-    .section
-      .method get-blockchain-info
-      .description Get all allowed methods
-      .actions
-        button(@click="request('getBlockchainInfo')") Fetch
-      .results
+    .api-playground__section.section.api-block
+      .api-block__title get-blockchain-info
+      .api-block__description Get all allowed methods
+      .api-block__actions
+        button.button(@click="request('getBlockchainInfo')") Fetch
+      .api-block__result
         mile-loader(v-if="loading.getBlockchainInfo")
-        pre(v-else) {{ results.getBlockchainInfo }}
+        pre(v-if="results.getBlockchainInfo") {{ results.getBlockchainInfo }}
 
-    h2 Explore blocks
+    br
+    h2.h2 Explore blocks
 
-    .section
-      .method get-block-history-state
-      .description Get chains history from block first with limit of history length
-      .actions
-        button(@click="request('getBlockHistoryState')") Fetch
-      .results
+    .api-playground__section.section.api-block
+      .api-block__title get-block-history-state
+      .api-block__description Get chains history from block first with limit of history length
+      .api-block__actions
+        button.button(@click="request('getBlockHistoryState')") Fetch
+      .api-block__result
         mile-loader(v-if="loading.getBlockHistoryState")
-        pre(v-else) {{ results.getBlockHistoryState }}
+        pre(v-if="results.getBlockHistoryState") {{ results.getBlockHistoryState }}
 
-    .section
-      .method get-block-history
-      .description Get chains history from block first with limit of history length
-      .params
-        .param
-          label(for="get-block-history_first") first
-          input(
+    .api-playground__section.section.api-block
+      .api-block__title get-block-history
+      .api-block__description Get chains history from block first with limit of history length
+      .api-block__params
+        .form-input-block
+          .form-input-label(for="get-block-history_first") first
+          input.form-input.form-input_border(
             id="get-block-history_first"
             type="number"
             v-model.number="params.getBlockHistory.first"
           )
-        .param
-          label(for="get-block-history_limit") limit
-          input(
+        .form-input-block
+          .form-input-label(for="get-block-history_limit") limit
+          input.form-input.form-input_border(
             id="get-block-history_limit"
             type="number"
             v-model.number="params.getBlockHistory.limit"
           )
-      .actions
-        button(
+      .api-block__actions
+        button.button(
           @click=`
             request(
               'getBlockHistory',
@@ -76,267 +77,269 @@
               params.getBlockHistory.filter
             )`
         ) Fetch
-      .results
+      .api-block__result
         mile-loader(v-if="loading.getBlockHistory")
-        pre(v-else) {{ results.getBlockHistory }}
+        pre(v-if="results.getBlockHistory") {{ results.getBlockHistory }}
 
-    .section
-      .method get-block
-      .description
+    .api-playground__section.section.api-block
+      .api-block__title get-block
+      .api-block__description
         | Get certain block from chain by id.
         | This is equal get-block-history with limit:1 but more efficient
-      .params
-        .param
-          label(for="get-block_id") id
-          input(
+      .api-block__params
+        .form-input-block
+          .form-input-label(for="get-block_id") id
+          input.form-input.form-input_border(
             id="get-block_id"
             type="number"
             v-model.number="params.getBlock.id"
           )
-      .actions
-        button(@click="request('getBlock', params.getBlock.id)") Fetch
-      .results
+      .api-block__actions
+        button.button(@click="request('getBlock', params.getBlock.id)") Fetch
+      .api-block__result
         mile-loader(v-if="loading.getBlock")
-        pre(v-else) {{ results.getBlock }}
+        pre(v-if="results.getBlock") {{ results.getBlock }}
 
-    h2 Explore wallet and transactions
+    br
+    h2.h2 Explore wallet and transactions
 
-    .section
-      .method get-wallet-history-state
-      .description Get wallet history state for a known *public-key*
-      .params
-        .param
-          label(for="get-wallet-history-state_public-key") public-key
-          input(
+    .api-playground__section.section.api-block
+      .api-block__title get-wallet-history-state
+      .api-block__description Get wallet history state for a known *public-key*
+      .api-block__params
+        .form-input-block
+          .form-input-label(for="get-wallet-history-state_public-key") public-key
+          input.form-input.form-input_border(
             id="get-wallet-history-state_public-key"
             type="text"
             v-model="params.getWalletHistoryState.publicKey"
           )
-      .actions
-        button(@click=`request(
+      .api-block__actions
+        button.button(@click=`request(
           'getWalletHistoryState',
           params.getWalletHistoryState.publicKey,
         )`) Fetch
-      .results
+      .api-block__result
         mile-loader(v-if="loading.getWalletHistoryState")
-        pre(v-else) {{ results.getWalletHistoryState }}
+        pre(v-if="results.getWalletHistoryState") {{ results.getWalletHistoryState }}
 
-    .section
-      .method get-wallet-history-blocks
-      .description Get wallet block ids for a known *public-key*
-      .params
-        .param
-          label(for="get-wallet-history-blocks_public-key") public-key
-          input(
+    .api-playground__section.section.api-block
+      .api-block__title get-wallet-history-blocks
+      .api-block__description Get wallet block ids for a known *public-key*
+      .api-block__params
+        .form-input-block
+          .form-input-label(for="get-wallet-history-blocks_public-key") public-key
+          input.form-input.form-input_border(
             id="get-wallet-history-blocks_public-key"
             type="text"
             v-model="params.getWalletHistoryBlocks.publicKey"
           )
-        .param
-          label(for="get-wallet-history-blocks_first") first
-          input(
+        .form-input-block
+          .form-input-label(for="get-wallet-history-blocks_first") first
+          input.form-input.form-input_border(
             id="get-wallet-history-blocks_first"
             type="number"
             v-model.number="params.getWalletHistoryBlocks.first"
           )
-        .param
-          label(for="get-wallet-history-blocks_limit") limit
-          input(
+        .form-input-block
+          .form-input-label(for="get-wallet-history-blocks_limit") limit
+          input.form-input.form-input_border(
             id="get-wallet-history-blocks_limit"
             type="number"
             v-model.number="params.getWalletHistoryBlocks.limit"
           )
-      .actions
-        button(@click=`request(
+      .api-block__actions
+        button.button(@click=`request(
           'getWalletHistoryBlocks',
           params.getWalletHistoryBlocks.publicKey,
           params.getWalletHistoryBlocks.first,
           params.getWalletHistoryBlocks.limit,
         )`) Fetch
-      .results
+      .api-block__result
         mile-loader(v-if="loading.getWalletHistoryBlocks")
-        pre(v-else) {{ results.getWalletHistoryBlocks }}
+        pre(v-if="results.getWalletHistoryBlocks") {{ results.getWalletHistoryBlocks }}
 
-    .section
-      .method get-wallet-history-transactions
-      .description
+    .api-playground__section.section.api-block
+      .api-block__title get-wallet-history-transactions
+      .api-block__description
         | Get wallet transaction history
         | for the known public-key from first
         | with limit of transactions list
-      .params
-        .param
-          label(for="get-wallet-history-transactions_public-key") public-key
-          input(
+      .api-block__params
+        .form-input-block
+          .form-input-label(for="get-wallet-history-transactions_public-key") public-key
+          input.form-input.form-input_border(
             id="get-wallet-history-transactions_public-key"
             type="text"
             v-model="params.getWalletHistoryTransactions.publicKey"
           )
-        .param
-          label(for="get-wallet-history-transactions_first") first
-          input(
+        .form-input-block
+          .form-input-label(for="get-wallet-history-transactions_first") first
+          input.form-input.form-input_border(
             id="get-wallet-history-transactions_first"
             type="number"
             v-model.number="params.getWalletHistoryTransactions.first"
           )
-        .param
-          label(for="get-wallet-history-transactions_limit") limit
-          input(
+        .form-input-block
+          .form-input-label(for="get-wallet-history-transactions_limit") limit
+          input.form-input.form-input_border(
             id="get-wallet-history-transactions_limit"
             type="number"
             v-model.number="params.getWalletHistoryTransactions.limit"
           )
-      .actions
-        button(@click=`request(
+      .api-block__actions
+        button.button(@click=`request(
           'getWalletHistoryTransactions',
           params.getWalletHistoryTransactions.publicKey,
           params.getWalletHistoryTransactions.first,
           params.getWalletHistoryTransactions.limit
         )`) Fetch
-      .results
+      .api-block__result
         mile-loader(v-if="loading.getWalletHistoryTransactions")
-        pre(v-else) {{ results.getWalletHistoryTransactions }}
+        pre(v-if="results.getWalletHistoryTransactions") {{ results.getWalletHistoryTransactions }}
 
-    .section
-      .method get-wallet-state
-      .description
+    .api-playground__section.section.api-block
+      .api-block__title get-wallet-state
+      .api-block__description
         | Get wallet transaction state
         | for the known public-key from first
-      .params
-        .param
-          label(for="get-wallet-state_public-key") public-key
-          input(
+      .api-block__params
+        .form-input-block
+          .form-input-label(for="get-wallet-state_public-key") public-key
+          input.form-input.form-input_border(
             id="get-wallet-state_public-key"
             type="text"
             v-model="params.getWalletState.publicKey"
           )
-      .actions
-        button(@click=`request(
+      .api-block__actions
+        button.button(@click=`request(
           'getWalletState',
           params.getWalletState.publicKey,
         )`) Fetch
-      .results
+      .api-block__result
         mile-loader(v-if="loading.getWalletState")
-        pre(v-else) {{ results.getWalletState }}
+        pre(v-if="results.getWalletState") {{ results.getWalletState }}
 
-    .section
-      .method get-wallet-node
-      .description
+    .api-playground__section.section.api-block
+      .api-block__title get-wallet-node
+      .api-block__description
         | Get wallet transaction node
         | for the known public-key from first
-      .params
-        .param
-          label(for="get-wallet-node_public-key") public-key
-          input(
+      .api-block__params
+        .form-input-block
+          .form-input-label(for="get-wallet-node_public-key") public-key
+          input.form-input.form-input_border(
             id="get-wallet-node_public-key"
             type="text"
             v-model="params.getWalletNode.publicKey"
           )
-      .actions
-        button(@click=`request(
+      .api-block__actions
+        button.button(@click=`request(
           'getWalletNode',
           params.getWalletNode.publicKey,
         )`) Fetch
-      .results
+      .api-block__result
         mile-loader(v-if="loading.getWalletNode")
-        pre(v-else) {{ results.getWalletNode }}
+        pre(v-if="results.getWalletNode") {{ results.getWalletNode }}
 
-    .section
-      .method get-transaction-info
-      .description Get certain transactions for the known wallet with public-key and *id*
-      .params
-        .param
-          label(for="get-transaction-info_public-key") public-key
-          input(
+    .api-playground__section.section.api-block
+      .api-block__title get-transaction-info
+      .api-block__description Get certain transactions for the known wallet with public-key and *id*
+      .api-block__params
+        .form-input-block
+          .form-input-label(for="get-transaction-info_public-key") public-key
+          input.form-input.form-input_border(
             id="get-transaction-info_public-key"
             type="text"
             v-model="params.getTransactionInfo.publicKey"
           )
-        .param
-          label(for="get-transaction-info_id") id
-          input(
+        .form-input-block
+          .form-input-label(for="get-transaction-info_id") id
+          input.form-input.form-input_border(
             id="get-transaction-info_id"
             type="number"
             v-model.number="params.getTransactionInfo.id"
           )
-      .actions
-        button(@click=`request(
+      .api-block__actions
+        button.button(@click=`request(
           'getTransactionInfo',
           params.getTransactionInfo.publicKey,
           params.getTransactionInfo.id
         )`) Fetch
-      .results
+      .api-block__result
         mile-loader(v-if="loading.getTransactionInfo")
-        pre(v-else) {{ results.getTransactionInfo }}
+        pre(v-if="results.getTransactionInfo") {{ results.getTransactionInfo }}
 
-    .section
-      .method get-transaction-history
-      .description
+    .api-playground__section.section.api-block
+      .api-block__title get-transaction-history
+      .api-block__description
         | Get transaction history
         | for the known first
         | with limit of transactions list
-      .params
-        .param
-          label(for="get-transaction-history_first") first
-          input(
+      .api-block__params
+        .form-input-block
+          .form-input-label(for="get-transaction-history_first") first
+          input.form-input.form-input_border(
             id="get-transaction-history_first"
             type="number"
             v-model.number="params.getTransactionHistory.first"
           )
-        .param
-          label(for="get-transaction-history_limit") limit
-          input(
+        .form-input-block
+          .form-input-label(for="get-transaction-history_limit") limit
+          input.form-input.form-input_border(
             id="get-transaction-history_limit"
             type="number"
             v-model.number="params.getTransactionHistory.limit"
           )
-      .actions
-        button(@click=`request(
+      .api-block__actions
+        button.button(@click=`request(
           'getTransactionHistory',
           params.getTransactionHistory.first,
           params.getTransactionHistory.limit
         )`) Fetch
-      .results
+      .api-block__result
         mile-loader(v-if="loading.getTransactionHistory")
-        pre(v-else) {{ results.getTransactionHistory }}
+        pre(v-if="results.getTransactionHistory") {{ results.getTransactionHistory }}
 
-    .section
-      .method get-transaction-history-state
-      .description
-      .params
-      .actions
-        button(@click=`request(
+    .api-playground__section.section.api-block
+      .api-block__title get-transaction-history-state
+      .api-block__description TODO: Add description
+      .api-block__params
+      .api-block__actions
+        button.button(@click=`request(
           'getTransactionHistoryState',
         )`) Fetch
-      .results
+      .api-block__result
         mile-loader(v-if="loading.getTransactionHistoryState")
-        pre(v-else) {{ results.getTransactionHistoryState }}
+        pre(v-if="results.getTransactionHistoryState") {{ results.getTransactionHistoryState }}
 
-    h2 Explore network and nodes
+    br
+    h2.h2 Explore network and nodes
 
-    .section
-      .method get-nodes
-      .description TODO: Add description
-      .params
-        .param
-          label(for="get-nodes_first") first
-          input(id="get-nodes_first" type="number" v-model.number="params.getNodes.first")
-        .param
-          label(for="get-nodes_limit") limit
-          input(id="get-nodes_limit" type="number" v-model.number="params.getNodes.limit")
-      .actions
-        button(@click="request('getNodes', params.getNodes.first, params.getNodes.limit)") Fetch
-      .results
+    .api-playground__section.section.api-block
+      .api-block__title get-nodes
+      .api-block__description TODO: Add description
+      .api-block__params
+        .form-input-block
+          .form-input-label(for="get-nodes_first") first
+          input.form-input.form-input_border(id="get-nodes_first" type="number" v-model.number="params.getNodes.first")
+        .form-input-block
+          .form-input-label(for="get-nodes_limit") limit
+          input.form-input.form-input_border(id="get-nodes_limit" type="number" v-model.number="params.getNodes.limit")
+      .api-block__actions
+        button.button(@click="request('getNodes', params.getNodes.first, params.getNodes.limit)") Fetch
+      .api-block__result
         mile-loader(v-if="loading.getNodes")
-        pre(v-else) {{ results.getNodes }}
+        pre(v-if="results.getNodes") {{ results.getNodes }}
 
-    .section
-      .method get-network-state
-      .description TODO: Add description
-      .actions
-        button(@click="request('getNetworkState')") Fetch
-      .results
+    .api-playground__section.section.api-block
+      .api-block__title get-network-state
+      .api-block__description TODO: Add description
+      .api-block__actions
+        button.button(@click="request('getNetworkState')") Fetch
+      .api-block__result
         mile-loader(v-if="loading.getNetworkState")
-        pre(v-else) {{ results.getNetworkState }}
+        pre(v-if="results.getNetworkState") {{ results.getNetworkState }}
 </template>
 
 <script>
@@ -407,6 +410,9 @@ export default {
         Vue.set(this.loading, method, false);
       }
     },
+  },
+  created() {
+    console.log(this.results.getNetworkState)
   },
 };
 </script>
