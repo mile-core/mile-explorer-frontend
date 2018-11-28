@@ -74,6 +74,11 @@ export default {
     font-weight: bold
     text-transform: uppercase
 
+  .h2
+    margin: .4em 0 .8em
+    font-size: 26px
+    text-transform: uppercase
+
   .h4
     text-transform: uppercase
 
@@ -134,10 +139,17 @@ export default {
     color: $color-black
     font-size: 15px
     line-height: 2em
+    &_border
+      border: 1px solid $color-green
+      border-radius: 5px
 
   .form-input-block
     position: relative
     margin: 0 0 20px
+
+  .form-input-label
+    margin-bottom: .5em
+    font-weight: 500
 
   .input-icon
     position: absolute
@@ -162,6 +174,7 @@ export default {
     &:hover, &:focus
       background-color: darken($color-green, 8%)
       text-decoration: none
+      outline: none
     &_black
       background-color: $color-black
       &:hover, &:focus
@@ -744,38 +757,39 @@ export default {
         overflow: hidden
         text-overflow: ellipsis
 
+  .api-block
+    &__title
+      margin-bottom: 1em
+      color: $color-green
+      font-weight: 700
+      &:before
+        content: "method :: "
+        color: $color-gray
+        font-weight: 200
+    &__description
+      margin-bottom: 1.2em
+      padding: .7em
+      border-left: 2px solid $color-green
+      font-style: italic
+    &__actions
+    &__result
+      padding-left: .5em
+      border-left: 2px dotted $color-gray-light
+      pre
+        padding: 20px 0
+        overflow-x: scroll
+    .mile-loader
+      position: static
+      margin: 10px 0
+
   .api-playground
-    > .section
-      margin-bottom: 1rem
-
-      > .method
-        color: $color-brand
-        font-weight: 700
-        margin-bottom: .5rem
-        &::before
-          content: "method :: "
-          color: $color-gray
-          font-weight: 200
-
-      > .description
-        padding: .5rem
-        border-left: 2px solid $color-brand
-        font-style: italic
-        margin-bottom: .5rem
-
-      > .params
-        margin-bottom: .5rem
-        > .param:not(last-child)
-          margin-bottom: .25rem
-
-      > .actions
-        margin-bottom: .5rem
-
+    &__section
+      margin-bottom: 2em
+      padding: 20px
       > .results
         border-left: 2px dotted $color-gray-light
         padding-left: .5rem
         margin-bottom: .5rem
-
     ul.select
       padding: 0 .5rem
       margin: 0 0 0 8rem
@@ -783,31 +797,9 @@ export default {
         list-style: none
         > label
           text-align: left
-
-    button
-      background-color: $color-blue
-      color: $color-white
-      border: none
-      border-radius: 5px
-      margin: 0
-      margin-left: 8.5rem
-      padding: 0.5rem
-      &:hover
-        background-color: $color-blue-light
-
-    label
-      display: inline-block
-      min-width: 8rem
-      text-align: right
-      margin-right: .5rem
-
     input
-      padding: 0.25rem
-      border: 1px solid $color-brand
-      border-radius: 5px
-      margin-right: .5rem
       &[type=number]
-        width: 3rem
+        width: 4em
       &[type=text]
         width: 100%
         max-width: 500px

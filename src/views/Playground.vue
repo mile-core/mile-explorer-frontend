@@ -1,6 +1,6 @@
 <template lang="pug">
   .api
-    h1 API Playground
+    h1.h1 API Playground
     playground
 </template>
 
