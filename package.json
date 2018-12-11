@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "amcharts3": "github:amcharts/amcharts3",
     "axios": "^0.18.0",
     "big-integer": "^1.6.36",
     "fecha": "^2.3.3",

@@ -2,7 +2,8 @@ const path = require('path');
 
 module.exports = {
   devServer: {
-    proxy: 'https://explorer.mile.global',
+    proxy: 'https://explorer.testnet.mile.global',
+    // proxy: 'https://explorer.mile.global',
     // proxy: 'http://localhost:8042',
   },
   pluginOptions: {

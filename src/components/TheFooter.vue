@@ -20,14 +20,9 @@ export default {
   components: {
     Stats,
   },
-  data() {
-    return {
-      stats: {},
-    };
-  },
   methods: {
     async fetchStats() {
-      const data = await api.getTurnovers();
+      const data = await api.getStatistics('turnover-24');
       const res = {
         amount: 0,
       };
@@ -44,21 +39,6 @@ export default {
 
       return res;
     },
-  },
-  created() {
-    const that = this;
-
-    function fetchStats() {
-      that.fetchStats().then((res) => {
-        that.stats = res;
-      });
-    }
-
-    fetchStats();
-
-    setInterval(() => {
-      fetchStats();
-    }, 60000);
   },
 };
 </script>

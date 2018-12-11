@@ -181,7 +181,10 @@ export default {
     );
   },
   // Get statistics
-  getTurnovers() {
-    return jsonRpc('get-turnovers');
+  getStatisticsList() {
+    return jsonRpc('get-statistics-list');
+  },
+  getStatistics(name) {
+    return jsonRpc('get-statistics', { name: name || 'transaction-turnover' });
   },
 };

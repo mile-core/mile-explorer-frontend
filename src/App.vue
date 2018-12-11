@@ -239,11 +239,14 @@ export default {
     > .search-wrapper
       padding: 3rem 0
     > .info-wrapper
-      display: flex
-      justify-content: space-between
       min-height: 550px
-      > .section
-        width: calc(50% - 1rem)
+
+  .row-sections
+    display: flex
+    justify-content: space-between
+    margin-bottom: 30px
+    > .section
+      width: calc(50% - 1rem)
 
   .section
     position: relative
@@ -978,6 +981,34 @@ export default {
       &.active
         display: block
 
+  .amcharts-chart-div
+    & > a
+      display: none !important
+
+  .chart-section
+    position: relative
+    padding: 30px
+    height: 343px
+    &__title
+      margin-bottom: 4px
+      color: $color-black
+      font-size: 30px
+      font-family: $font-title
+      font-weight: bold
+      text-transform: uppercase
+    &__subtitle
+      color: $color-black
+      font-family: $font-title
+      font-size: 15px
+      line-height: 21px
+      text-transform: uppercase
+    &__chart
+      position: absolute
+      top: 125px
+      right: 30px
+      left: 30px
+      height: 200px
+
   @media screen and (min-width: 992px)
     .header
       &__menu
@@ -1042,11 +1073,23 @@ export default {
     .home
       > .search-wrapper
         padding: 1rem 0
-      > .info-wrapper
-        flex-direction: column
-        > .section
-          margin-bottom: 30px
-          width: 100%
+
+    .row-sections
+      flex-direction: column
+      margin-bottom: 0
+      > .section
+        margin-bottom: 30px
+        width: 100%
+
+    .chart-section
+      position: relative
+      padding: 15px
+      &__chart
+        position: absolute
+        top: 125px
+        right: 15px
+        left: 15px
+        height: 215px
 
   @media screen and (max-width: 650px)
     .row-info

@@ -1,6 +1,9 @@
 <template lang="pug">
   .home
-    .info-wrapper
+    .row-sections(v-if="transactionsHistory")
+      chart(id="mile-turnover" title="mile" subtitle="transaction history in 14 days" :data="transactionsHistory[1]")
+      chart(id="xdr-turnover" title="xdr" subtitle="transaction history in 14 days" :data="transactionsHistory[0]")
+    .row-sections.info-wrapper
       .section
         transactions-overview(
           v-if="transactionCount"
@@ -22,12 +25,14 @@ import api from '@/api';
 import BlocksOverview from '@/components/BlocksOverview.vue';
 import TransactionsOverview from '@/components/TransactionsOverview.vue';
 import MileLoader from '@/components/MileLoader.vue';
+import Chart from '@/components/Chart.vue';
 
 export default {
   components: {
     BlocksOverview,
     TransactionsOverview,
     MileLoader,
+    Chart,
   },
   data() {
     return {
@@ -38,6 +43,7 @@ export default {
       transactionCount: 0,
       transactionfirst: 0,
       transactionLimit: 25,
+      transactionsHistory: null,
     };
   },
   computed: {
@@ -75,14 +81,27 @@ export default {
         );
       }
     },
+    async refreshTransactionsHistory() {
+      try {
+        const transactionsHistory = await api.getStatistics();
+        this.transactionsHistory = transactionsHistory[0].assets;
+      } finally {
+        this.$_historyTransactionsTimeoutHandler = setTimeout(
+          () => this.refreshTransactionsHistory(),
+          this.refreshRate,
+        );
+      }
+    },
   },
   created() {
     this.refreshBlockState();
     this.refreshTransactionState();
+    this.refreshTransactionsHistory();
   },
   beforeDestroy() {
     clearTimeout(this.$_blockStateTimeoutHandler);
     clearTimeout(this.$_transactionStateTimeoutHandler);
+    clearTimeout(this.$_historyTransactionsTimeoutHandler);
   },
 };
 </script>
