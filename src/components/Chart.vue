@@ -22,7 +22,12 @@ export default {
 
       this.data.forEach((dataObj) => {
         const date = new Date(dataObj.begin * 1000);
-        dataObj.type = `${date.getMonth()}/${date.getDate()}`;
+        const month = date.getMonth() > 9 ? date.getMonth() : `0${date.getMonth()}`;
+        const monthDay = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
+        const year = date.getFullYear();
+
+        dataObj.type = `${month}/${monthDay}`;
+        dataObj.formatDate = `${monthDay}.${month}.${year}`;
         res.push(dataObj);
       });
 
@@ -44,7 +49,7 @@ export default {
             {
               type: 'line',
               valueField: 'count',
-              balloonText: 'Transactions: [[value]]\nAmount: [[amount]]',
+              balloonText: '[[formatDate]]\nTransactions: [[value]]\nAmount: [[amount]]',
               fillAlphas: 0,
               lineColor: '#50c185',
               lineThickness: 2,
