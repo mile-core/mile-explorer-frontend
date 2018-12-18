@@ -1,7 +1,6 @@
 <template lang="pug">
   div
-    mile-loader(v-if="!done")
-    template(v-else)
+    template
       .wallet-search(v-if="error")
         h1.title Oops!
         p.description The wallet public key you entered was:
@@ -15,23 +14,29 @@
             .pair__value.text-overflow {{ publicKey }}
           .pairs-list__item.pair
             .pair__key transaction count
-            .pair__value {{ totalTransactionCount }}
+            mile-loader(v-if="!done")
+            .pair__value(v-else) {{ totalTransactionCount }}
           .pairs-list__item.pair
             .pair__key block count
-            .pair__value {{ totalBlockCount }}
+            mile-loader(v-if="!done")
+            .pair__value(v-else) {{ totalBlockCount }}
           .pairs-list__item.pair(v-for="asset in balance")
             .pair__key {{ assets[asset['code']]['name'] }} balance
             .pair__value {{ asset.amount }}
 
         h4.h4 Wallet Transactions
-        wallet-transactions(
+        mile-loader(v-if="!done")
+        wallet-transactions(v-else)(
           v-if="transactionCount"
           :publicKey="publicKey"
           :count="transactionCount"
           :first="transactionfirst"
         )
         paginator(:count="paginatorCount" :first="paginatorfirst" @input="fetchWalletState($event)")
-        wallet-blocks(
+        .wallet-blocks
+          h4.h4 Wallet Blocks
+        mile-loader(v-if="!done")
+        wallet-blocks(v-else)(
           :publicKey="publicKey"
           :count="blockCount"
           :first="blockfirst"
@@ -66,7 +71,7 @@ export default {
       transactionfirst: 0,
       paginatorCount: 0,
       paginatorfirst: 0,
-      done: true,
+      done: false,
       error: false,
       totalTransactionCount: 0,
       totalBlockCount: 0,
@@ -82,15 +87,11 @@ export default {
   },
   methods: {
     async fetchWalletState(range) {
-      this.done = false;
-      this.done = true;
       try {
         const state = await api.getWalletHistoryState(this.publicKey);
         this.assets = await api.getAssets();
         const balance = await api.getWalletSate(this.publicKey);
         this.balance = balance.data.result.balance;
-
-        this.done = true;
         if (!state) {
           this.$router.replace('/wallet');
           return;
@@ -103,6 +104,7 @@ export default {
         this.transactionfirst = range.from;
         this.paginatorCount = state.transaction.count;
         this.paginatorfirst = state.transaction.first;
+        this.done = true;
       } catch (error) {
         this.done = true;
         this.error = true;

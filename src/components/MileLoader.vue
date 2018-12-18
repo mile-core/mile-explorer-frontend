@@ -6,7 +6,7 @@
 .mile-loader
   display: inline-block
   border: 4px solid rgba(0, 0, 0, 0.1)
-  border-left-color: $color-brand
+  border-left-color: $color-green
   border-radius: 50%
   width: 30px
   height: 30px

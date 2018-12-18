@@ -1,10 +1,6 @@
 <template lang="pug">
-  .wallet-blocks
-    h4.h4 Wallet Blocks
-    mile-loader(v-if="!done")
-    template(v-else)
-      .brick-list(v-if="blocks.length")
-        router-link.brick-list__item(v-for="block in blocks" :key="block" :to="'/blocks/' + block") {{ block }}
+  .brick-list(v-if="blocks.length")
+    router-link.brick-list__item(v-for="block in blocks" :key="block" :to="'/blocks/' + block") {{ block }}
 </template>
 
 <script>
