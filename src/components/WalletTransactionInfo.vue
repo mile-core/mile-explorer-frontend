@@ -24,6 +24,9 @@
                   th.timestamp date
                   td.timestamp {{ info['timestamp'] | dateUTC }} ({{ info['timestamp'] | timeAgo }})
                 tr
+                  th.timestamp memo
+                  td.timestamp {{ prepareMemo }}
+                tr
                   th.from from
                   td.from
                     router-link(:to="'/wallet/' + info['from']") {{ info['from'] }}
@@ -71,6 +74,14 @@ export default {
       type: String,
       required: true,
     },
+  },
+  computed: {
+    prepareMemo: function () {
+      if (this.info.memo) {
+        return this.info.memo.replace(/http\S+/g, "");
+      }
+      return '';
+    }
   },
   data() {
     return {
