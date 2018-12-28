@@ -77,8 +77,8 @@ export default {
   },
   computed: {
     prepareMemo: function () {
-      if (this.info.memo) {
-        return this.info.memo.replace(/http\S+/g, "");
+      if (this.info.description) {
+        return this.info.description.replace(/http\S+/g, "");
       }
       return '';
     }
